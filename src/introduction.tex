@@ -1,0 +1,33 @@
+% Introduction section
+\lettrine[lines=2, findent=3pt, nindent=0pt]{C}{omplex systems} are characterized by numerous interacting components that exhibit emergent behaviors and phase transitions not evident from the study of individual components \citep{mitchell2009complexity}. Phase transitions in complex systems are marked by the emergence of sudden, qualitative changes where new collective properties arise from interconnected components.
+
+Network models have been extensively deployed to model and analyze complex systems, capturing pairwise interactions between components \citep{newman2003structure, boccaletti2006complex}. However, networks primarily capture first-order interactions. Higher abstractions of networks like hypergraphs have been employed to capture higher-order interactions \citep{battiston2020networks}. Another popular extension of networks is simplicial complexes, which generalize networks to include higher-dimensional interactions \citep{petri2014homological}. Simplicial complexes have been successfully applied to model complex systems dynamics, capturing higher-order interactions and enabling topological analysis \citep{petri2014homological, giusti2016two, sizemore2018importance}.
+
+However, all of these models have inherent limitations in capturing the complex hierarchical organization and nested compositional structures present in many real-world systems. We therefore propose a novel framework that extends beyond simplicial complexes to opetopic models, which provide a more flexible and powerful mathematical structure for representing complex systems dynamics. Opetopes are higher-dimensional generalizations that transcend the limitations of simplicial complexes, offering a richer framework for representing complex ssytems.
+
+The journey toward more powerful and abstract mathematical models for complex systems can be understood as a three-stage progression:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Network models} capture only pairwise interactions, providing a first approximation but missing crucial higher-order effects.
+
+  \item \textbf{Simplicial complexes} extend networks to include higher-dimensional interactions, capturing simultaneous multi-agent interactions and enabling topological analysis \citep{battiston2020networks, petri2014homological}.
+
+  \item \textbf{Opetopes} transcend the limitations of simplicial complexes, offering a richer framework for representing compositional structure, directed higher-order interactions, and dynamic reconfigurations \citep{baez2020network, baas2009higher}.
+\end{itemize}
+
+The limitations of both traditional networks and simplicial complexes become evident when examining systems with complex hierarchical organization and nested compositional structures:
+
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Social consensus formation}, where opinions cascade through multiple layers of influence \citep{watts1998collective}
+  \item \textbf{Biological signaling networks}, where protein complexes assemble and disassemble dynamically \citep{strogatz2001exploring, giovannoni2017dynamic}
+  \item \textbf{Financial contagion}, where interactions between institutions have directionality and changing compositions \citep{farmer2009economy}
+  \item \textbf{Neural synchronization}, where coordinated firing patterns involve cascades across hierarchical scales \citep{bar2008dynamics, linde2021operad}
+\end{itemize}
+
+Simplicial complexes—generalizations of networks that include higher-dimensional interactions—have provided important advances in modeling complex systems. Unlike graphs, which only capture pairwise interactions (edges between nodes), simplicial complexes incorporate higher-order structures: triangles (2-simplices), tetrahedra (3-simplices), and beyond. Several researchers have applied simplicial complexes to model complex systems effectively \citep{petri2014homological, giusti2016two, sizemore2018importance}.
+
+However, simplicial complexes have inherent limitations: they are rigid, undirected structures that cannot naturally represent composition, hierarchy, or directed multi-level interactions. These limitations become significant barriers when modeling systems with elaborate compositional structure.
+
+Opetopes—higher-dimensional generalizations that extend beyond simplicial complexes—provide a more flexible and powerful framework. An opetope is a higher-dimensional cell whose boundary consists of lower-dimensional opetopes that can be composed along shared boundaries. Unlike simplices, opetopes can have complex shapes and directed composition rules, making them ideal for representing processes that combine in specific ways to form higher-level processes.
+
+This paper presents a novel framework that progresses from networks through simplicial complexes to opetopic models for analyzing phase transitions and emergent phenomena in complex systems. We demonstrate how changes in opetopic structure—including compositional rearrangements, higher-dimensional directed transitions, and opetopic persistence features—provide more sensitive and informative indicators of phase transitions than simplicial methods can offer.
