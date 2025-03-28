@@ -30,6 +30,16 @@ A_{ij} =
 \end{cases}
 \end{equation}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/network_models-1.png}
+    \caption{Network models and emergent phenomena. Top left: An undirected network with community structure. Top right: A directed weighted ne
+    twork with hub-and-spoke architecture showing asymmetric relationships. Bottom: Emergent    phenomena including phase transitions (formatio
+    n of a giant connected component when edge probability exceeds critical threshold $p_c$)    cascading processes (diffusion and contagion spread
+    ing through a network).}
+    \label{fig:network_models}
+\end{figure}
+
 For weighted networks, $A_{ij}$ represents the strength of the connection between nodes $i$ and $j$. Several key metrics characterize network properties:
 
 \begin{itemize}
@@ -42,16 +52,6 @@ For weighted networks, $A_{ij}$ represents the strength of the connection betwee
 Critical phenomena in networks, such as phase transitions, often manifest through sudden changes in global network properties. For instance, the emergence of a giant connected component in random networks occurs at a critical probability $p_c = \frac{1}{N}$, where $N$ is the number of nodes \citep{erdos1960evolution}.
 
 Network models have been successful in capturing the structure and dynamics of a wide range of systems, including social networks, biological networks, and technological networks \citep{newman2003structure, albert2002statistical, strogatz2001exploring}. Networks are both a mathematically rigorous framework as well as intuitive and visually appealing, making them a popular choice for modeling complex systems \citep{newman2010networks}. Networks can capture the emergence of collective behavior through the study of network motifs, community structure, and dynamical processes on networks \citep{milo2002network, fortunato2010community, barrat2008dynamical}, and has attracted significant attention in recent years \citep{barabasi2016network}.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{figures/network_models-1.png}
-    \caption{Network models and emergent phenomena. Top left: An undirected network with community structure. Top right: A directed weighted ne
-    twork with hub-and-spoke architecture showing asymmetric relationships. Bottom: Emergent    phenomena including phase transitions (formatio
-    n of a giant connected component when edge probability exceeds critical threshold $p_c$)    cascading processes (diffusion and contagion spread
-    ing through a network).}
-    \label{fig:network_models}
-\end{figure}
 
 \subsubsection{From Networks to Simplicial Complexes}
 
@@ -84,15 +84,24 @@ Several researchers have successfully applied simplicial complexes to model comp
 While simplicial complexes offer significant advantages over traditional networks, they have inherent limitations:
 \begin{itemize}
     \item They are \textit{undirected}, with no natural way to represent asymmetric interactions
-    \item They require \textit{rigid simplex structures} and cannot easily capture more complex compositional patterns
-    \item The \textit{closure property} often creates artificial simplices that don't correspond to actual higher-order interactions
-    \item They lack a natural framework for representing \textit{hierarchical organization} and nested structures
+    \item \textit{Temporal dynamics} are challenging to model in simplicial complexes
 \end{itemize}
 
-\subsection{Beyond Simplicial Complexes: Opetopes and Higher Categories}
-Opetopes provide a more flexible and powerful mathematical framework that overcomes the limitations of simplicial complexes. Originally developed in higher category theory \citep{cheng2004higher, kock2010polynomial}, opetopes are higher-dimensional shapes defined recursively by their boundaries, which are themselves opetopes of lower dimensions.
+\subsection{Opetopes}
+
+Originally developed in higher category theory \citep{cheng2004higher, kock2010polynomial}, opetopes are higher-dimensional shapes defined recursively by their boundaries, which are themselves opetopes of lower dimensions. Dimensions here refer to the number of vertices in the opetope, with a 0-dimensional opetope being a point, a 1-dimensional opetope being a directed edge, and so on. Opetopes of higher dimensions are constructed from lower-dimensional opetopes by gluing them together along their boundaries. To further simply using an example, an opetope can be a 2D square going along clockwise, thus not only capturing the shape but also the directionality of the shape.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/opetope_structures-1.png}
+    \caption{Visual representation of opetopes and their properties. Top: Basic opetopes of different dimensions from 0D to 2D, along with key properties that distinguish them from simplicial complexes.}
+    \label{fig:opetope_structures}
+\end{figure}
+
+\subsubsection{Formal Definition}
 
 Formally, an $n$-dimensional opetope can be defined as:
+
 \begin{itemize}
     \item A 0-dimensional opetope is a point
     \item A 1-dimensional opetope is a directed arrow between points
@@ -103,71 +112,6 @@ Formally, an $n$-dimensional opetope can be defined as:
     \end{itemize}
 \end{itemize}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{figures/opetope_structures-1.png}
-    \caption{Visual representation of opetopes and their properties. Top: Basic opetopes of different dimensions from 0D to 2D, along with key properties that distinguish them from simplicial complexes. Bottom: Illustration of opetope composition (showing how two 2D opetopes can compose to form a larger structure) and a 3D opetope with source and target boundaries, demonstrating their ability to represent directed higher-order interactions with flexible compositional structure.}
-    \label{fig:opetope_structures}
-\end{figure}
-
-This structure naturally expresses the concept of composition along shared boundaries and provides several key advantages over simplicial complexes:
-
-\begin{itemize}
-    \item \textbf{Directionality}: Opetopes are inherently directed structures, capturing asymmetric interactions
-    \item \textbf{Flexible shapes}: Unlike the rigid structure of simplices, opetopes can have complex boundaries
-    \item \textbf{Compositional structure}: Opetopes explicitly represent how lower-level interactions compose to form higher-level structures
-    \item \textbf{Hierarchical organization}: Opetopes naturally capture hierarchical nesting of processes and structures
-\end{itemize}
-
 The mathematical framework of opetopes is closely related to operads, higher categories, and polynomial functors \citep{baez2020network, leinster2004higher}. These connections provide rich analytical tools for understanding opetopic models.
 
-\subsection{Topological Measures: From Homology to Opetopic Invariants}
-\subsubsection{Simplicial Homology and Persistence}
-Algebraic topology provides tools for characterizing the structure of simplicial complexes. Key among these are homology groups, which capture the presence of holes in different dimensions. The rank of the $k$-th homology group, known as the $k$-th Betti number $\beta_k$, counts distinct $k$-dimensional holes:
-\begin{itemize}
-    \item $\beta_0$: number of connected components
-    \item $\beta_1$: number of 1-dimensional loops (cycles)
-    \item $\beta_2$: number of 2-dimensional voids (cavities)
-\end{itemize}
-
-Persistent homology extends this concept by tracking how topological features persist as we filter the simplicial complex through a sequence of subcomplexes. This creates a multiscale view of the system's topology, represented through persistence diagrams or barcodes.
-
-\subsubsection{Opetopic Invariants}
-For opetopic models, we extend beyond traditional homology to develop new topological invariants that capture the richer structure:
-
-\begin{itemize}
-    \item \textbf{Compositional Complexity}: Measures of how complex the compositional patterns are within the opetopic structure
-    \item \textbf{Directed Persistency}: Extensions of persistent homology that account for directionality
-    \item \textbf{Nesting Depth}: Quantifies the hierarchical organization of the opetopic structure
-    \item \textbf{Opetopic Entropy}: Information-theoretic measures of the diversity of compositional patterns
-\end{itemize}
-
-\subsection{Spectral Theory for Higher-Order Structures}
-The combinatorial Hodge theory provides another powerful framework for analyzing simplicial complexes. The Hodge Laplacian $\Delta_k$, a generalization of the graph Laplacian to higher dimensions, can be decomposed into:
-\begin{equation}
-\Delta_k = \partial_{k+1}\partial_{k+1}^* + \partial_k^*\partial_k
-\end{equation}
-
-Where $\partial_k$ is the boundary operator and $\partial_k^*$ is its adjoint. The spectrum of $\Delta_k$ contains important information about the structure of the simplicial complex. In particular, the spectral gap of $\Delta_k$ has been shown to detect phase transitions in various systems.
-
-For opetopic structures, we further extend spectral theory to capture directional and compositional aspects:
-
-\begin{itemize}
-    \item \textbf{Directed Laplacians}: Generalizations of Hodge Laplacians that account for directionality
-    \item \textbf{Compositional Spectra}: Eigenvalue distributions that reflect compositional structures
-    \item \textbf{Hierarchical Spectral Gaps}: Measures of disconnectedness across different hierarchical levels
-\end{itemize}
-
-\subsection{Related Work and Our Novel Contributions}
-The application of opetopes and higher categorical structures to complex systems is a nascent field with promising early results. \citet{spivak2013categorical} introduced category-theoretic approaches to systems modeling. \citet{baez2020network} developed network models based on operads, closely related to opetopic structures. \citet{weinstein2023opetopes} proposed opetopes for modeling compositional systems. \citet{baas2009higher} pioneered the study of higher-order structures in complex systems.
-
-Our work builds upon these foundations while introducing several novel elements:
-
-\begin{enumerate}
-    \item We explicitly develop a progressive framework that connects traditional networks, simplicial complexes, and opetopic models
-    \item We formally relate phase transitions and emergence through an opetopic lens
-    \item We develop new quantitative measures for opetopic structures designed to detect critical transitions
-    \item We provide computational implementations of opetopic modeling that scale to real-world complex systems
-\end{enumerate}
-
-This progressive approach allows us to demonstrate both the advances made possible by simplicial models over traditional networks, and the further capabilities enabled by opetopic structures beyond simplicial complexes.
+Opetopes can be formalized in dependent type theory \citep{finster2019opetopic}, providing a foundation for mechanical verification of opetopic models. This connection bridges opetopic modeling with formal logic and programming language theory. In this work, we use Lean the theorem prover to model opetopes and show how to use them to construct complex systems models.
