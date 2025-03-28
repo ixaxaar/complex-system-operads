@@ -43,10 +43,21 @@ Critical phenomena in networks, such as phase transitions, often manifest throug
 
 Network models have been successful in capturing the structure and dynamics of a wide range of systems, including social networks, biological networks, and technological networks \citep{newman2003structure, albert2002statistical, strogatz2001exploring}. Networks are both a mathematically rigorous framework as well as intuitive and visually appealing, making them a popular choice for modeling complex systems \citep{newman2010networks}. Networks can capture the emergence of collective behavior through the study of network motifs, community structure, and dynamical processes on networks \citep{milo2002network, fortunato2010community, barrat2008dynamical}, and has attracted significant attention in recent years \citep{barabasi2016network}.
 
-\subsubsection{From Networks to Simplicial Complexes}
-Standard network models represent systems as graphs $G = (V, E)$ consisting of nodes (vertices $V$) connected by edges ($E$). While powerful, this approach only captures pairwise interactions. Many real-world phenomena, however, involve simultaneous interactions among multiple entities.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/network_models-1.png}
+    \caption{Network models and emergent phenomena. Top left: An undirected network with community structure. Top right: A directed weighted ne
+    twork with hub-and-spoke architecture showing asymmetric relationships. Bottom: Emergent    phenomena including phase transitions (formatio
+    n of a giant connected component when edge probability exceeds critical threshold $p_c$)    cascading processes (diffusion and contagion spread
+    ing through a network).}
+    \label{fig:network_models}
+\end{figure}
 
-Simplicial complexes generalize networks by incorporating higher-order interactions. Formally, a simplicial complex $K$ on a vertex set $V$ is a collection of subsets of $V$ (called simplices) such that:
+\subsubsection{From Networks to Simplicial Complexes}
+
+Simplicial complexes generalize networks by incorporating higher-order interactions. Simplicial complexes can be thought of as triangles of various dimensions - vertices (0-simplices), edges (1-simplices), triangles (2-simplices), tetrahedra (3-simplices), and so on \citep{petri2014homological} connected together either via shared vertices, edges, or faces.
+
+Formally, a simplicial complex $K$ on a vertex set $V$ is a collection of subsets of $V$ (called simplices) such that:
 \begin{itemize}
     \item For every vertex $v \in V$, $\{v\} \in K$ (0-simplex)
     \item If $\sigma \in K$ and $\tau \subset \sigma$, then $\tau \in K$ (closure property)
@@ -58,7 +69,15 @@ A $k$-simplex $\sigma = [v_0, v_1, ..., v_k]$ represents an interaction between 
     \item A 1-simplex is an edge (pairwise interaction)
     \item A 2-simplex is a filled triangle (three-way interaction)
     \item A 3-simplex is a solid tetrahedron (four-way interaction)
+    \item and so on
 \end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/simplicial_complexes-1.png}
+    \caption{Visual representation of simplicial complexes. The top row shows individual simplices of different dimensions (0-simplex, 1-simplex, 2-simplex, and 3-simplex). The bottom part shows a more complex simplicial complex with multiple 2-simplices (filled triangles), a 3-simplex (tetrahedron), and connecting 1-simplices (edges) that capture multi-way interactions beyond pairwise connections.}
+    \label{fig:simplicial_complexes}
+\end{figure}
 
 Several researchers have successfully applied simplicial complexes to model complex systems. \citet{petri2014homological} used simplicial complexes to analyze brain functional networks, revealing topological structures that correlate with cognitive states. \citet{giusti2016two} demonstrated how simplicial complexes can capture neural coding schemes beyond what traditional network models could represent. \citet{sizemore2018importance} showed how clique topology in neural systems provides insights into brain development and function.
 
@@ -83,6 +102,13 @@ Formally, an $n$-dimensional opetope can be defined as:
         \item A target boundary, consisting of a single $(n-1)$-dimensional opetope
     \end{itemize}
 \end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/opetope_structures-1.png}
+    \caption{Visual representation of opetopes and their properties. Top: Basic opetopes of different dimensions from 0D to 2D, along with key properties that distinguish them from simplicial complexes. Bottom: Illustration of opetope composition (showing how two 2D opetopes can compose to form a larger structure) and a 3D opetope with source and target boundaries, demonstrating their ability to represent directed higher-order interactions with flexible compositional structure.}
+    \label{fig:opetope_structures}
+\end{figure}
 
 This structure naturally expresses the concept of composition along shared boundaries and provides several key advantages over simplicial complexes:
 
