@@ -1,12 +1,27 @@
 % Background section
 \subsection{Phase Transitions and Emergence in Complex Systems}
-Phase transitions traditionally refer to qualitative changes in the state of a physical system, such as the transition from liquid to gas or the onset of magnetization in ferromagnets. The hallmark of these transitions is a sudden change in system properties at a critical point, characterized by power-law scaling behaviors and critical exponents \citep{newman2003structure}. In complex systems, phase transitions extend beyond physical phenomena to include abrupt shifts in collective behavior across diverse domains.
 
-Emergence, similarly, describes the appearance of novel properties or patterns at a system level that are not evident in individual components. Examples include the formation of flocking patterns in birds, the emergence of consciousness from neural activity, and the development of coherent economic cycles from individual transactions.
+\subsubsection{Phase Transitions}
 
-While traditionally studied separately, we propose that phase transitions and emergence can be understood through a unified topological lens involving progressively more powerful mathematical structures—from networks to simplicial complexes to opetopes. All these phenomena involve qualitative reorganizations of system structure that can be detected through changes in the topological features of the underlying interaction patterns.
+Phase transitions traditionally refer to qualitative changes in the state of a physical system, such as the transition from liquid to gas or the onset of magnetization in ferromagnets. The hallmark of these transitions is a sudden change in system properties at a critical point, characterized by power-law scaling behaviors and critical exponents \citep{newman2003structure}. In complex systems, phase transitions extend beyond physical phenomena to include abrupt shifts in collective behavior across diverse domains. Phase transitions in complex systems typically involve the emergence of new patterns or structures at a system level that are not present in individual components. They are studied using a variety of mathematical and computational tools, including network theory, statistical physics, and dynamical systems theory and can be quantified through observables such as order parameters, susceptibility, and correlation functions.
 
-\subsection{From Networks to Simplicial Complexes}
+\subsubsection{Emergence}
+
+Emergence in complex systems refers to the appearance of novel properties or behaviors at higher levels of organization that are not present at lower levels. Emergent phenomena often arise from the interactions and collective dynamics of individual components, leading to the formation of new structures, patterns, or functions. Examples of emergence include the self-organization of biological systems, the emergence of intelligence in social networks, and the formation of traffic patterns in urban systems.
+
+Phase transitions can be viewed as a subset of emergent phenomena, where the abrupt changes in system behavior correspond to the emergence of new collective states. All phase transitions involve emergence, but not all emergent phenomena are phase transitions.
+
+\subsection{Modeling Phase Transitions and Emergence}
+
+\subsubsection{Physical Models}
+
+In physics, phase transitions are often modeled using statistical mechanics, where the system's behavior is described in terms of energy, entropy, and temperature. The Ising model, Potts model, and percolation theory are classic examples of physical models used to study phase transitions. These models capture the interactions between individual components and the emergence of collective behavior at critical points. They, however, have limitations in capturing the complexity of real-world systems, such as biological, social, and technological networks but tend to be more mathematically tractable for detailed analysis.
+
+\subsubsection{Network Models}
+
+Networks have been used since the early 20th century to model complex systems, representing entities as nodes and interactions as edges. Network models have been successful in capturing the structure and dynamics of a wide range of systems, including social networks, biological networks, and technological networks. Networks are both a mathematically rigorous framework as well as intuitive and visually appealing, making them a popular choice for modeling complex systems. Networks can capture the emergence of collective behavior through the study of network motifs, community structure, and dynamical processes on networks, and has attracted significant attention in recent years.
+
+\subsubsection{From Networks to Simplicial Complexes}
 Standard network models represent systems as graphs $G = (V, E)$ consisting of nodes (vertices $V$) connected by edges ($E$). While powerful, this approach only captures pairwise interactions. Many real-world phenomena, however, involve simultaneous interactions among multiple entities.
 
 Simplicial complexes generalize networks by incorporating higher-order interactions. Formally, a simplicial complex $K$ on a vertex set $V$ is a collection of subsets of $V$ (called simplices) such that:
