@@ -20,13 +20,15 @@
 
   % 0-simplex (Point)
   \node[font=\bfseries] at (1.75,8.5) {0-simplex};
-  \filldraw[nodecolor] (1.75,7) circle (0.1) node[below=0.2cm] {vertex};
+  \filldraw[nodecolor] (1.75,7) circle (0.1);
+  \node at (1.75,6.0) {vertex};
 
   % 1-simplex (Edge)
   \node[font=\bfseries] at (5.25,8.5) {1-simplex};
   \filldraw[nodecolor] (4.5,7) circle (0.1);
   \filldraw[nodecolor] (6,7) circle (0.1);
-  \draw[thick, edgecolor] (4.5,7) -- (6,7) node[midway, below=0.2cm] {edge};
+  \draw[thick, edgecolor] (4.5,7) -- (6,7);
+  \node at (5.2,6.0) {edge};
 
   % 2-simplex (Filled triangle)
   \node[font=\bfseries] at (8.75,8.5) {2-simplex};
@@ -37,8 +39,7 @@
   \draw[thick, edgecolor] (8,6.5) -- (9.5,7.5);
   \draw[thick, edgecolor] (9.5,7.5) -- (8.5,8);
   \draw[thick, edgecolor] (8.5,8) -- (8,6.5);
-  \node at (8.75,7.1) {filled};
-  \node at (8.75,6.7) {triangle};
+  \node at (8.75,6.0) {filled triangle};
 
   % 3-simplex (Tetrahedron) with perspective
   \node[font=\bfseries] at (12.25,8.5) {3-simplex};
@@ -71,7 +72,7 @@
   \filldraw[nodecolor] (C) circle (0.1);
   \filldraw[nodecolor] (D) circle (0.1);
 
-  \node at (12.25,7.2) {tetrahedron};
+  \node at (12.25,6.0) {tetrahedron};
 
   % Complex simplicial complex example
   \node[font=\bfseries] at (7,5) {Simplicial Complex};
@@ -138,6 +139,6 @@
   \filldraw[nodecolor] (V11) circle (0.1);
 
   % Annotations
-  \node[align=center, font=\small\itshape] at (7,0.7) {This complex structure contains multiple 2-simplices (filled triangles)\\a 3-simplex (tetrahedron), and several 1-simplices (edges) that\\capture multi-way interactions beyond pairwise connections.};
+  \node[align=center, font=\small\itshape] at (7,0) {This complex structure contains multiple 2-simplices (filled triangles)\\a 3-simplex (tetrahedron), and several 1-simplices (edges) that\\capture multi-way interactions beyond pairwise connections.};
 \end{tikzpicture}
 \end{document}
