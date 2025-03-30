@@ -141,6 +141,196 @@ where $f \circ (f_1, f_2, \ldots, f_n) \in \mathbb{P}(k_1 + k_2 + \ldots + k_n)$
 \label{fig:operadic-composition}
 \end{figure}
 
+Associativity of this composition operation works as follows:
+
+\begin{figure}[h]
+\centering
+    \begin{tikzpicture}[grow'=up]
+        \begin{scope}[xshift=-5cm]
+            \node {(ab)c}
+            child {
+                node {ab}
+                child {
+                    node {a}
+                }
+                child {
+                    node {b}
+                }
+            }
+            child{
+                node {c}
+            };
+        \end{scope}
+        \begin{scope}[xshift=0cm]
+            \node {(ab)c}
+            child{
+                node {a}
+            }
+            child {
+                node {bc}
+                    child {
+                node {b}
+                }
+                child {
+                    node {c}
+                }
+            };
+        \end{scope}
+        \begin{scope}[xshift=5cm]
+            \node {abc}
+            child{
+                node {a}
+            }
+            child {
+                node {b}
+            }
+            child {
+                node {c}
+            };
+        \end{scope}
+    \end{tikzpicture}
+    \caption{Associativity of operadic composition of arity 3}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}[grow'=up, level distance=1.5cm, sibling distance=2cm]
+    % First tree: ((ab)c)d
+    \begin{scope}[xshift=-10cm]
+        \node {((ab)c)d}
+        child {
+            node {(ab)c}
+            child {
+                node {ab}
+                child {
+                    node {a}
+                }
+                child {
+                    node {b}
+                }
+            }
+            child {
+                node {c}
+            }
+        }
+        child {
+            node {d}
+        };
+    \end{scope}
+
+    % Second tree: (a(bc))d
+    \begin{scope}[xshift=-5cm]
+        \node {(a(bc))d}
+        child {
+            node {a(bc)}
+            child {
+                node {a}
+            }
+            child {
+                node {bc}
+                child {
+                    node {b}
+                }
+                child {
+                    node {c}
+                }
+            }
+        }
+        child {
+            node {d}
+        };
+    \end{scope}
+
+    % Third tree: (ab)(cd)
+    \begin{scope}[yshift=6cm, xshift=0cm]
+        \node {(ab)(cd)}
+        child {
+            node {ab}
+            child {
+                node {a}
+            }
+            child {
+                node {b}
+            }
+        }
+        child {
+            node {cd}
+            child {
+                node {c}
+            }
+            child {
+                node {d}
+            }
+        };
+    \end{scope}
+
+    % Fourth tree: a((bc)d)
+    \begin{scope}[yshift=6cm, xshift=-10cm]
+        \node {a((bc)d)}
+        child {
+            node {a}
+        }
+        child {
+            node {(bc)d}
+            child {
+                node {bc}
+                child {
+                    node {b}
+                }
+                child {
+                    node {c}
+                }
+            }
+            child {
+                node {d}
+            }
+        };
+    \end{scope}
+
+    % Fifth tree: a(b(cd))
+    \begin{scope}[yshift=6cm, xshift=-5cm]
+        \node {a(b(cd))}
+        child {
+            node {a}
+        }
+        child {
+            node {b(cd)}
+            child {
+                node {b}
+            }
+            child {
+                node {cd}
+                child {
+                    node {c}
+                }
+                child {
+                    node {d}
+                }
+            }
+        };
+    \end{scope}
+
+    \begin{scope}
+        \node {abcd}
+        child {
+            node {a}
+        }
+        child {
+            node {b}
+        }
+        child {
+            node {c}
+        }
+        child {
+            node {d}
+        };
+    \end{scope}
+
+\end{tikzpicture}
+\caption{Associativity of operadic composition of arity 4}
+\label{fig:arity-4-associativity}
+\end{figure}
+
 This compotision operation $\cdot$ satisfies the following properties:
 
 \begin{itemize}
