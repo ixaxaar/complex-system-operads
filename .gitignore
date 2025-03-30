@@ -12,6 +12,7 @@
 *.synctex.gz
 *.bcf
 *.run.xml
+*.pdf
 
 # Generated PDF
 main.pdf

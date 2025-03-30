@@ -30,16 +30,6 @@ A_{ij} =
 \end{cases}
 \end{equation}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{figures/network_models-1.png}
-    \caption{Network models and emergent phenomena. Top left: An undirected network with community structure. Top right: A directed weighted ne
-    twork with hub-and-spoke architecture showing asymmetric relationships. Bottom: Emergent    phenomena including phase transitions (formatio
-    n of a giant connected component when edge probability exceeds critical threshold $p_c$)    cascading processes (diffusion and contagion spread
-    ing through a network).}
-    \label{fig:network_models}
-\end{figure}
-
 For weighted networks, $A_{ij}$ represents the strength of the connection between nodes $i$ and $j$. Several key metrics characterize network properties:
 
 \begin{itemize}
@@ -49,7 +39,57 @@ For weighted networks, $A_{ij}$ represents the strength of the connection betwee
     \item \textbf{Betweenness centrality} $B(v)$: $B(v) = \sum_{s \neq v \neq t} \frac{\sigma_{st}(v)}{\sigma_{st}}$ where $\sigma_{st}$ is the number of shortest paths from $s$ to $t$ and $\sigma_{st}(v)$ is the number of those paths passing through $v$
 \end{itemize}
 
+These properties can be used to classify networks into different categories, such as \textbf{scale-free}, \textbf{small-world}, and \textbf{random networks} \citep{barabasi1999emergence, watts1998collective}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/networks.png}
+    \caption{Small-world network model illustration showing the transition from regular to random networks. \citep{watts1998collective}. A regular network transitions to a small-world network by rewiring a fraction of the edges, leading to a significant reduction in the average path length while maintaining high clustering.}
+    \label{fig:small_world}
+\end{figure}
+
 Critical phenomena in networks, such as phase transitions, often manifest through sudden changes in global network properties. For instance, the emergence of a giant connected component in random networks occurs at a critical probability $p_c = \frac{1}{N}$, where $N$ is the number of nodes \citep{erdos1960evolution}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/scalefree.png}
+    \caption{Visual comparison between random and scale-free networks. \citep{wikipedia2023scalefree}. Notice the presence of hubs in the scale-free network, which are absent in the random network.}
+    \label{fig:small_world}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{Comparison of Different Network Types and Their Key Characteristics.
+        \textbf{Notation:}\\
+        $P(k)$ = probability that a randomly selected node has $k$ connections (degree distribution)\\
+        $k$ = node degree (number of connections)\\
+        $\langle k \rangle$ = average degree across the network\\
+        $C$ = clustering coefficient (probability that two neighbors of a node are connected)\\
+        $C(k)$ = clustering coefficient for nodes with degree $k$\\
+        $L$ = average shortest path length between any two nodes\\
+        $N$ = total number of nodes in the network\\
+        $p$ = probability of connection between any two nodes (in random networks)\\
+        $d$ = dimension of the lattice (for regular networks)\\
+        $\gamma$ = power-law exponent (typically $2 < \gamma < 3$ for scale-free networks)}
+    \begin{tabular}{p{2.5cm}|p{3cm}|p{3cm}|p{3cm}}
+        \hline
+        \textbf{Network Type} & \textbf{Degree Distribution} & \textbf{Clustering Coefficient} & \textbf{Average Path Length} \\
+        \hline
+        Random Networks & Poisson distribution $P(k) \sim \frac{\lambda^k e^{-\lambda}}{k!}$ & Low ($C \sim \frac{p}{N}$) & Short ($L \sim \frac{\ln N}{\ln \langle k \rangle}$) \\
+        \hline
+        Regular Lattices & Constant degree & High (locally clustered) & Long ($L \sim N^{1/d}$) \\
+        \hline
+        Small-World Networks & Similar to random networks & High ($C \gg C_{random}$) & Short ($L \approx L_{random}$) \\
+        \hline
+        Scale-Free Networks & Power law $P(k) \sim k^{-\gamma}$ & Hierarchical clustering & Very short (ultra-small world) \\
+        \hline
+        Hierarchical Networks & Power law & Hierarchical ($C(k) \sim k^{-1}$) & Short \\
+        \hline
+        Modular Networks & Varies & High within modules, low between modules & Long between modules, short within modules \\
+        \hline
+    \end{tabular}
+    \label{tab:network_types}
+\end{table}
 
 Network models have been successful in capturing the structure and dynamics of a wide range of systems, including social networks, biological networks, and technological networks \citep{newman2003structure, albert2002statistical, strogatz2001exploring}. Networks are both a mathematically rigorous framework as well as intuitive and visually appealing, making them a popular choice for modeling complex systems \citep{newman2010networks}. Networks can capture the emergence of collective behavior through the study of network motifs, community structure, and dynamical processes on networks \citep{milo2002network, fortunato2010community, barrat2008dynamical}, and has attracted significant attention in recent years \citep{barabasi2016network}.
 
@@ -86,32 +126,3 @@ While simplicial complexes offer significant advantages over traditional network
     \item They are \textit{undirected}, with no natural way to represent asymmetric interactions
     \item \textit{Temporal dynamics} are challenging to model in simplicial complexes
 \end{itemize}
-
-\subsection{Opetopes}
-
-Originally developed in higher category theory \citep{cheng2004higher, kock2010polynomial}, opetopes are higher-dimensional shapes defined recursively by their boundaries, which are themselves opetopes of lower dimensions. Dimensions here refer to the number of vertices in the opetope, with a 0-dimensional opetope being a point, a 1-dimensional opetope being a directed edge, and so on. Opetopes of higher dimensions are constructed from lower-dimensional opetopes by gluing them together along their boundaries. To further simply using an example, an opetope can be a 2D square going along clockwise, thus not only capturing the shape but also the directionality of the shape.
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{figures/opetope_structures-1.png}
-    \caption{Visual representation of opetopes and their properties. Top: Basic opetopes of different dimensions from 0D to 2D, along with key properties that distinguish them from simplicial complexes.}
-    \label{fig:opetope_structures}
-\end{figure}
-
-\subsubsection{Formal Definition}
-
-Formally, an $n$-dimensional opetope can be defined as:
-
-\begin{itemize}
-    \item A 0-dimensional opetope is a point
-    \item A 1-dimensional opetope is a directed arrow between points
-    \item For $n>1$, an $n$-dimensional opetope has:
-    \begin{itemize}
-        \item A source boundary, consisting of $(n-1)$-dimensional opetopes arranged in a tree-like pattern
-        \item A target boundary, consisting of a single $(n-1)$-dimensional opetope
-    \end{itemize}
-\end{itemize}
-
-The mathematical framework of opetopes is closely related to operads, higher categories, and polynomial functors \citep{baez2020network, leinster2004higher}. These connections provide rich analytical tools for understanding opetopic models.
-
-Opetopes can be formalized in dependent type theory \citep{finster2019opetopic}, providing a foundation for mechanical verification of opetopic models. This connection bridges opetopic modeling with formal logic and programming language theory. In this work, we use Lean the theorem prover to model opetopes and show how to use them to construct complex systems models.
