@@ -15,7 +15,8 @@ Operads are algebraic structures that generalize monoids, groups, and other alge
   \item The composition operations obey certain conditions - associativity and unitality.
 \end{itemize}
 
-\subsubsection{Operads: Formal Definition}
+\textbf{Formal Definition}
+\\
 
 Consider a set $\mathbb{X}$, and an integer $n \in \mathbb{N}$.
 
@@ -139,3 +140,30 @@ where $f \circ (f_1, f_2, \ldots, f_n) \in \mathbb{P}(k_1 + k_2 + \ldots + k_n)$
 \caption{Operadic composition showing how multiple operations $f_1, f_2, \ldots, f_n$ with arities $k_1, k_2, \ldots, k_n$ can be composed with an operation $f$ of arity $n$ to form a new operation of arity $k_1 + k_2 + \ldots + k_n$.}
 \label{fig:operadic-composition}
 \end{figure}
+
+This compotision operation $\cdot$ satisfies the following properties:
+
+\begin{itemize}
+  \item \textbf{Associativity}: For all $f \in \mathbb{P}(n)$, $g \in \mathbb{P}(k_1)$, $h \in \mathbb{P}(k_2)$, and $i \in \mathbb{P}(k_3)$, we have:
+
+  \begin{equation}
+    f \circ (g \circ (h, i)) = (f \circ (g, h)) \circ i
+  \end{equation}
+
+  \item \textbf{Unitality}: For all $f \in \mathbb{P}(n)$, we have:
+
+  \begin{equation}
+    f \circ (\text{id}_{k_1}, \text{id}_{k_2}, \ldots, \text{id}_{k_n}) = f
+  \end{equation}
+
+  where $\text{id}_k$ is the identity function on $\mathbb{X}^k$.
+\end{itemize}
+
+Symmetry is not required for operads, but it can be added to form symmetric operads. The symmetry condition is:
+
+\begin{equation}
+  f \circ (g_1, g_2, \ldots, g_n) = f \circ (g_{\sigma(1)}, g_{\sigma(2)}, \ldots, g_{\sigma(n)})
+\end{equation}
+
+% TODO: verify if this is correct
+where $\sigma$ is a permutation of the set $\{1, 2, \ldots, n\}$ or $\sigma \in S_n$ and $g_{\sigma(i)}$ is the $i$-th element of the permutation $\sigma$ i.e. the permutation $\sigma$ permutes the elements of the inputs to the operation $f$.
