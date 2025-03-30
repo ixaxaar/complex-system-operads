@@ -77,8 +77,8 @@ where $f \circ (f_1, f_2, \ldots, f_n) \in \mathbb{P}(k_1 + k_2 + \ldots + k_n)$
 \centering
 \begin{tikzpicture}[scale=0.9]
     % Main operation triangle
-    \draw[thick, fill=white] (0,0) -- (0,5) -- (4,2.5) -- cycle;
-    \node at (1.3,2.5) {$f$};
+    \draw[thick, fill=white] (0,0) -- (0,5.5) -- (4,2.75) -- cycle;
+    \node at (1.5,2.75) {$f$};
 
     % First sub-operation triangle
     \draw[thick, fill=white] (-5,0) -- (-5,1.5) -- (-3,0.75) -- cycle;
@@ -89,8 +89,8 @@ where $f \circ (f_1, f_2, \ldots, f_n) \in \mathbb{P}(k_1 + k_2 + \ldots + k_n)$
     \node at (-4.3,2.75) {$f_2$};
 
     % Third sub-operation triangle (with dotted line indicating more)
-    \draw[thick, fill=white] (-5,4) -- (-5,5) -- (-3,4.5) -- cycle;
-    \node at (-4.3,4.5) {$f_n$};
+    \draw[thick, fill=white] (-5,4) -- (-5,5.5) -- (-3,4.75) -- cycle;
+    \node at (-4.3,4.75) {$f_n$};
 
     % Dotted line between second and third triangles
     \draw[dotted, thick] (-4,3.7) -- (-4,4);
@@ -114,16 +114,18 @@ where $f \circ (f_1, f_2, \ldots, f_n) \in \mathbb{P}(k_1 + k_2 + \ldots + k_n)$
     % Input arrows for third sub-operation
     \draw[->, thick] (-7,4.25) -- (-5,4.25);
     \draw[->, thick] (-7,4.75) -- (-5,4.75);
+    \draw[->, thick] (-7,5.25) -- (-5,5.25);
     \node at (-8.4,4.25) {$x_{k_1+...+k_{n-1}+1}$};
-    \node at (-8.4,4.75) {$x_{k_1+...+k_{n-1}+k_n}$};
+    \node at (-8.4,4.75) {$\ldots$};
+    \node at (-8.4,5.25) {$x_{k_1+...+k_{n-1}+k_n}$};
 
     % Connecting arrows from sub-operations to main operation
     \draw[->, thick] (-3,0.75) -- (0,0.75);
     \draw[->, thick] (-3,2.75) -- (0,2.75);
-    \draw[->, thick] (-3,4.5) -- (0,4.5);
+    \draw[->, thick] (-3,4.75) -- (0,4.75);
 
     % Output arrow
-    \draw[->, thick] (4,2.5) -- (6,2.5);
+    \draw[->, thick] (4,2.75) -- (6,2.75);
 
     % Final output label
     \node at (6,3.5) {$f \circ (f_1, f_2, \ldots, f_n)$};
