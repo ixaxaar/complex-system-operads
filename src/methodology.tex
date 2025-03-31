@@ -20,7 +20,7 @@ Operads are algebraic structures that generalize monoids, groups, and other alge
 
 Consider a set $\mathbb{X}$, and an integer $n \in \mathbb{N}$.
 
-Now consider a set of functions, lets call it $\mathbb{P}$, where each function $f$ has the signature $\mathbb{X}^n \to \mathbb{X}$:
+An Operads, $\mathbb{P}$, is the defined as a set of n-ary operations, where each operation $f$ has the signature $\mathbb{X}^n \to \mathbb{X}$:
 
 \begin{equation}
   \mathbb{P}(n) = \{f: \mathbb{X}^n \to \mathbb{X}\}
@@ -60,9 +60,9 @@ i.e. all of these functions $f$ take in $n$ arguments from $\mathbb{X}$ and retu
     \end{tikzpicture}
 \end{figure}
 
-If we have a bunch of these sets of functions $\mathbb{P}(k_i)$ for each $k_i \in \mathbb{N}$, then we can define a composition operation $\circ$ on these functions as follows:
+If we have a bunch of these sets of functions $\mathbb{P}(k_i)$ for each $k_i \in \mathbb{N}$, then we can define a composition operation $\circ$ for these operations as follows:
 
-Let $f_i \in \mathbb{P}(k_i)$ be a function that takes in $k_i$ arguments from $\mathbb{X}$ and returns a single element from $\mathbb{X}$.
+Let $f_i \in \mathbb{P}(k_i)$ be an operation that takes in $k_i$ arguments from $\mathbb{X}$ and returns a single element from $\mathbb{X}$. We can take n numbers of such operations and use their outputs as inputs to another operation $f \in \mathbb{P}(n)$, which takes in $n$ arguments from $\mathbb{X}$ and returns a single element from $\mathbb{X}$. The composition operation $\circ$ is defined as:
 
 \begin{equation}
     \mathbb{P}(n) \times ( \mathbb{P}(k_1) \times \mathbb{P}(k_2) \times \ldots \times \mathbb{P}(k_n) ) \to \mathbb{P}(k_1 + k_2 + \ldots + k_n)
@@ -141,7 +141,7 @@ where $f \circ (f_1, f_2, \ldots, f_n) \in \mathbb{P}(k_1 + k_2 + \ldots + k_n)$
 \label{fig:operadic-composition}
 \end{figure}
 
-Associativity of this composition operation works as follows:
+Associativity of this composition for Operads works as follows:
 
 \begin{figure}[h]
 \centering
@@ -331,7 +331,7 @@ Associativity of this composition operation works as follows:
 \label{fig:arity-4-associativity}
 \end{figure}
 
-This compotision operation $\cdot$ satisfies the following properties:
+This composition operation $\cdot$ satisfies the following properties:
 
 \begin{itemize}
   \item \textbf{Associativity}: For all $f \in \mathbb{P}(n)$, $g \in \mathbb{P}(k_1)$, $h \in \mathbb{P}(k_2)$, and $i \in \mathbb{P}(k_3)$, we have:
