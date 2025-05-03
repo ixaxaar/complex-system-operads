@@ -1,19 +1,27 @@
 % Methodology section
 
-\subsection{Opetopes}
-Originally developed by Baez and Dolan \citep{baez1997higher}, opetopes are mathematical objects that were introduced to weak n-Categories. They are higher-dimensional generalizations of simplicial complexes, capturing directed higher-order interactions with explicit compositional structure. There are multiple ways to define opetopes, but the most common approach is to define them recursively by their boundaries, which are themselves opetopes of lower dimensions. A more traditional way is to define opetopes is using another algebraic structure called operads, which are used to model algebraic structures with multiple operations. Opetopes are a generalization of operads, and they can be used to model higher-dimensional structures with multiple operations. Hence opetopes comes from the word "operation" and "polytope".
+\subsection{Operads}
 
-We will first look at the more traditional definition of opetopes using operads, and then we will look at the more modern definition of opetopes using boundaries.
+A large class of mathematical theories consists of three ingredients:
+\begin{enumerate}
+  \item A collection of objects.
+  \item A collection of morphisms between these objects.
+  \item A notion of composition of these morphisms.
+\end{enumerate}
 
-\subsubsection{Operads}
+The most well-known example of this pattern is arithmetic, where the objects are numbers, the morphisms are functions (addition, multiplication, etc.), and the composition is the usual function composition. All fields such as real numbers, complex numbers, and vector spaces can be described in this way.
 
-Operads are algebraic structures that generalize monoids, groups, and other algebraic structures. Operads consists of:
+As we go up the hierarchy of mathematics, we find more and more examples of this pattern. For example, in topology, the objects are topological spaces, the morphisms are continuous functions, and the composition is the usual function composition. Groups and family (magma, monoid, group, ring, field) are also examples of this pattern. Category theory is a generalization of this pattern, where the objects are categories, the morphisms are functors, and the composition is the usual functor composition.
 
-\begin{itemize}
+Operads are a generalization of this pattern, where the objects are operations, the morphisms are operations of different arities, and the composition is a more general form of function composition. Operads provide a framework for studying algebraic structures that arise in various areas of mathematics, including topology, algebra, and category theory.
+
+Operads consists of:
+
+\begin{enumerate}
   \item A collection of operations of different arities.
   \item A notion of composition of these operations.
   \item The composition operations obey certain conditions - associativity and unitality.
-\end{itemize}
+\end{enumerate}
 
 \textbf{Formal Definition}
 \\
