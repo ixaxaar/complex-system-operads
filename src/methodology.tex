@@ -358,21 +358,3 @@ Symmetry is not required for operads, but it can be added to form symmetric oper
 % TODO: verify if this is correct
 where $\sigma$ is a permutation of the set $\{1, 2, \ldots, n\}$ or $\sigma \in S_n$ and $g_{\sigma(i)}$ is the $i$-th element of the permutation $\sigma$ i.e. the permutation $\sigma$ permutes the elements of the inputs to the operation $f$.
 
-\subsubsection{Higher Operads}
-
-Operads are constructed in the context of Category theory, a branch of mathematics that studies abstract structures and relationships between them. To define categorical Operads, we start with Polynomial functors, which are functors from the category of finite sets to the category of sets.
-
-A Polynomial Functor is given by the diagrsm:
-
-\begin{equation}
-B \xleftarrow{s} E \xrightarrow{p} A \xrightarrow{t} B
-\end{equation}
-
-where $B$ is the set of positions, $E$ is the set of directions, and the corresponding functor is:
-
-\begin{equation}
-P(X) = \sum_{b \in B} X^{E_b}
-\end{equation}
-
-where $E_b = s^{-1}(b)$ is the fiber of $s$ over $b$.
-
