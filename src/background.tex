@@ -1,15 +1,50 @@
 % Background section
-\subsection{Phase Transitions and Emergence in Complex Systems}
+\subsection{Properties of Complex Systems}
 
-\subsubsection{Phase Transitions}
+\subsubsection{Structural Features: Near-decomposability and Scale-invariance}
 
-Phase transitions traditionally refer to qualitative changes in the state of a physical system, such as the transition from liquid to gas or the onset of magnetization in ferromagnets. The hallmark of these transitions is a sudden change in system properties at a critical point, characterized by power-law scaling behaviors and critical exponents \citep{newman2003structure, bak1987self, stanley1971phase}. In complex systems, phase transitions extend beyond physical phenomena to include abrupt shifts in collective behavior across diverse domains \citep{watts2002simple, scheffer2009critical}. Phase transitions in complex systems typically involve the emergence of new patterns or structures at a system level that are not present in individual components \citep{anderson1972more}. They are studied using a variety of mathematical and computational tools, including network theory, statistical physics, and dynamical systems theory \citep{barabasi1999emergence, strogatz2001exploring} and can be quantified through observables such as order parameters, susceptibility, and correlation functions \citep{stanley1999scaling, goldenfeld1992lectures}.
+Complex systems exhibit two foundational structural properties that enable their characteristic behaviors and provide the basis for our operadic approach.
 
-\subsubsection{Emergence}
+\textbf{Near-decomposability} \citep{simon1962architecture} describes systems with subsystems that interact weakly externally while maintaining strong internal interactions. These systems display:
 
-Emergence in complex systems refers to the appearance of novel properties or behaviors at higher levels of organization that are not present at lower levels \citep{holland1998emergence, anderson1972more}. Emergent phenomena often arise from the interactions and collective dynamics of individual components, leading to the formation of new structures, patterns, or functions \citep{kauffman1993origins, gell1994quark}. Examples of emergence include the self-organization of biological systems, the emergence of intelligence in social networks, and the formation of traffic patterns in urban systems \citep{camazine2003self, haken1983synergetics}.
+\begin{itemize}
+    \item Stronger interactions within subsystems than between them
+    \item Hierarchical organization across multiple levels
+    \item Time-scale separation between internal and external interactions
+\end{itemize}
 
-Phase transitions can be viewed as a subset of emergent phenomena, where the abrupt changes in system behavior correspond to the emergence of new collective states \citep{sethna2006statistical, goldenfeld1992lectures}. All phase transitions involve emergence, but not all emergent phenomena are phase transitions \citep{bar2013computability}.
+Examples include cellular structures (organelles within cells, cells within tissues, tissues within organs, organs within organisms, etc.), ecosystems with loosely coupled niches, and modular software systems. Near-decomposability enables adaptation through independent subsystem evolution \citep{simon1996sciences} and creates the hierarchical levels across which system dynamics unfold.
+
+\textbf{Scale-invariance} describes self-similar patterns appearing across different organizational levels, characterized by:
+
+\begin{itemize}
+    \item Statistical similarity at different observation scales
+    \item Power-law distributions of system properties
+    \item Absence of characteristic scales
+\end{itemize}
+
+This property manifests in branching patterns in biological systems, power-law distributions in scale-free networks etc. \citep{west2017scale, stanley1999scaling}. Scale-invariance emerges naturally in systems that grow through preferential attachment processes or self-organize into critical states.
+
+\subsubsection{Dynamical Features: Phase Transitions and Emergence}
+
+Phase transitions and emergence represent related dynamical phenomena that arise from the hierarchical and scale-invariant structures of complex systems.
+
+\textbf{Phase transitions} occur when control parameters cross threshold values, causing qualitative changes in system properties. These transitions manifest as discontinuous shifts at critical points \citep{stanley1971phase}, displaying characteristic mathematical signatures: power-law scaling behaviors, critical exponents, and diverging correlation lengths \citep{newman2003structure, bak1987self}. In complex systems, phase transitions include ecosystem state shifts, opinion cascades in social networks, synchronization transitions in oscillator systems, financial market crashes, and percolation thresholds in networks.
+
+\textbf{Emergence} describes the formation of properties at higher organizational levels not present in or predictable from individual components \citep{holland1998emergence, anderson1972more}. Anderson's "More is Different" principle emphasizes that complex systems require analysis beyond reductionist approaches. Examples include flocking behaviors in birds, intelligence in neural networks, consciousness from neuronal activity, and market dynamics in economies \citep{camazine2003self, haken1983synergetics}.
+
+Phase transitions can be viewed as a specific type of emergence characterized by sudden, discontinuous changes, while other emergent phenomena may develop gradually or exist in steady states \citep{bar2013computability}. Both phenomena share common underlying mechanisms:
+
+\begin{itemize}
+    \item They arise from the hierarchical structures created by near-decomposability
+    \item They propagate across scales following patterns enabled by scale-invariance
+    \item They involve reorganization of compositional relationships between system components
+    \item They manifest when local changes cascade to produce system-wide transformations
+\end{itemize}
+
+At critical points, fluctuations occur across all scales of the system as local changes propagate through hierarchical levels—a direct consequence of the near-decomposable, scale-invariant structure.
+
+Our operadic framework models these phenomena by tracking compositional relationships between components across scales. This approach complements traditional statistical methods \citep{stanley1999scaling, goldenfeld1992lectures} by focusing explicitly on how compositional structures reorganize during transitions, providing insights into the mechanisms driving phase transitions and emergent behaviors.
 
 \subsection{Modeling Phase Transitions and Emergence}
 
@@ -30,7 +65,7 @@ A_{ij} =
 \end{cases}
 \end{equation}
 
-For weighted networks, $A_{ij}$ represents the strength of the connection between nodes $i$ and $j$. Several key metrics characterize network properties:
+For weighted networks, $A_{ij}$ represents the strength of the connection between nodes $i$ and $j$. Several metrics characterize network properties:
 
 \begin{itemize}
     \item \textbf{Degree distribution} $P(k)$: The probability that a randomly selected node has $k$ connections
@@ -76,7 +111,7 @@ Critical phenomena in networks, such as phase transitions, often manifest throug
         Modular Networks & Varies & High within modules, low between modules & Long between modules, short within modules \\
         \hline
     \end{tabular}
-    \caption{Comparison of Different Network Types and Their Key Characteristics.
+    \caption{Comparison of Different Network Types and Their Characteristics.
         \textbf{Notation:}\\
         $P(k)$ = probability that a randomly selected node has $k$ connections (degree distribution)\\
         $k$ = node degree (number of connections)\\
@@ -95,6 +130,13 @@ Network models have been successful in capturing the structure and dynamics of a
 
 \subsubsection{From Networks to Simplicial Complexes}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figures/simplicial_complexes-1.png}
+    \caption{Visual representation of simplicial complexes. The top row shows individual simplices of different dimensions (0-simplex, 1-simplex, 2-simplex, and 3-simplex). The bottom part shows a more complex simplicial complex with multiple 2-simplices (filled triangles), a 3-simplex (tetrahedron), and connecting 1-simplices (edges) that capture multi-way interactions beyond pairwise connections.}
+    \label{fig:simplicial_complexes}
+\end{figure}
+
 Simplicial complexes generalize networks by incorporating higher-order interactions. Simplicial complexes can be thought of as triangles of various dimensions - vertices (0-simplices), edges (1-simplices), triangles (2-simplices), tetrahedra (3-simplices), and so on \citep{petri2014homological} connected together either via shared vertices, edges, or faces.
 
 Formally, a simplicial complex $K$ on a vertex set $V$ is a collection of subsets of $V$ (called simplices) such that:
@@ -111,13 +153,6 @@ A $k$-simplex $\sigma = [v_0, v_1, ..., v_k]$ represents an interaction between 
     \item A 3-simplex is a solid tetrahedron (four-way interaction)
     \item and so on
 \end{itemize}
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\textwidth]{figures/simplicial_complexes-1.png}
-    \caption{Visual representation of simplicial complexes. The top row shows individual simplices of different dimensions (0-simplex, 1-simplex, 2-simplex, and 3-simplex). The bottom part shows a more complex simplicial complex with multiple 2-simplices (filled triangles), a 3-simplex (tetrahedron), and connecting 1-simplices (edges) that capture multi-way interactions beyond pairwise connections.}
-    \label{fig:simplicial_complexes}
-\end{figure}
 
 Several researchers have successfully applied simplicial complexes to model complex systems. \citet{petri2014homological} used simplicial complexes to analyze brain functional networks, revealing topological structures that correlate with cognitive states. \citet{giusti2016two} demonstrated how simplicial complexes can capture neural coding schemes beyond what traditional network models could represent. \citet{sizemore2018importance} showed how clique topology in neural systems provides insights into brain development and function.
 
