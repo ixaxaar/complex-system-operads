@@ -23,7 +23,7 @@ Operads consists of:
   \item The composition operations obey certain conditions - associativity and unitality.
 \end{enumerate}
 
-\textbf{Formal Definition}
+\subsubsection{Formal Definition}
 \\
 
 Consider a set $\mathbb{X}$, and an integer $n \in \mathbb{N}$.
@@ -365,26 +365,29 @@ Symmetry is not required for operads, but it can be added to form symmetric oper
 
 where $\sigma$ is a permutation of the set $\{1, 2, \ldots, n\}$ or $\sigma \in S_n$ and $g_{\sigma(i)}$ is the $\sigma(i)$-th element of the original sequence, i.e., the permutation $\sigma$ permutes the order of operations used as inputs to $f$.
 
-\subsubsection{T-operads}
+\subsection{T-operads}
 
-T-operads, or typed operads, extend the concept of operads by introducing a typing system, making them particularly suitable for modeling complex systems with heterogeneous components and interactions. Unlike standard operads where all operations have the same domain and codomain, T-operads allow for typed inputs and outputs, enabling more precise representation of systems with different types of entities and their interactions.
+Operads, as defined above, are based on operations without any structural restrictions, e.g., if one would want to model systems where operations must respect specific input configurations, say restrictions on the types of inputs, or arity of the operations, then one would need to define a set of operations that are not just arbitrary functions but have some structure. This is where T-operads come in. T-operads extend the concept of operads by parameterizing the structure of operations through a monad T, which encodes the shape or type of input configurations and the rules for their composition, allowing for a more flexible and generalized framework that can accommodate various algebraic and categorical structures beyond simple arity-based operations.
 
 \textbf{Formal Definition}
 \\
 
-A T-operad consists of:
+A T-operad generalizes the concept of an operad by using a monad T on a category to determine the allowable shapes or configurations of inputs for operations. It consists of:
 
 \begin{enumerate}
-  \item A set of types $T = \{t_1, t_2, \ldots, t_m\}$
-  \item For each sequence of input types $\mathbf{s} = (s_1, s_2, \ldots, s_n)$ where each $s_i \in T$, and an output type $t \in T$, a set of operations $\mathbb{P}(\mathbf{s}; t)$
-  \item A composition operation that respects types
+  \item A set of objects (often thought of as "colors" or "types"), denoted as Obj($\mathcal{P}$).
+  \item For each shape $t \in T(X)$, where $X \subseteq$ Obj($\mathcal{P}$) is a set of input objects, and for each output object $b \in$ Obj($\mathcal{P}$), a set of operations $\mathcal{P}(t; b)$.
+  \item A composition operation that respects the structure defined by the monad T.
+  \item Identity operations for each object, consistent with the unit of the monad T.
 \end{enumerate}
 
-More formally, let $T$ be a set of types. A T-operad $\mathbb{P}$ assigns to each sequence of input types $\mathbf{s} = (s_1, s_2, \ldots, s_n)$ and output type $t$ a set $\mathbb{P}(\mathbf{s}; t)$ of operations that take inputs of types $s_1, s_2, \ldots, s_n$ and produce an output of type $t$:
+More formally, let $\mathcal{C}$ be a category (e.g., the category of sets), and let T be a monad on $\mathcal{C}$. A T-operad $\mathcal{P}$ assigns to each shape $t \in T(X)$, where $X$ is a set of input objects, and each output object $b$, a set (or object in $\mathcal{C}$) of operations $\mathcal{P}(t; b)$ that take inputs shaped by $t$ and produce an output of type $b$:
 
 \begin{equation}
-  \mathbb{P}(\mathbf{s}; t) = \{f: s_1 \times s_2 \times \ldots \times s_n \rightarrow t\}
+  \mathcal{P}(t; b) = \{\text{operations with input shape } t \text{ and output } b\}
 \end{equation}
+
+In the context of sets, if we think of $X$ as a set of types or objects, and $t \in T(X)$ as a structured configuration of inputs (e.g., a list, tree, or graph built from $X$), then $\mathcal{P}(t; b)$ represents operations that transform inputs configured as $t$ into an output of type $b$.
 
 \begin{figure}[h]
 \centering
@@ -402,176 +405,76 @@ More formally, let $T$ be a set of types. A T-operad $\mathbb{P}$ assigns to eac
 
     % Add labels
     \node at (1,1.5) {$f$};
-    \node at (-1.7,0.5) {$x_1: s_1$};
-    \node at (-1.7,1.5) {$x_2: s_2$};
-    \node at (-1.7,2.5) {$x_3: s_3$};
-    \node at (3.7,1.5) {$y: t$};
+    \node at (-1.7,0.5) {$x_1: a_1$};
+    \node at (-1.7,1.5) {$x_2: a_2$};
+    \node at (-1.7,2.5) {$x_3: a_3$};
+    \node at (3.7,1.5) {$y: b$};
+    \node at (1,-0.7) {shape $t \in T(\{a_1, a_2, a_3\})$};
 \end{tikzpicture}
-\caption{A typed operation $f \in \mathbb{P}((s_1, s_2, s_3); t)$ taking three inputs of potentially different types and producing an output of type $t$.}
-\label{fig:typed-operation}
+\caption{A typed operation $f \in \mathcal{P}(t; b)$ taking inputs shaped by $t \in T(\{a_1, a_2, a_3\})$ and producing an output of type $b$.}
+\label{fig:shaped-operation}
 \end{figure}
 
-The composition operation must respect the typing constraints. Given operations:
+The composition operation must respect the structure defined by the monad T. Given operations:
 \begin{itemize}
-  \item $f \in \mathbb{P}((t_1, t_2, \ldots, t_n); t)$
-  \item $g_1 \in \mathbb{P}(\mathbf{s}_1; t_1)$
-  \item $g_2 \in \mathbb{P}(\mathbf{s}_2; t_2)$
+  \item $f \in \mathcal{P}(t; b)$, where $t \in T(X)$ for some set of input objects $X = \{a_1, a_2, \ldots, a_n\}$,
+  \item $g_1 \in \mathcal{P}(s_1; a_1)$, where $s_1 \in T(Y_1)$ for some set $Y_1$,
+  \item $g_2 \in \mathcal{P}(s_2; a_2)$, where $s_2 \in T(Y_2)$ for some set $Y_2$,
   \item $\ldots$
-  \item $g_n \in \mathbb{P}(\mathbf{s}_n; t_n)$
+  \item $g_n \in \mathcal{P}(s_n; a_n)$, where $s_n \in T(Y_n)$ for some set $Y_n$,
 \end{itemize}
 
-The composition $f \circ (g_1, g_2, \ldots, g_n)$ is defined only when the output type of each $g_i$ matches the corresponding input type required by $f$. The resulting operation has input types given by the concatenation of all input types of the $g_i$ operations and output type $t$:
+The composition $f \circ (g_1, g_2, \ldots, g_n)$ is defined using the monad's multiplication $\mu: T^2 \to T$, which combines the shapes $s_1, s_2, \ldots, s_n$ into a new shape compatible with $t$. The resulting operation has inputs shaped by a new configuration in $T(Y_1 \cup Y_2 \cup \ldots \cup Y_n)$ and output type $b$:
 
 \begin{equation}
-  f \circ (g_1, g_2, \ldots, g_n) \in \mathbb{P}(\mathbf{s}_1 \cdot \mathbf{s}_2 \cdot \ldots \cdot \mathbf{s}_n; t)
+  f \circ (g_1, g_2, \ldots, g_n) \in \mathcal{P}(\mu(t; s_1, s_2, \ldots, s_n); b)
 \end{equation}
 
-where $\cdot$ denotes concatenation of type sequences.
+where $\mu(t; s_1, s_2, \ldots, s_n)$ represents the combined shape obtained through the monad's multiplication.
 
 \begin{figure}[h]
 \centering
 \begin{tikzpicture}[scale=0.9]
     % Main operation triangle
-    \draw[thick, fill=white] (0,0) -- (0,3) -- (2,1.5) -- cycle;
-    \node at (1,1.5) {$f$};
+    \draw[thick, fill=white] (0,0) -- (0,2.5) -- (2,1.25) -- cycle;
+    \node at (0.75,1.25) {$f$};
 
     % First sub-operation triangle
     \draw[thick, fill=white] (-5,0) -- (-5,1) -- (-3,0.5) -- cycle;
-    \node at (-4,0.5) {$g_1$};
+    \node at (-4.5,0.5) {$g_1$};
 
     % Second sub-operation triangle
     \draw[thick, fill=white] (-5,1.5) -- (-5,2.5) -- (-3,2) -- cycle;
-    \node at (-4,2) {$g_2$};
+    \node at (-4.5,2) {$g_2$};
 
     % Input arrows for first sub-operation
     \draw[->, thick] (-7,0.25) -- (-5,0.25);
     \draw[->, thick] (-7,0.75) -- (-5,0.75);
-    \node at (-8,0.25) {$x_1: s_{11}$};
-    \node at (-8,0.75) {$x_2: s_{12}$};
+    \node at (-8,0.25) {$x_1: c_{11}$};
+    \node at (-8,0.75) {$x_2: c_{12}$};
 
     % Input arrows for second sub-operation
     \draw[->, thick] (-7,1.75) -- (-5,1.75);
     \draw[->, thick] (-7,2.25) -- (-5,2.25);
-    \node at (-8,1.75) {$x_3: s_{21}$};
-    \node at (-8,2.25) {$x_4: s_{22}$};
+    \node at (-8,1.75) {$x_3: c_{21}$};
+    \node at (-8,2.25) {$x_4: c_{22}$};
 
     % Connecting arrows from sub-operations to main operation
-    \draw[->, thick] (-3,0.5) -- (0,0.75);
-    \node at (-1.5,0.35) {$t_1$};
-    \draw[->, thick] (-3,2) -- (0,2.25);
-    \node at (-1.5,2.4) {$t_2$};
+    \draw[->, thick] (-3,0.5) -- (0,0.5);
+    \node at (-1.5,0.15) {$a_1$};
+    \draw[->, thick] (-3,2) -- (0,2);
+    \node at (-1.5,2.4) {$a_2$};
 
     % Output arrow
-    \draw[->, thick] (2,1.5) -- (4,1.5);
-    \node at (4.5,1.5) {$t$};
+    \draw[->, thick] (2,1.25) -- (4,1.25);
+    \node at (4.5,1.5) {$b$};
 
     % Final composition label
-    \node at (1,-0.5) {$f \circ (g_1, g_2) \in \mathbb{P}((s_{11}, s_{12}, s_{21}, s_{22}); t)$};
+    \node at (-2,-1.5) {$f \circ (g_1, g_2) \in \mathcal{P}(\mu(t; s_1, s_2); b)$};
+
 \end{tikzpicture}
-\caption{Typed operadic composition showing how the output types of $g_1$ and $g_2$ must match the input types required by $f$.}
-\label{fig:typed-operadic-composition}
+\caption{Composition in a T-operad showing how the output types of $g_1$ and $g_2$ must match the input objects required by the shape $t \in T(\{a_1, a_2\})$ of $f$, with shapes combined via the monad's multiplication $\mu$.}
+\label{fig:t-operadic-composition}
 \end{figure}
 
-\textbf{Applications of T-operads to Complex Systems}
-\\
-
-T-operads provide several key advantages for modeling complex systems:
-
-\begin{enumerate}
-  \item \textbf{Heterogeneous Systems}: T-operads can model systems with different types of components, such as cells of different types in biological tissues, different species in ecological networks, or various agent types in economic systems.
-
-  \item \textbf{Type-Restricted Interactions}: They capture the reality that not all elements can interact with all others—proteins can only bind to compatible partners, economic agents have specific roles, and neural signals have specific receptor requirements.
-
-  \item \textbf{Phase Transitions}: Changes in the type structure of a T-operad can model fundamental shifts in system behavior. For example, the differentiation of stem cells involves changes in the types of operations available as cells specialize, and phase transitions in social systems correspond to changes in the roles individuals can play.
-
-  \item \textbf{Hierarchical Organization}: T-operads naturally represent hierarchical systems where higher-level entities emerge from compositions of lower-level entities, potentially with type transformations occurring during composition.
-\end{enumerate}
-
-In biological systems, T-operads can represent protein interactions where specific protein types can only bind with compatible partners, forming complexes that then have new binding capabilities. In neural networks, T-operads can model how different neuron types (excitatory, inhibitory) combine to form functional circuits with specific input-output behaviors. In social systems, T-operads can represent how individuals with different expertise (types) combine to form organizations with emergent capabilities.
-
-\textbf{Detecting Phase Transitions with T-operads}
-\\
-
-Phase transitions in complex systems can be identified through changes in the type structure of T-operads:
-
-\begin{enumerate}
-  \item \textbf{Type Emergence}: New types appear in the system, indicating new functionalities or states have emerged.
-
-  \item \textbf{Compositional Reorganization}: Changes in which operation types can compose with each other, signaling a restructuring of system interactions.
-
-  \item \textbf{Type Collapse}: Multiple types merge into a single type, indicating a loss of differentiation or specialization.
-
-  \item \textbf{Connectivity Changes}: Alterations in the graph of possible type compositions, which can indicate critical transitions in system behavior.
-\end{enumerate}
-
-For example, in a financial system modeled with T-operads, a phase transition from stability to crisis might be detected by:
-\begin{itemize}
-  \item New operation types emerging (representing novel, risky financial instruments)
-  \item Changes in which institution types can interact with which financial product types
-  \item Collapse of previously distinct risk categories into correlated failure modes
-\end{itemize}
-
-These changes in the T-operad structure provide early warning signals for system-wide transitions that may not be detectable using traditional network or simplicial complex approaches.
-
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[
-    type/.style={circle, draw=black, fill=white, minimum size=0.8cm},
-    op/.style={rectangle, draw=black, fill=white, minimum size=0.8cm},
-    arr/.style={->, >=stealth, thick}
-]
-    % Before phase transition
-    \begin{scope}[xshift=-6cm]
-        % Types
-        \node[type] (A1) at (0,0) {$A$};
-        \node[type] (B1) at (2,0) {$B$};
-        \node[type] (C1) at (4,0) {$C$};
-
-        % Operations
-        \node[op] (op1) at (1,2) {$f_1$};
-        \node[op] (op2) at (3,2) {$f_2$};
-
-        % Arrows
-        \draw[arr] (A1) -- (op1);
-        \draw[arr] (B1) -- (op1);
-        \draw[arr] (op1) -- (1,3) node[above] {$D$};
-
-        \draw[arr] (B1) -- (op2);
-        \draw[arr] (C1) -- (op2);
-        \draw[arr] (op2) -- (3,3) node[above] {$E$};
-
-        \node at (2,-1) {Before phase transition};
-    \end{scope}
-
-    % After phase transition
-    \begin{scope}[xshift=2cm]
-        % Types
-        \node[type] (A2) at (0,0) {$A$};
-        \node[type] (B2) at (2,0) {$B$};
-        \node[type] (C2) at (4,0) {$C$};
-
-        % Operations
-        \node[op] (op3) at (1,2) {$f_1$};
-        \node[op] (op4) at (3,2) {$f_2$};
-        \node[op] (op5) at (2,3) {$f_3$}; % New operation
-
-        % Arrows
-        \draw[arr] (A2) -- (op3);
-        \draw[arr] (B2) -- (op3);
-        \draw[arr] (op3) -- (op5);
-
-        \draw[arr] (B2) -- (op4);
-        \draw[arr] (C2) -- (op4);
-        \draw[arr] (op4) -- (op5);
-
-        \draw[arr] (op5) -- (2,4) node[above] {$F$}; % New type
-
-        \node at (2,-1) {After phase transition};
-    \end{scope}
-\end{tikzpicture}
-\caption{Phase transition in a T-operad: Before the transition, operations $f_1$ and $f_2$ produce different types. After the transition, a new composition capability emerges with operation $f_3$ that can take outputs from both $f_1$ and $f_2$ to produce a new type $F$.}
-\label{fig:typed-phase-transition}
-\end{figure}
-
-T-operads thus provide a powerful framework for modeling complex systems where the types of interactions and entities matter, enabling us to detect and analyze phase transitions that involve changes in the system's compositional structure and typing relationships.
-
+The composition operation satisfies properties of associativity and unitality, which are ensured by the monadic structure of T (i.e., the associativity of the monad's multiplication $\mu$ and the unitality provided by the monad's unit $\eta$).
