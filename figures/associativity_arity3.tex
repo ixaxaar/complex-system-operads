@@ -1,0 +1,44 @@
+\begin{tikzpicture}[grow'=up]
+    \begin{scope}[xshift=-5cm]
+        \node {(ab)c}
+        child {
+            node {ab}
+            child {
+                node {a}
+            }
+            child {
+                node {b}
+            }
+        }
+        child{
+            node {c}
+        };
+    \end{scope}
+    \begin{scope}[xshift=0cm]
+        \node {(ab)c}
+        child{
+            node {a}
+        }
+        child {
+            node {bc}
+                child {
+            node {b}
+            }
+            child {
+                node {c}
+            }
+        };
+    \end{scope}
+    \begin{scope}[xshift=5cm]
+        \node {abc}
+        child{
+            node {a}
+        }
+        child {
+            node {b}
+        }
+        child {
+            node {c}
+        };
+    \end{scope}
+\end{tikzpicture}

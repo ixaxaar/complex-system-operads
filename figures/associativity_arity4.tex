@@ -1,0 +1,133 @@
+\begin{tikzpicture}[grow'=up, level distance=1.5cm, sibling distance=2cm]
+    % First tree: ((ab)c)d
+    \begin{scope}[xshift=-10cm]
+        \node {((ab)c)d}
+        child {
+            node {(ab)c}
+            child {
+                node {ab}
+                child {
+                    node {a}
+                }
+                child {
+                    node {b}
+                }
+            }
+            child {
+                node {c}
+            }
+        }
+        child {
+            node {d}
+        };
+    \end{scope}
+
+    % Second tree: (a(bc))d
+    \begin{scope}[xshift=-5cm]
+        \node {(a(bc))d}
+        child {
+            node {a(bc)}
+            child {
+                node {a}
+            }
+            child {
+                node {bc}
+                child {
+                    node {b}
+                }
+                child {
+                    node {c}
+                }
+            }
+        }
+        child {
+            node {d}
+        };
+    \end{scope}
+
+    % Third tree: (ab)(cd)
+    \begin{scope}[yshift=6cm, xshift=0cm]
+        \node {(ab)(cd)}
+        child {
+            node {ab}
+            child {
+                node {a}
+            }
+            child {
+                node {b}
+            }
+        }
+        child {
+            node {cd}
+            child {
+                node {c}
+            }
+            child {
+                node {d}
+            }
+        };
+    \end{scope}
+
+    % Fourth tree: a((bc)d)
+    \begin{scope}[yshift=6cm, xshift=-10cm]
+        \node {a((bc)d)}
+        child {
+            node {a}
+        }
+        child {
+            node {(bc)d}
+            child {
+                node {bc}
+                child {
+                    node {b}
+                }
+                child {
+                    node {c}
+                }
+            }
+            child {
+                node {d}
+            }
+        };
+    \end{scope}
+
+    % Fifth tree: a(b(cd))
+    \begin{scope}[yshift=6cm, xshift=-5cm]
+        \node {a(b(cd))}
+        child {
+            node {a}
+        }
+        child {
+            node {b(cd)}
+            child {
+                node {b}
+            }
+            child {
+                node {cd}
+                child {
+                    node {c}
+                }
+                child {
+                    node {d}
+                }
+            }
+        };
+    \end{scope}
+
+    \begin{scope}
+        \node {abcd}
+        child {
+            node {a}
+        }
+        child {
+            node {b}
+        }
+        child {
+            node {c}
+        }
+        child {
+            node {d}
+        };
+    \end{scope}
+
+\end{tikzpicture}

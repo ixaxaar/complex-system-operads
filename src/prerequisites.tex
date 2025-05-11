@@ -44,28 +44,7 @@ i.e. all of these functions $f$ take in $n$ arguments from $\mathbb{X}$ and retu
 
 \begin{figure}[h]
 \centering
-    \begin{tikzpicture}
-        % Draw the triangle with vertical left edge
-        \draw[thick, fill=white] (0,0) -- (0,3) -- (2,1.5) -- cycle;
-
-        % Draw input arrows
-        \draw[->, thick] (-1,0.5) -- (0,0.5);
-        \draw[->, thick] (-1,1) -- (0,1);
-        \draw[->, thick] (-1,1.5) -- (0,1.5);
-        \draw[dotted, thick] (-0.5,1.8) -- (-0.5,2.2);
-        \draw[->, thick] (-1,2.5) -- (0,2.5);
-
-        % Draw output arrow
-        \draw[->, thick] (2,1.5) -- (3,1.5);
-
-        % Add labels
-        \node at (0.7,1.5) {$f$};
-        \node at (-1.3,0.5) {$x_1$};
-        \node at (-1.3,1) {$x_2$};
-        \node at (-1.3,1.5) {$x_3$};
-        \node at (4.8,1.5) {$f(x_1,x_2,\ldots,x_n)$};
-        \node at (-1.3,2.5) {$x_n$};
-    \end{tikzpicture}
+    \input{figures/operad_basic_operation.tex}
 \end{figure}
 
 If we have a bunch of these sets of functions $\mathbb{P}(k_i)$ for each $k_i \in \mathbb{N}$, then we can define a composition operation $\circ$ for these operations as follows:
@@ -84,67 +63,7 @@ where $f \circ (f_1, f_2, \ldots, f_n) \in \mathbb{P}(k_1 + k_2 + \ldots + k_n)$
 
 \begin{figure}[h]
 \centering
-\begin{tikzpicture}[scale=0.9]
-    % Main operation triangle
-    \draw[thick, fill=white] (0,0) -- (0,5.5) -- (4,2.75) -- cycle;
-    \node at (1.5,2.75) {$f$};
-
-    % First sub-operation triangle
-    \draw[thick, fill=white] (-5,0) -- (-5,1.5) -- (-3,0.75) -- cycle;
-    \node at (-4.3,0.75) {$f_1$};
-
-    % Second sub-operation triangle
-    \draw[thick, fill=white] (-5,2) -- (-5,3.5) -- (-3,2.75) -- cycle;
-    \node at (-4.3,2.75) {$f_2$};
-
-    % Third sub-operation triangle (with dotted line indicating more)
-    \draw[thick, fill=white] (-5,4) -- (-5,5.5) -- (-3,4.75) -- cycle;
-    \node at (-4.3,4.75) {$f_n$};
-
-    % Dotted line between second and third triangles
-    \draw[dotted, thick] (-4,3.7) -- (-4,4);
-
-    % Input arrows for first sub-operation
-    \draw[->, thick] (-7,0.25) -- (-5,0.25);
-    \draw[->, thick] (-7,0.75) -- (-5,0.75);
-    \draw[->, thick] (-7,1.25) -- (-5,1.25);
-    \node at (-8.4,0.25) {$x_1}$};
-    \node at (-8.4,0.75) {$\ldots$};
-    \node at (-8.4,1.25) {$x_{k_1}$};
-
-    % Input arrows for second sub-operation
-    \draw[->, thick] (-7,2.25) -- (-5,2.25);
-    \draw[->, thick] (-7,2.75) -- (-5,2.75);
-    \draw[->, thick] (-7,3.25) -- (-5,3.25);
-    \node at (-8.4,2.25) {$x_{k_1+1}}$};
-    \node at (-8.4,2.75) {$\ldots$};
-    \node at (-8.4,3.25) {$x_{k_1+k_2}$};
-
-    % Input arrows for third sub-operation
-    \draw[->, thick] (-7,4.25) -- (-5,4.25);
-    \draw[->, thick] (-7,4.75) -- (-5,4.75);
-    \draw[->, thick] (-7,5.25) -- (-5,5.25);
-    \node at (-8.4,4.25) {$x_{k_1+...+k_{n-1}+1}$};
-    \node at (-8.4,4.75) {$\ldots$};
-    \node at (-8.4,5.25) {$x_{k_1+...+k_{n-1}+k_n}$};
-
-    % Connecting arrows from sub-operations to main operation
-    \draw[->, thick] (-3,0.75) -- (0,0.75);
-    \draw[->, thick] (-3,2.75) -- (0,2.75);
-    \draw[->, thick] (-3,4.75) -- (0,4.75);
-
-    % Output arrow
-    \draw[->, thick] (4,2.75) -- (6,2.75);
-
-    % Final output label
-    \node at (6,3.5) {$f \circ (f_1, f_2, \ldots, f_n)$};
-
-    % Dotted lines to indicate more inputs for each sub-operation
-    \draw[dotted, thick] (-6,1) -- (-6,1.1);
-    \draw[dotted, thick] (-6,3) -- (-6,3.1);
-    \draw[dotted, thick] (-6,4.5) -- (-6,4.6);
-
-\end{tikzpicture}
+\input{figures/operadic_composition.tex}
 \caption{Operadic composition showing how multiple operations $f_1, f_2, \ldots, f_n$ with arities $k_1, k_2, \ldots, k_n$ can be composed with an operation $f$ of arity $n$ to form a new operation of arity $k_1 + k_2 + \ldots + k_n$.}
 \label{fig:operadic-composition}
 \end{figure}
@@ -153,188 +72,13 @@ Associativity of this composition for Operads works as follows:
 
 \begin{figure}[h]
 \centering
-    \begin{tikzpicture}[grow'=up]
-        \begin{scope}[xshift=-5cm]
-            \node {(ab)c}
-            child {
-                node {ab}
-                child {
-                    node {a}
-                }
-                child {
-                    node {b}
-                }
-            }
-            child{
-                node {c}
-            };
-        \end{scope}
-        \begin{scope}[xshift=0cm]
-            \node {(ab)c}
-            child{
-                node {a}
-            }
-            child {
-                node {bc}
-                    child {
-                node {b}
-                }
-                child {
-                    node {c}
-                }
-            };
-        \end{scope}
-        \begin{scope}[xshift=5cm]
-            \node {abc}
-            child{
-                node {a}
-            }
-            child {
-                node {b}
-            }
-            child {
-                node {c}
-            };
-        \end{scope}
-    \end{tikzpicture}
+    \input{figures/associativity_arity3.tex}
     \caption{Associativity of operadic composition of arity 3}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\begin{tikzpicture}[grow'=up, level distance=1.5cm, sibling distance=2cm]
-    % First tree: ((ab)c)d
-    \begin{scope}[xshift=-10cm]
-        \node {((ab)c)d}
-        child {
-            node {(ab)c}
-            child {
-                node {ab}
-                child {
-                    node {a}
-                }
-                child {
-                    node {b}
-                }
-            }
-            child {
-                node {c}
-            }
-        }
-        child {
-            node {d}
-        };
-    \end{scope}
-
-    % Second tree: (a(bc))d
-    \begin{scope}[xshift=-5cm]
-        \node {(a(bc))d}
-        child {
-            node {a(bc)}
-            child {
-                node {a}
-            }
-            child {
-                node {bc}
-                child {
-                    node {b}
-                }
-                child {
-                    node {c}
-                }
-            }
-        }
-        child {
-            node {d}
-        };
-    \end{scope}
-
-    % Third tree: (ab)(cd)
-    \begin{scope}[yshift=6cm, xshift=0cm]
-        \node {(ab)(cd)}
-        child {
-            node {ab}
-            child {
-                node {a}
-            }
-            child {
-                node {b}
-            }
-        }
-        child {
-            node {cd}
-            child {
-                node {c}
-            }
-            child {
-                node {d}
-            }
-        };
-    \end{scope}
-
-    % Fourth tree: a((bc)d)
-    \begin{scope}[yshift=6cm, xshift=-10cm]
-        \node {a((bc)d)}
-        child {
-            node {a}
-        }
-        child {
-            node {(bc)d}
-            child {
-                node {bc}
-                child {
-                    node {b}
-                }
-                child {
-                    node {c}
-                }
-            }
-            child {
-                node {d}
-            }
-        };
-    \end{scope}
-
-    % Fifth tree: a(b(cd))
-    \begin{scope}[yshift=6cm, xshift=-5cm]
-        \node {a(b(cd))}
-        child {
-            node {a}
-        }
-        child {
-            node {b(cd)}
-            child {
-                node {b}
-            }
-            child {
-                node {cd}
-                child {
-                    node {c}
-                }
-                child {
-                    node {d}
-                }
-            }
-        };
-    \end{scope}
-
-    \begin{scope}
-        \node {abcd}
-        child {
-            node {a}
-        }
-        child {
-            node {b}
-        }
-        child {
-            node {c}
-        }
-        child {
-            node {d}
-        };
-    \end{scope}
-
-\end{tikzpicture}
+\input{figures/associativity_arity4.tex}
 \caption{Associativity of operadic composition of arity 4}
 \label{fig:arity-4-associativity}
 \end{figure}
@@ -391,26 +135,7 @@ In the context of sets, if we think of $X$ as a set of types or objects, and $t 
 
 \begin{figure}[h]
 \centering
-\begin{tikzpicture}
-    % Draw the triangle with vertical left edge
-    \draw[thick, fill=white] (0,0) -- (0,3) -- (2,1.5) -- cycle;
-
-    % Draw input arrows
-    \draw[->, thick] (-1,0.5) -- (0,0.5);
-    \draw[->, thick] (-1,1.5) -- (0,1.5);
-    \draw[->, thick] (-1,2.5) -- (0,2.5);
-
-    % Draw output arrow
-    \draw[->, thick] (2,1.5) -- (3,1.5);
-
-    % Add labels
-    \node at (1,1.5) {$f$};
-    \node at (-1.7,0.5) {$x_1: a_1$};
-    \node at (-1.7,1.5) {$x_2: a_2$};
-    \node at (-1.7,2.5) {$x_3: a_3$};
-    \node at (3.7,1.5) {$y: b$};
-    \node at (1,-0.7) {shape $t \in T(\{a_1, a_2, a_3\})$};
-\end{tikzpicture}
+\input{figures/shaped_operation.tex}
 \caption{A typed operation $f \in \mathcal{P}(t; b)$ taking inputs shaped by $t \in T(\{a_1, a_2, a_3\})$ and producing an output of type $b$.}
 \label{fig:shaped-operation}
 \end{figure}
@@ -434,45 +159,7 @@ where $\mu(t; s_1, s_2, \ldots, s_n)$ represents the combined shape obtained thr
 
 \begin{figure}[h]
 \centering
-\begin{tikzpicture}[scale=0.9]
-    % Main operation triangle
-    \draw[thick, fill=white] (0,0) -- (0,2.5) -- (2,1.25) -- cycle;
-    \node at (0.75,1.25) {$f$};
-
-    % First sub-operation triangle
-    \draw[thick, fill=white] (-5,0) -- (-5,1) -- (-3,0.5) -- cycle;
-    \node at (-4.5,0.5) {$g_1$};
-
-    % Second sub-operation triangle
-    \draw[thick, fill=white] (-5,1.5) -- (-5,2.5) -- (-3,2) -- cycle;
-    \node at (-4.5,2) {$g_2$};
-
-    % Input arrows for first sub-operation
-    \draw[->, thick] (-7,0.25) -- (-5,0.25);
-    \draw[->, thick] (-7,0.75) -- (-5,0.75);
-    \node at (-8,0.25) {$x_1: c_{11}$};
-    \node at (-8,0.75) {$x_2: c_{12}$};
-
-    % Input arrows for second sub-operation
-    \draw[->, thick] (-7,1.75) -- (-5,1.75);
-    \draw[->, thick] (-7,2.25) -- (-5,2.25);
-    \node at (-8,1.75) {$x_3: c_{21}$};
-    \node at (-8,2.25) {$x_4: c_{22}$};
-
-    % Connecting arrows from sub-operations to main operation
-    \draw[->, thick] (-3,0.5) -- (0,0.5);
-    \node at (-1.5,0.15) {$a_1$};
-    \draw[->, thick] (-3,2) -- (0,2);
-    \node at (-1.5,2.4) {$a_2$};
-
-    % Output arrow
-    \draw[->, thick] (2,1.25) -- (4,1.25);
-    \node at (4.5,1.5) {$b$};
-
-    % Final composition label
-    \node at (-2,-1.5) {$f \circ (g_1, g_2) \in \mathcal{P}(\mu(t; s_1, s_2); b)$};
-
-\end{tikzpicture}
+\input{figures/t_operadic_composition.tex}
 \caption{Composition in a T-operad showing how the output types of $g_1$ and $g_2$ must match the input objects required by the shape $t \in T(\{a_1, a_2\})$ of $f$, with shapes combined via the monad's multiplication $\mu$.}
 \label{fig:t-operadic-composition}
 \end{figure}
