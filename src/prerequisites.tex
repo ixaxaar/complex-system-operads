@@ -24,7 +24,6 @@ Operads consists of:
 \end{enumerate}
 
 \subsubsection{Formal Definition}
-\\
 
 Consider a set $\mathbb{X}$, and an integer $n \in \mathbb{N}$.
 
@@ -109,72 +108,108 @@ Symmetry is not required for operads, but it can be added to form symmetric oper
 
 where $\sigma$ is a permutation of the set $\{1, 2, \ldots, n\}$ or $\sigma \in S_n$ and $g_{\sigma(i)}$ is the $\sigma(i)$-th element of the original sequence, i.e., the permutation $\sigma$ permutes the order of operations used as inputs to $f$.
 
-\subsection{T-operads}
+\subsubsection{Operads for Modeling}
 
-Operads, as defined above, are based on operations without any structural restrictions, e.g., if one would want to model systems where operations must respect specific input configurations, say restrictions on the types of inputs, or arity of the operations, then one would need to define a set of operations that are not just arbitrary functions but have some structure. This is where T-operads come in. T-operads extend the concept of operads by parameterizing the structure of operations through a monad T, which encodes the shape or type of input configurations and the rules for their composition, allowing for a more flexible and generalized framework that can accommodate various algebraic and categorical structures beyond simple arity-based operations.
+Operads have been applied to modeling systems from diverse fields. In \textbf{physics}, operads have been extensively applied to model quantum field theories, where they capture the structure of Feynman diagrams and the composition of quantum interactions \cite{baez1997higher}. Operads of wiring diagrams have been used to model electrical circuits petri nets and quantum circuits \cite{spivak2013categorical, baez2020network}. Operads have also been employed in \textbf{computer science} to model SQL database query languages \cite{spivak2013categorical}, in \textbf{systems design} for modeling complex system design specification, analysis and synthesis \cite{Operads for complex system design specification, analysis and synthesis
+John D. Foley
+, Spencer Breiner
+, Eswaran Subrahmanian
+and John M. Dusel}.
 
-\textbf{Formal Definition}
-\\
+\subsection{Operads of Wiring Diagrams}
 
-A T-operad generalizes the concept of an operad by using a monad T on a category to determine the allowable shapes or configurations of inputs for operations. It consists of:
+Wiring diagram operads provide a categorical framework for modeling directed compositional systems with explicit input-output interfaces \cite{spivak2013categorical,behr2021operad}. Unlike classical operads that focus purely on arity, wiring diagram operads encode both the connectivity structure and the directional flow of information through systems, making them particularly suited for modeling complex systems with hierarchical organization and modular decomposition.
+
+\subsubsection{Formal Definition}
+
+A wiring diagram operad $\mathcal{W}$ consists of graphical representations where operations are depicted as boxes with labeled input and output ports, connected by wires that carry typed information. Formally, we define:
+
+\textbf{Wiring Diagrams:} A wiring diagram $W$ over a finite set of types $T$ is a directed graph where:
+\begin{itemize}
+    \item Vertices represent operations (boxes) with labeled input ports $\text{in}(v) \subseteq T$ and output ports $\text{out}(v) \subseteq T$
+    \item Edges represent wires connecting output ports to input ports
+    \item External inputs and outputs form the interface of the diagram
+\end{itemize}
+
+\textbf{Operations:} For a wiring diagram $W$ with input interface $I \subseteq T$ and output interface $O \subseteq T$, we denote the set of operations as $\mathcal{W}(I; O)$. Each operation $f \in \mathcal{W}(I; O)$ represents a morphism:
+
+\begin{equation}
+    f: \prod_{i \in I} X_i \to \prod_{o \in O} X_o
+\end{equation}
+
+where $X_t$ denotes the data type associated with type $t \in T$.
+
+\begin{figure}[h]
+\centering
+\input{figures/wiring_diagram_basic.tex}
+\caption{Basic wiring diagram showing an operation $f$ with input interface $\{a,b,c\}$ and output interface $\{x,y\}$. Boxes represent operations, circles represent ports, and arrows represent typed wires.}
+\label{fig:wiring-diagram-basic}
+\end{figure}
+
+\subsubsection{Composition Structure}
+
+The composition operation in wiring diagram operads is defined through \textbf{substitution} and \textbf{wire connecting}. Given:
+\begin{itemize}
+    \item A wiring diagram $f \in \mathcal{W}(I; O)$ with input interface $I$ and output interface $O$
+    \item Wiring diagrams $g_1 \in \mathcal{W}(I_1; O_1), g_2 \in \mathcal{W}(I_2; O_2), \ldots, g_k \in \mathcal{W}(I_k; O_k)$
+\end{itemize}
+
+The composition $f \circ (g_1, g_2, \ldots, g_k)$ is performed by:
 
 \begin{enumerate}
-  \item A set of objects (often thought of as "colors" or "types"), denoted as Obj($\mathcal{P}$).
-  \item For each shape $t \in T(X)$, where $X \subseteq$ Obj($\mathcal{P}$) is a set of input objects, and for each output object $b \in$ Obj($\mathcal{P}$), a set of operations $\mathcal{P}(t; b)$.
-  \item A composition operation that respects the structure defined by the monad T.
-  \item Identity operations for each object, consistent with the unit of the monad T.
+    \item \textbf{Interface Matching:} Ensuring output interfaces of $g_i$ match corresponding input requirements in $f$
+    \item \textbf{Diagram Substitution:} Replacing designated boxes in $f$ with the complete wiring diagrams $g_i$
+    \item \textbf{Wire Connection:} Connecting output wires of $g_i$ to input wires of the corresponding positions in $f$
 \end{enumerate}
 
-More formally, let $\mathcal{C}$ be a category (e.g., the category of sets), and let T be a monad on $\mathcal{C}$. A T-operad $\mathcal{P}$ assigns to each shape $t \in T(X)$, where $X$ is a set of input objects, and each output object $b$, a set (or object in $\mathcal{C}$) of operations $\mathcal{P}(t; b)$ that take inputs shaped by $t$ and produce an output of type $b$:
+The resulting composition has input interface $I' = \bigcup_{i=1}^k I_i$ and output interface $O$:
 
 \begin{equation}
-  \mathcal{P}(t; b) = \{\text{operations with input shape } t \text{ and output } b\}
+    f \circ (g_1, g_2, \ldots, g_k) \in \mathcal{W}\left(\bigcup_{i=1}^k I_i; O\right)
 \end{equation}
-
-In the context of sets, if we think of $X$ as a set of types or objects, and $t \in T(X)$ as a structured configuration of inputs (e.g., a list, tree, or graph built from $X$), then $\mathcal{P}(t; b)$ represents operations that transform inputs configured as $t$ into an output of type $b$.
 
 \begin{figure}[h]
 \centering
-\input{figures/shaped_operation.tex}
-\caption{A typed operation $f \in \mathcal{P}(t; b)$ taking inputs shaped by $t \in T(\{a_1, a_2, a_3\})$ and producing an output of type $b$.}
-\label{fig:shaped-operation}
+\input{figures/wiring_diagram_composition.tex}
+\caption{Composition of wiring diagrams showing how operations $g$ and $h$ are substituted into operation $f$. The top diagram shows the individual components, while the bottom shows the resulting composed operation.}
+\label{fig:wiring-diagram-composition}
 \end{figure}
 
-The composition operation must respect the structure defined by the monad T. Given operations:
-\begin{itemize}
-  \item $f \in \mathcal{P}(t; b)$, where $t \in T(X)$ for some set of input objects $X = \{a_1, a_2, \ldots, a_n\}$,
-  \item $g_1 \in \mathcal{P}(s_1; a_1)$, where $s_1 \in T(Y_1)$ for some set $Y_1$,
-  \item $g_2 \in \mathcal{P}(s_2; a_2)$, where $s_2 \in T(Y_2)$ for some set $Y_2$,
-  \item $\ldots$
-  \item $g_n \in \mathcal{P}(s_n; a_n)$, where $s_n \in T(Y_n)$ for some set $Y_n$,
-\end{itemize}
+\subsubsection{Associativity and Unitality}
 
-The composition $f \circ (g_1, g_2, \ldots, g_n)$ is defined using the monad's multiplication $\mu: T^2 \to T$, which combines the shapes $s_1, s_2, \ldots, s_n$ into a new shape compatible with $t$. The resulting operation has inputs shaped by a new configuration in $T(Y_1 \cup Y_2 \cup \ldots \cup Y_n)$ and output type $b$:
+Wiring diagram operads satisfy the fundamental operadic axioms:
 
+\textbf{Associativity:} For compatible wiring diagrams, the composition operation is associative:
 \begin{equation}
-  f \circ (g_1, g_2, \ldots, g_n) \in \mathcal{P}(\mu(t; s_1, s_2, \ldots, s_n); b)
+    (f \circ g) \circ h = f \circ (g \circ h)
 \end{equation}
 
-where $\mu(t; s_1, s_2, \ldots, s_n)$ represents the combined shape obtained through the monad's multiplication.
+This corresponds to the fact that the order of substituting sub-diagrams does not affect the final connectivity structure.
+
+\textbf{Unitality:} Identity wiring diagrams act as units under composition. For each type $t \in T$, there exists an identity operation $\text{id}_t \in \mathcal{W}(\{t\}; \{t\})$ that simply connects its input directly to its output:
+
+\begin{equation}
+    f \circ (\text{id}_{t_1}, \text{id}_{t_2}, \ldots, \text{id}_{t_n}) = f
+\end{equation}
+
+\subsubsection{Categorical Properties}
+
+Wiring diagram operads form a \textbf{symmetric monoidal category} where:
+\begin{itemize}
+    \item Objects are finite sets of types (interfaces)
+    \item Morphisms are wiring diagrams between interfaces
+    \item Composition is given by diagram substitution
+    \item The monoidal product corresponds to parallel composition of diagrams
+    \item Symmetry is given by wire permutation
+\end{itemize}
+
+This categorical structure enables the modeling of complex systems with multiple subsystems operating in parallel, hierarchical decomposition through nested composition, and modular design patterns where components can be independently developed and later integrated.
 
 \begin{figure}[h]
 \centering
-\input{figures/t_operadic_composition.tex}
-\caption{Composition in a T-operad showing how the output types of $g_1$ and $g_2$ must match the input objects required by the shape $t \in T(\{a_1, a_2\})$ of $f$, with shapes combined via the monad's multiplication $\mu$.}
-\label{fig:t-operadic-composition}
+\input{figures/wiring_diagram_parallel.tex}
+\caption{Parallel composition in wiring diagram operads demonstrating the monoidal product structure. Two operations $f$ and $g$ operate independently in parallel, with their interfaces combined disjointly.}
+\label{fig:wiring-diagram-parallel}
 \end{figure}
 
-The composition operation satisfies properties of associativity and unitality, which are ensured by the monadic structure of T (i.e., the associativity of the monad's multiplication $\mu$ and the unitality provided by the monad's unit $\eta$).
-
-A T-Operad can be used to model any mathematical structure that can be described by a monad, such as:
-\begin{itemize}
-    \item Algebraic structures (e.g., groups, rings, modules)
-    \item Topological structures (e.g., simplicial complexes, CW-complexes)
-    \item Categorical structures (e.g., categories, functors)
-    \item Combinatorial structures (e.g., trees, graphs)
-    \item Geometric structures (e.g., manifolds, polyhedra)
-    \item Logical structures (e.g., propositional logic, predicate logic)
-\end{itemize}
-
-This gives them the power and flexibility to model a wide range of mathematical phenomena, including those that arise in complex systems, such as hierarchical organization, modularity, and self-similarity.
 
