@@ -34,13 +34,11 @@ The members of a subsystem are often more similar to each other than to members 
     \item In a biological system, cells in a tissue may have similar functions and properties that differ from those of cells in other tissues.
 \end{itemize}
 
-If we were to distill the features of a subsystem into features of a $\sigma$-operad, we would have the following:
+If we were to distill the features of a subsystem into features of a $\sigma$-operad, we would have the following mapping:
 
 \begin{itemize}
-    \item \textbf{Compositional hierarchy}:
-    \begin{itemize}
-        \item \textbf{Compositional structure}: The subsystem can be represented as a $\sigma$-operad, where the objects are the members of the subsystem and the morphisms are the interactions between them.
-        \item \textbf{Hierarchical structure}: The $\sigma$-operad can be decomposed into smaller $\sigma$-operads, each representing a subsystem. This allows us to model the hierarchical structure of the system.
-        \item \textbf{Modularity}: The $\sigma$-operad can be composed with other $\sigma$-operads to form larger $\sigma$-operads, allowing us to model the modularity of the system.
-    \end{itemize}
+    \item \textbf{Operations as Subsystems:} Each subsystem corresponds to an operation (a box) in the wiring diagram. Its input and output ports define its interaction interface.
+    \item \textbf{Morphisms as Interactions:} The interactions between components within or between subsystems are represented by the morphisms (wires and internal operations) of the $\sigma$-operad.
+    \item \textbf{Composition as Hierarchy and Modularity:} The operadic composition (substitution of operations) naturally models hierarchical organization and modularity, allowing smaller $\sigma$-operads to combine into larger ones.
+    \item \textbf{Internal Dynamics as Statistical State:} The specific internal dynamics of a subsystem are captured by the stochastic state space attached to its operation, enabling the modeling of probabilistic behaviors and fluctuations.
 \end{itemize}
