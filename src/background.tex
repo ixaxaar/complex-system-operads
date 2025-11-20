@@ -50,7 +50,7 @@ Our operadic framework models these phenomena by tracking compositional relation
 
 \subsubsection{Physical Models}
 
-In physics, phase transitions are often modeled using statistical mechanics, where the system's behavior is described in terms of energy, entropy, and temperature \citep{stanley1971phase, kadanoff2000statistical}. The most iconic example is the **Ising model**, originally designed for ferromagnetism but now widely applied to social dynamics and neural networks. The system is described by a Hamiltonian $H$, which sums the interactions between adjacent spins $\sigma_i, \sigma_j$:
+In physics, phase transitions are often modeled using statistical mechanics, where the system's behavior is described in terms of energy, entropy, and temperature \citep{stanley1971phase, kadanoff2000statistical}. The most iconic example is the Ising model, originally designed for ferromagnetism but now widely applied to social dynamics and neural networks. The system is described by a Hamiltonian $H$, which sums the interactions between adjacent spins $\sigma_i, \sigma_j$:
 
 \begin{equation}
     H(\sigma) = -J \sum_{\langle i, j \rangle} \sigma_i \sigma_j - h \sum_i \sigma_i
@@ -164,16 +164,16 @@ A $k$-simplex $\sigma = [v_0, v_1, ..., v_k]$ represents an interaction between 
 
 Several researchers have successfully applied simplicial complexes to model complex systems. \citet{petri2014homological} used simplicial complexes to analyze brain functional networks, revealing topological structures that correlate with cognitive states. \citet{giusti2016two} demonstrated how simplicial complexes can capture neural coding schemes beyond what traditional network models could represent. \citet{sizemore2018importance} showed how clique topology in neural systems provides insights into brain development and function.
 
-The primary tool for analyzing these structures is **homology**, which characterizes the "holes" in the data at different dimensions. These are quantified by **Betti numbers** ($\beta_k$):
+The primary tool for analyzing these structures is homology, which characterizes the "holes" in the data at different dimensions. These are quantified by Betti numbers ($\beta_k$):
 \begin{itemize}
     \item $\beta_0$: Number of connected components
     \item $\beta_1$: Number of 1D holes (loops/cycles)
     \item $\beta_2$: Number of 2D holes (voids)
 \end{itemize}
-Techniques like **Persistent Homology** track how these topological features appear and disappear across different scales, offering a multi-scale view of the system's structure \citep{edelsbrunner2008persistent}.
+Techniques like Persistent Homology track how these topological features appear and disappear across different scales, offering a multi-scale view of the system's structure \citep{edelsbrunner2008persistent}.
 
 While simplicial complexes offer significant advantages over traditional networks, they have inherent limitations:
 \begin{itemize}
-    \item They are {undirected, with no natural way to represent asymmetric interactions
+    \item They are undirected, with no natural way to represent asymmetric interactions
     \item Temporal dynamics are challenging to model in simplicial complexes
 \end{itemize}
