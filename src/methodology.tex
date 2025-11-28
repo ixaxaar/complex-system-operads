@@ -7,29 +7,29 @@ To model complex systems that exhibit both structural connectivity and internal 
 
 \subsubsection{The Network-Enriched WD-Operad}
 
-Let $\mathcal{W}$ be the operad of wiring diagrams, where objects are interfaces (finite sets of typed ports) and morphisms are wiring diagrams. We define an \textbf{Network-Enriched WD-Operad}, denoted by $\mathcal{E}$, as an extension of $\mathcal{S}$.
+Let $\mathcal{W}$ be the operad of wiring diagrams, where objects are interfaces (finite sets of typed ports) and morphisms are wiring diagrams. We define an \textbf{Network-Enriched WD-Operad}, denoted by $\mathcal{E}$, as an extension of $\mathcal{W}$ such that:
 
-A morphism in $\mathcal{S}(X, Y)$ is a pair $(D, G)$, where:
+A morphism in $\mathcal{E}(X, Y)$ is a pair $(W, G)$, where:
 \begin{itemize}
-    \item $D \in \mathcal{S}(X, Y)$ is a standard wiring diagram defining the physical or logical connectivity.
-    \item $G = (V, E)$ is a graph structure (the "network") whose nodes $V$ are mapped to the ports of $D$.
+    \item $W \in \mathcal{S}(X, Y)$ is a standard wiring diagram defining the physical or logical connectivity.
+    \item $G = (V, E)$ is a graph structure (the "network") whose nodes $V$ are mapped to the ports of $W$.
 \end{itemize}
 
-The composition law in $\mathcal{S}_{Net}$ must respect both the wiring substitution and the graph structure. If we compose $(D_{out}, G_{out}) \circ ((D_{in_1}, G_{in_1}), \dots, (D_{in_k}, G_{in_k}))$, the resulting graph $G_{new}$ is formed by the union of the graphs, identifying nodes that correspond to connected ports (the "gluing" step).
+The composition law in $\mathcal{E}$ must respect both the wiring substitution and the graph structure. If we compose $(W_{out}, G_{out}) \circ ((W_{in_1}, G_{in_1}), \dots, (W_{in_k}, G_{in_k}))$, the resulting graph $G_{new}$ is formed by the union of the graphs, identifying nodes that correspond to connected ports (the "gluing" step).
 
 \subsubsection{Compatibility Conditions (Network Enrichment)}
 
-For the enrichment to be meaningful, the graph $G$ must be compatible with the wiring diagram $D$. We enforce the following \textit{compatibility conditions}:
+For the enrichment to be meaningful, the graph $G$ must be compatible with the wiring diagram $W$. We enforce the following \textit{compatibility conditions}:
 
 \begin{enumerate}
-    \item \textbf{Node Mapping}: There exists a bijection between the set of vertices $V(G)$ and the set of ports in $D$.
-    \item \textbf{Edge Consistency}: If there is a wire in $D$ connecting port $u$ to port $v$, the graph $G$ must allow for a relationship between the corresponding nodes (e.g., a directed edge $u \to v$ if $G$ is directed).
+    \item \textbf{Node Mapping}: There exists a bijection between the set of vertices $V(G)$ and the set of ports in $W$.
+    \item \textbf{Edge Consistency}: If there is a wire in $W$ connecting port $u$ to port $v$, the graph $G$ must allow for a relationship between the corresponding nodes (e.g., a directed edge $u \to v$ if $G$ is directed).
     \item \textbf{Acyclicity}: Since wiring diagrams represent feed-forward composition, the union of graph structures during composition must not introduce cycles if the underlying system is to remain causal.
 \end{enumerate}
 
 \subsubsection{Symmetry}
 
-The symmetry actions in $\mathcal{S}_{Net}$ extend those in $\mathcal{S}$. A permutation $\sigma \in \Sigma_k$ acting on the input interfaces of a morphism $(D, G)$ induces a relabeling of the corresponding nodes in $G$. The enriched operad must satisfy the condition that the statistical or causal semantics encoded by $G$ remain invariant under such permutations, ensuring that the operadic structure respects the symmetry of input ordering.
+The symmetry actions in $\mathcal{E}$ extend those in $\mathcal{S}$. A permutation $\sigma \in \Sigma_k$ acting on the input interfaces of a morphism $(W, G)$ induces a relabeling of the corresponding nodes in $G$. The enriched operad must satisfy the condition that the statistical or causal semantics encoded by $G$ remain invariant under such permutations, ensuring that the operadic structure respects the symmetry of input ordering.
 
 \subsubsection{Algebra over Network-Enriched Operads}
 
@@ -39,9 +39,9 @@ Formally, an algebra $\mathcal{A}$ over the operad $\mathcal{SWD}$ is a strict s
 
 \begin{itemize}
 
-    \item \textbf{Objects:} For every type $t$ in our interface set, the algebra assigns a measurable space $\mathcal{A}(t) = (X_t, \Sigma_t)$. A composite interface $I = \{t_1, \dots, t_k\}$ is mapped to the product space $\mathcal{A}(I) = \prod_{i} X_{t_i}$.
+    \item \textbf{Objects:} For every type $t$ in our interface set, the algebra assigns a measurable space $\mathcal{A}(t) = (X_t, \Sigma_t)$. A composite interface $I = \{t_1, \dots, t_k\}$ is mapped to the product space $\mathcal{A}(I) = \proW_{i} X_{t_i}$.
 
-    \item \textbf{Morphisms:} For every morphism $F = (D, \mathcal{B})$ in $\mathcal{SWD}(I, O)$, the algebra assigns a Markov kernel:
+    \item \textbf{Morphisms:} For every morphism $F = (W, \mathcal{B})$ in $\mathcal{SWD}(I, O)$, the algebra assigns a Markov kernel:
 
     \[ \mathcal{A}(F): \mathcal{A}(I) \to \mathcal{A}(O) \]
 
@@ -59,19 +59,19 @@ In the category $\mathbf{Mark}$, this composition corresponds to the Chapman-Kol
 
 \subsection{Bayesian Networks as a Candidate Algebra}
 
-Having defined the general structure of $\mathcal{S}_{Net}$, we now select a specific candidate for the network layer to model statistical mechanics: \textbf{Bayesian Networks}.
+Having defined the general structure of $\mathcal{E}$, we now select a specific candidate for the network layer to model statistical mechanics: \textbf{Bayesian Networks}.
 
-We define the \textit{Statistical Wiring Diagram (SWD) Operad} as the specific instance of $\mathcal{S}_{Net}$ where the enriching graphs are Bayesian Networks equipped with conditional probability distributions.
+We define the \textit{Statistical Wiring Diagram (SWD) Operad} as the specific instance of $\mathcal{E}$ where the enriching graphs are Bayesian Networks equipped with conditional probability distributions.
 
 \subsubsection{Formal Derivation}
 
-A morphism in the SWD operad is a pair $(D, \mathcal{B})$, derived as follows:
+A morphism in the SWD operad is a pair $(W, \mathcal{B})$, derived as follows:
 
 \begin{enumerate}
-    \item \textbf{Topological Base}: We start with the wiring diagram $D$.
+    \item \textbf{Topological Base}: We start with the wiring diagram $W$.
     \item \textbf{Probabilistic Enrichment}: The graph $G$ becomes the Directed Acyclic Graph (DAG) of a Bayesian Network $\mathcal{B}$.
         \begin{itemize}
-            \item \textbf{Nodes}: Each port $p$ in $D$ is associated with a random variable $X_p$.
+            \item \textbf{Nodes}: Each port $p$ in $W$ is associated with a random variable $X_p$.
             \item \textbf{Edges}: Directed edges in $\mathcal{B}$ represent conditional dependencies.
             \item \textbf{Parameters}: Each node $X_p$ is equipped with a Conditional Probability Distribution (CPD) $P(X_p | \text{Pa}(X_p))$, where $\text{Pa}(X_p)$ are the parents of $X_p$ in the graph.
         \end{itemize}
@@ -79,10 +79,10 @@ A morphism in the SWD operad is a pair $(D, \mathcal{B})$, derived as follows:
 
 \subsubsection{Composition of Statistical Morphisms}
 
-The composition of two statistical morphisms $(D_2, \mathcal{B}_2) \circ (D_1, \mathcal{B}_1)$ follows the logic of the enriched operad but adds the probabilistic algebra:
+The composition of two statistical morphisms $(W_2, \mathcal{B}_2) \circ (W_1, \mathcal{B}_1)$ follows the logic of the enriched operad but adds the probabilistic algebra:
 
 \begin{itemize}
-    \item \textbf{Graph Gluing}: We form the union of the DAGs. If an output port of $D_1$ connects to an input port of $D_2$, the corresponding random variables are identified ($X_{out} \equiv X_{in}$), fusing the networks.
+    \item \textbf{Graph Gluing}: We form the union of the DAGs. If an output port of $W_1$ connects to an input port of $W_2$, the corresponding random variables are identified ($X_{out} \equiv X_{in}$), fusing the networks.
     \item \textbf{Factorization}: The joint probability distribution of the composed system is the product of the individual factors. This preserves the Markov property: the global system's probability distribution factorizes over the structure of the composed wiring diagram.
 \end{itemize}
 
@@ -92,7 +92,7 @@ This construction proves that SWDs are not an ad-hoc definition but a rigorous a
 
 A critical feature of operads is their symmetry—the ability to permute the order of inputs without changing the operation's outcome (up to isomorphism). For $\mathcal{SWD}$, this imposes a strict consistency condition on the statistical structure.
 
-Let $\sigma \in \Sigma_k$ be a permutation of the $k$ input interfaces of a morphism $F$. The action of $\sigma$ on the wiring diagram $D_F$ is topological: it physically swaps the input bundles. For the associated Bayesian network $\mathcal{B}_F$, this action corresponds to a relabeling of the random variables associated with the input ports.
+Let $\sigma \in \Sigma_k$ be a permutation of the $k$ input interfaces of a morphism $F$. The action of $\sigma$ on the wiring diagram $W_F$ is topological: it physically swaps the input bundles. For the associated Bayesian network $\mathcal{B}_F$, this action corresponds to a relabeling of the random variables associated with the input ports.
 
 The **Symmetry Condition** for SWD operads requires that the probabilistic semantics are invariant under this relabeling. Formally, if $\mathbf{X}_{in} = (X_1, \dots, X_k)$ are the input variable sets, then for any permutation $\sigma$:
 \[ P_F(\text{outputs} \mid X_{\sigma(1)}, \dots, X_{\sigma(k)}) \cong P_F(\text{outputs} \mid X_1, \dots, X_k) \]
