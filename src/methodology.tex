@@ -1,44 +1,99 @@
 % Methodology section
-In order to model complex systems using $\sigma$-operads, we first look at how to model their structural hallmarks, i.e. near-decomposability including hierarchical structures and modularity followed by self-similarity and scale invariance of the structures.
+We develop a novel mathematical framework to model complex systems that exhibit both structural connectivity and internal statistical dynamics. Our approach extends the traditional operadic framework of wiring diagrams by enriching it with network structures, specifically Bayesian networks, to capture the probabilistic relationships inherent in such systems.
 
-\subsection{Modeling Near-decomposability}
+\subsection{Network-Enriched Wiring Diagram Operads}
 
-Modeling near-decomposability requires us to model:
+To model complex systems that exhibit both structural connectivity and internal statistical dynamics, we cannot rely on standard wiring diagram operads alone. We require a framework that enriches the topological structure of wiring diagrams with an additional layer of information — specifically, a network structure that can encode causal and probabilistic dependencies. We propose a tiered construction: first defining a general network-enriched operad, and then instantiating it with Bayesian networks to capture statistical mechanics. A thing to take specific note of is that we posit that modeling causality is all we need to model complex adaptive systems, without the need to explicity model time.
 
+\subsubsection{The Network-Enriched WD-Operad}
+
+Let $\mathcal{W}$ be the operad of wiring diagrams, where objects are interfaces (finite sets of typed ports) and morphisms are wiring diagrams. We define an \textbf{Network-Enriched WD-Operad}, denoted by $\mathcal{E}$, as an extension of $\mathcal{S}$.
+
+A morphism in $\mathcal{S}(X, Y)$ is a pair $(D, G)$, where:
 \begin{itemize}
-    \item \textbf{Subsystems}: The system can be decomposed into subsystems that interact with each other, and such interactions are specific to the subsystems.
-    \item \textbf{Interactions}: The interactions within subsystems are stronger than those between subsystems.
-    \item \textbf{Time-scale separation}: Different levels of the hierarchical structure operate at different time scales.
+    \item $D \in \mathcal{S}(X, Y)$ is a standard wiring diagram defining the physical or logical connectivity.
+    \item $G = (V, E)$ is a graph structure (the "network") whose nodes $V$ are mapped to the ports of $D$.
 \end{itemize}
 
-\subsubsection{Modeling Subsystems}
+The composition law in $\mathcal{S}_{Net}$ must respect both the wiring substitution and the graph structure. If we compose $(D_{out}, G_{out}) \circ ((D_{in_1}, G_{in_1}), \dots, (D_{in_k}, G_{in_k}))$, the resulting graph $G_{new}$ is formed by the union of the graphs, identifying nodes that correspond to connected ports (the "gluing" step).
 
-A subsystem is a part of a system that can be studied independently, but also interacts with other subsystems. For example:
+\subsubsection{Compatibility Conditions (Network Enrichment)}
 
-\begin{itemize}
-    \item In a biological system, a cell can be considered a subsystem that interacts with other cells to form tissues.
-    \item In a social system, an individual can be considered a subsystem that interacts with other individuals to form groups or communities.
-\end{itemize}
+For the enrichment to be meaningful, the graph $G$ must be compatible with the wiring diagram $D$. We enforce the following \textit{compatibility conditions}:
 
-Each individual or cell has its own internal dynamics, but also interacts with other individuals or cells in a way that is specific to the subsystem. This means that the interactions within a subsystem are stronger than those between subsystems. For example:
+\begin{enumerate}
+    \item \textbf{Node Mapping}: There exists a bijection between the set of vertices $V(G)$ and the set of ports in $D$.
+    \item \textbf{Edge Consistency}: If there is a wire in $D$ connecting port $u$ to port $v$, the graph $G$ must allow for a relationship between the corresponding nodes (e.g., a directed edge $u \to v$ if $G$ is directed).
+    \item \textbf{Acyclicity}: Since wiring diagrams represent feed-forward composition, the union of graph structures during composition must not introduce cycles if the underlying system is to remain causal.
+\end{enumerate}
 
-\begin{itemize}
-    \item In a social system, an individual may have strong ties to their family or close friends, but weaker ties to acquaintances or strangers.
-    \item In a biological system, a cell may have strong interactions with other cells in its tissue, but weaker interactions with cells in other tissues.
-\end{itemize}
+\subsubsection{Symmetry}
 
-The members of a subsystem are often more similar to each other than to members of other subsystems, which can lead to the emergence of new properties at different levels of the hierarchy. For example:
+The symmetry actions in $\mathcal{S}_{Net}$ extend those in $\mathcal{S}$. A permutation $\sigma \in \Sigma_k$ acting on the input interfaces of a morphism $(D, G)$ induces a relabeling of the corresponding nodes in $G$. The enriched operad must satisfy the condition that the statistical or causal semantics encoded by $G$ remain invariant under such permutations, ensuring that the operadic structure respects the symmetry of input ordering.
 
-\begin{itemize}
-    \item In a social system, members of a community may share similar beliefs or behaviors that differ from those of other communities.
-    \item In a biological system, cells in a tissue may have similar functions and properties that differ from those of cells in other tissues.
-\end{itemize}
+\subsubsection{Algebra over Network-Enriched Operads}
 
-If we were to distill the features of a subsystem into features of a $\sigma$-operad, we would have the following mapping:
+To give concrete meaning to our Statistical Wiring Diagrams, we must define an \textit{algebra} over the $\mathcal{SWD}$ operad. In operad theory, an algebra is a map that assigns semantic objects to the abstract types and concrete operations to the abstract morphisms, preserving the composition structure.
+
+Formally, an algebra $\mathcal{A}$ over the operad $\mathcal{SWD}$ is a strict symmetric monoidal functor from the category underlying $\mathcal{SWD}$ to a target symmetric monoidal category of semantics, typically the category of Markov kernels, denoted $\mathbf{Mark}$.
 
 \begin{itemize}
-    \item \textbf{Operations as Subsystems:} Each subsystem corresponds to an operation (a box) in the wiring diagram. Its input and output ports define its interaction interface.
-    \item \textbf{Morphisms as Interactions:} The interactions between components within or between subsystems are represented by the morphisms (wires and internal operations) of the $\sigma$-operad.
-    \item \textbf{Composition as Hierarchy and Modularity:} The operadic composition (substitution of operations) naturally models hierarchical organization and modularity, allowing smaller $\sigma$-operads to combine into larger ones.
-    \item \textbf{Internal Dynamics as Statistical State:} The specific internal dynamics of a subsystem are captured by the stochastic state space attached to its operation, enabling the modeling of probabilistic behaviors and fluctuations.
+
+    \item \textbf{Objects:} For every type $t$ in our interface set, the algebra assigns a measurable space $\mathcal{A}(t) = (X_t, \Sigma_t)$. A composite interface $I = \{t_1, \dots, t_k\}$ is mapped to the product space $\mathcal{A}(I) = \prod_{i} X_{t_i}$.
+
+    \item \textbf{Morphisms:} For every morphism $F = (D, \mathcal{B})$ in $\mathcal{SWD}(I, O)$, the algebra assigns a Markov kernel:
+
+    \[ \mathcal{A}(F): \mathcal{A}(I) \to \mathcal{A}(O) \]
+
+    This kernel $K(x, dy)$ represents the conditional probability distribution $P(\text{outputs} \mid \text{inputs})$ encoded by the Bayesian network $\mathcal{B}$.
+
 \end{itemize}
+
+
+
+The defining feature of this algebra is the preservation of composition. If $F = G \circ (H_1, \dots, H_k)$ is a composite morphism in $\mathcal{SWD}$, then the corresponding kernel must be the composition of the constituent kernels:
+
+\[ \mathcal{A}(F) = \mathcal{A}(G) \circ (\mathcal{A}(H_1) \otimes \dots \otimes \mathcal{A}(H_k)) \]
+
+In the category $\mathbf{Mark}$, this composition corresponds to the Chapman-Kolmogorov equation (integration over intermediate states). Thus, the abstract "gluing" of Bayesian networks in the operad perfectly mirrors the chaining of conditional probabilities in the semantic domain. This guarantees that our topological construction of complex systems yields valid, computable statistical models.
+
+\subsection{Bayesian Networks as a Candidate Algebra}
+
+Having defined the general structure of $\mathcal{S}_{Net}$, we now select a specific candidate for the network layer to model statistical mechanics: \textbf{Bayesian Networks}.
+
+We define the \textit{Statistical Wiring Diagram (SWD) Operad} as the specific instance of $\mathcal{S}_{Net}$ where the enriching graphs are Bayesian Networks equipped with conditional probability distributions.
+
+\subsubsection{Formal Derivation}
+
+A morphism in the SWD operad is a pair $(D, \mathcal{B})$, derived as follows:
+
+\begin{enumerate}
+    \item \textbf{Topological Base}: We start with the wiring diagram $D$.
+    \item \textbf{Probabilistic Enrichment}: The graph $G$ becomes the Directed Acyclic Graph (DAG) of a Bayesian Network $\mathcal{B}$.
+        \begin{itemize}
+            \item \textbf{Nodes}: Each port $p$ in $D$ is associated with a random variable $X_p$.
+            \item \textbf{Edges}: Directed edges in $\mathcal{B}$ represent conditional dependencies.
+            \item \textbf{Parameters}: Each node $X_p$ is equipped with a Conditional Probability Distribution (CPD) $P(X_p | \text{Pa}(X_p))$, where $\text{Pa}(X_p)$ are the parents of $X_p$ in the graph.
+        \end{itemize}
+\end{enumerate}
+
+\subsubsection{Composition of Statistical Morphisms}
+
+The composition of two statistical morphisms $(D_2, \mathcal{B}_2) \circ (D_1, \mathcal{B}_1)$ follows the logic of the enriched operad but adds the probabilistic algebra:
+
+\begin{itemize}
+    \item \textbf{Graph Gluing}: We form the union of the DAGs. If an output port of $D_1$ connects to an input port of $D_2$, the corresponding random variables are identified ($X_{out} \equiv X_{in}$), fusing the networks.
+    \item \textbf{Factorization}: The joint probability distribution of the composed system is the product of the individual factors. This preserves the Markov property: the global system's probability distribution factorizes over the structure of the composed wiring diagram.
+\end{itemize}
+
+This construction proves that SWDs are not an ad-hoc definition but a rigorous algebra over the category of network-enriched wiring diagrams.
+
+\subsubsection{Symmetry and Exchangeability}
+
+A critical feature of operads is their symmetry—the ability to permute the order of inputs without changing the operation's outcome (up to isomorphism). For $\mathcal{SWD}$, this imposes a strict consistency condition on the statistical structure.
+
+Let $\sigma \in \Sigma_k$ be a permutation of the $k$ input interfaces of a morphism $F$. The action of $\sigma$ on the wiring diagram $D_F$ is topological: it physically swaps the input bundles. For the associated Bayesian network $\mathcal{B}_F$, this action corresponds to a relabeling of the random variables associated with the input ports.
+
+The **Symmetry Condition** for SWD operads requires that the probabilistic semantics are invariant under this relabeling. Formally, if $\mathbf{X}_{in} = (X_1, \dots, X_k)$ are the input variable sets, then for any permutation $\sigma$:
+\[ P_F(\text{outputs} \mid X_{\sigma(1)}, \dots, X_{\sigma(k)}) \cong P_F(\text{outputs} \mid X_1, \dots, X_k) \]
+where $\cong$ denotes equality of distributions under the coordinate transformation induced by $\sigma$. This ensures that the statistical mechanics of the system depends only on the causal connectivity (the wiring), not on the arbitrary labeling of the input ports. In statistical terms, this is a form of \textit{exchangeability} conditional on the wiring structure.

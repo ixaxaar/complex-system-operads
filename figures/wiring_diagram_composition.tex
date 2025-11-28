@@ -27,7 +27,7 @@
 % Ports for g
 \node[port] (g_out) at (-1.5, 3.5) {};
 
-% Ports for h  
+% Ports for h
 \node[port] (h_out) at (-1.5, 2) {};
 
 % Wires (Direct routing)
@@ -41,7 +41,7 @@
 \node[above, font=\footnotesize] at (f.north) {$f: \{x,y\} \to \{z\}$};
 
 % Bottom diagram: After composition
-\node[above] at (0, 0.5) {\textbf{After Composition: $f \circ (g, h)$}};
+\node[above] at (0, 0) {\textbf{After Composition: $f \circ (g, h)$}};
 
 % Input interfaces for composed diagram (these are a and b)
 \node[interface] (cin1) at (-3, -0.5) {$a$};
@@ -58,7 +58,7 @@
 \node[port] (cp2) at (-1.5, -1) {};
 \node[port] (cq) at (1.5, -0.75) {};
 
-% Wires  
+% Wires
 \draw[wire] (cin1) -- (cp1);
 \draw[wire] (cin2) -- (cp2);
 \draw[wire] (cq) -- (cout);
