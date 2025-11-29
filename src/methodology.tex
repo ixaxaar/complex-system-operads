@@ -5,23 +5,37 @@ We develop a novel mathematical framework, based on WD-operads, to model complex
 
 \subsection{Temporal Probability Spaces}
 
-Let us first define the notion of temporal probability spaces, which will serve as an enriching category for our operads. We denote the category of temporal probability spaces as $\mathbf{TempProb}$. Each object of $\mathbf{TempProb}$ is a temporal probability space, $\Omega_{\mathcal{W}}$, where each object of the space represents a state of the system at a given time. Hence for each box of the WD-operad $\mathcal{W}$, the space $\Omega_{\mathcal{W}}$ contains the set of all possible execution paths or histories of the system component represented by that box. Additionally, to enable us to assign probabilities to subsets of these execution paths, we equip each temporal probability space with a sigma-algebra $\mathcal{F}$ of measurable events and a probability measure $\mathbb{P}$ that assigns probabilities to these events.
+Let us first define the notion of temporal probability spaces, which will serve as an enriching category for our operads. We denote the category of temporal probability spaces as $\mathbf{TempProb}$.
+
+Each object of $\mathbf{TempProb}$ is a temporal probability space, $\Omega_{\mathcal{W}}$, where each object of the space represents a state of the system at a given time. Hence for each box of the WD-operad $\mathcal{W}$, the space $\Omega_{\mathcal{W}}$ contains the set of all possible execution paths or histories of the system component represented by that box. Additionally, to enable us to assign probabilities to subsets of these execution paths, we equip each temporal probability space with a sigma-algebra $\mathcal{F}$ of measurable events and a probability measure $\mathbb{P}$ that assigns probabilities to these events.
+
+Morphisms in $\mathbf{TempProb}$ are adapted stochastic processes that preserve the temporal structure of the spaces, ensuring that information flows consistently through time. A morphism between two temporal probability spaces represents how the probabilistic evolution of one system component conditions or influences the probability distribution over possible evolutions of another component over time. For example, a morphism $K: \Omega_{\mathcal{W}_1} \to \Omega_{\mathcal{W}_2}$ between two temporal probability spaces can be viewed as a stochastic kernel that maps each execution path in $\Omega_{\mathcal{W}_1}$ to a probability distribution over execution paths in $\Omega_{\mathcal{W}_2}$, while respecting the temporal ordering of events. At time $t$, given history up to time $t$ in $\Omega_{\mathcal{W}_1}$, the morphism $K$ tells us the conditional probability distribution over possible states at time $t$ in $\Omega_{\mathcal{W}_2}$.
 
 Formally, the category $\mathbf{TempProb}$ is defined as follows:
 
 \begin{itemize}
-    \item \textbf{Objects}: Temporal probability spaces $(\Omega, \mathcal{F}, \{\mathcal{F}_t\}_{t \geq 0}, \mathbb{P} )$ where:
+    \item \textbf{Objects}: Temporal probability spaces $(\Omega, \mathcal{F}, \{\mathcal{F}_t\}_{t \geq 0}, \mathbb{P})$ where:
     \begin{itemize}
         \item $\Omega$ is the sample space, representing the set of all possible system trajectories or execution paths.
-        \item $\mathcal{F}$ is a sigma-algebra of events (measurable sets of trajectories).
-        \item $\{\mathcal{F}_t\}_{t \geq 0}$ is a filtration representing the information available about the system up to time $t$.
-        \item $\mathbb{P}$ is a probability measure assigning a likelihood to each event in $\mathcal{F}$.
+        \item $\mathcal{F}$ is a sigma-algebra on $\Omega$ - the collection of measurable events (subsets of trajectories) to which we can assign probabilities. Not every arbitrary subset of $\Omega$ is measurable; $\mathcal{F}$ specifies which subsets are "well-behaved" enough for probability theory.
+        \item $\{\mathcal{F}_t\}_{t \geq 0}$ is a filtration - an increasing family of sigma-algebras where $\mathcal{F}_s \subseteq \mathcal{F}_t$ for $s \leq t$. This represents the accumulation of information: $\mathcal{F}_t$ captures everything we can know about the system's history up to time $t$.
+        \item $\mathbb{P}: \mathcal{F} \to [0,1]$ is a probability measure assigning a likelihood to each measurable event.
     \end{itemize}
-    \item \textbf{Morphisms}: Adapted stochastic processes $K: (\Omega_1, \mathcal{F}_1) \to (\Omega_2, \mathcal{F}_2)$ that preserve the temporal structure, i.e., $K_t$ is $\mathcal{F}_t$-measurable for all $t$.
-    \item \textbf{Monoidal Structure}: Independent product $\otimes$ of temporal probability spaces, corresponding to parallel evolution of independent subsystems.
+
+    \item \textbf{Morphisms}: Stochastic kernels $K: (\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}) \to (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\})$ that are adapted to the filtrations. These represent how one system component probabilistically influences another while respecting causality: at each time $t$, $K$ maps histories in $\Omega_1$ (measurable with respect to $\mathcal{F}_t^1$) to probability distributions over histories in $\Omega_2$. Formally, $K_t$ is $\mathcal{F}_t^1$-measurable for all $t$, ensuring the influence cannot depend on future information.
+
+    \item \textbf{Composition}: For morphisms $K: \Omega_1 \to \Omega_2$ and $L: \Omega_2 \to \Omega_3$, their composition $L \circ K: \Omega_1 \to \Omega_3$ follows the Chapman-Kolmogorov equation, representing the transitive flow of probabilistic influence through chains of system components.
+
+    \item \textbf{Monoidal Structure}: The independent product $(\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}, \mathbb{P}_1) \otimes (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\}, \mathbb{P}_2)$ is defined as:
+    \begin{itemize}
+        \item Sample space: $\Omega_1 \times \Omega_2$ (pairs of independent trajectories)
+        \item Sigma-algebra: $\mathcal{F}_1 \otimes \mathcal{F}_2$ (product sigma-algebra)
+        \item Filtration: $\mathcal{F}_t^1 \otimes \mathcal{F}_t^2$ at each time $t$
+        \item Measure: $\mathbb{P}_1 \times \mathbb{P}_2$ (product measure)
+    \end{itemize}
 \end{itemize}
 
-This category captures the essential features of complex systems: information accumulates through time, future states depend on past states through stochastic processes, and the temporal ordering provides natural causality.
+This category captures the essential features of complex systems: information accumulates through time (filtration), future states depend probabilistically on past states (stochastic kernels), temporal ordering enforces causality (adaptedness), and independent subsystems can evolve in parallel (monoidal structure).
 
 \subsection{$\sigma$-operads: TempProb-Enriched Wiring Diagrams}
 
