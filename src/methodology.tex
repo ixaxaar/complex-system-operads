@@ -1,99 +1,68 @@
 % Methodology section
-We develop a novel mathematical framework to model complex systems that exhibit both structural connectivity and internal statistical dynamics. Our approach extends the traditional operadic framework of wiring diagrams by enriching it with network structures, specifically Bayesian networks, to capture the probabilistic relationships inherent in such systems.
+Modeling temporality is central to be able to capture the true essence of complex systems. Components of complex systems interact with one another and evolve across multiple time scales, leading to emergent phenomena that cannot be understood through static or purely structural models. However for modeling such systems, it is sufficient to model the participant components and their interactions as stochastic processes that evolve over time, rather than modeling time explicitly. This implies our model must capture sequences that represent the evolution of states and interactions over time, while preserving causal relationships. The different scales of time are captured by the hierarchical structure of operads, where different levels of the hierarchy can represent dynamics occurring at different time scales, with higher levels operating at slower time scales than lower ones.
 
-\subsection{Network-Enriched Wiring Diagram Operads}
+We develop a novel mathematical framework, based on WD-operads, to model complex systems through temporal-causal relationships. Our approach enriches the established theory of WD-operads with temporal probability structures, creating operads that naturally capture sequential dynamics and causal interactions.
 
-To model complex systems that exhibit both structural connectivity and internal statistical dynamics, we cannot rely on standard wiring diagram operads alone. We require a framework that enriches the topological structure of wiring diagrams with an additional layer of information — specifically, a network structure that can encode causal and probabilistic dependencies. We propose a tiered construction: first defining a general network-enriched operad, and then instantiating it with Bayesian networks to capture statistical mechanics. A thing to take specific note of is that we posit that modeling causality is all we need to model complex adaptive systems, without the need to explicity model time.
+\subsection{Temporal Probability Spaces}
 
-\subsubsection{The Network-Enriched WD-Operad}
+Let us first define the notion of temporal probability spaces, which will serve as an enriching category for our operads. We denote the category of temporal probability spaces as $\mathbf{TempProb}$. Each object of $\mathbf{TempProb}$ is a temporal probability space, $\Omega_{\mathcal{W}}$, where each object of the space represents a state of the system at a given time. Hence for each box of the WD-operad $\mathcal{W}$, the space $\Omega_{\mathcal{W}}$ contains the set of all possible execution paths or histories of the system component represented by that box. Additionally, to enable us to assign probabilities to subsets of these execution paths, we equip each temporal probability space with a sigma-algebra $\mathcal{F}$ of measurable events and a probability measure $\mathbb{P}$ that assigns probabilities to these events.
 
-Let $\mathcal{W}$ be the operad of wiring diagrams, where objects are interfaces (finite sets of typed ports) and morphisms are wiring diagrams. We define an \textbf{Network-Enriched WD-Operad}, denoted by $\mathcal{E}$, as an extension of $\mathcal{W}$ such that:
+Formally, the category $\mathbf{TempProb}$ is defined as follows:
 
-A morphism in $\mathcal{E}(X, Y)$ is a pair $(W, G)$, where:
 \begin{itemize}
-    \item $W \in \mathcal{S}(X, Y)$ is a standard wiring diagram defining the physical or logical connectivity.
-    \item $G = (V, E)$ is a graph structure (the "network") whose nodes $V$ are mapped to the ports of $W$.
+    \item \textbf{Objects}: Temporal probability spaces $(\Omega, \mathcal{F}, \{\mathcal{F}_t\}_{t \geq 0}, \mathbb{P} )$ where:
+    \begin{itemize}
+        \item $\Omega$ is the sample space, representing the set of all possible system trajectories or execution paths.
+        \item $\mathcal{F}$ is a sigma-algebra of events (measurable sets of trajectories).
+        \item $\{\mathcal{F}_t\}_{t \geq 0}$ is a filtration representing the information available about the system up to time $t$.
+        \item $\mathbb{P}$ is a probability measure assigning a likelihood to each event in $\mathcal{F}$.
+    \end{itemize}
+    \item \textbf{Morphisms}: Adapted stochastic processes $K: (\Omega_1, \mathcal{F}_1) \to (\Omega_2, \mathcal{F}_2)$ that preserve the temporal structure, i.e., $K_t$ is $\mathcal{F}_t$-measurable for all $t$.
+    \item \textbf{Monoidal Structure}: Independent product $\otimes$ of temporal probability spaces, corresponding to parallel evolution of independent subsystems.
 \end{itemize}
 
-The composition law in $\mathcal{E}$ must respect both the wiring substitution and the graph structure. If we compose $(W_{out}, G_{out}) \circ ((W_{in_1}, G_{in_1}), \dots, (W_{in_k}, G_{in_k}))$, the resulting graph $G_{new}$ is formed by the union of the graphs, identifying nodes that correspond to connected ports (the "gluing" step).
+This category captures the essential features of complex systems: information accumulates through time, future states depend on past states through stochastic processes, and the temporal ordering provides natural causality.
 
-\subsubsection{Compatibility Conditions (Network Enrichment)}
+\subsection{$\sigma$-operads: TempProb-Enriched Wiring Diagrams}
 
-For the enrichment to be meaningful, the graph $G$ must be compatible with the wiring diagram $W$. We enforce the following \textit{compatibility conditions}:
+We define $\sigma$-operads as operads enriched in $\mathbf{TempProb}$. Let $\mathcal{W}$ be the standard operad of wiring diagrams with interfaces (finite sets of typed ports) as objects and wiring diagrams as morphisms.
+
+A $\sigma$-operad $\mathcal{W}^{\sigma}$ is the $\mathbf{TempProb}$-enrichment of $\mathcal{W}$, where:
+\begin{itemize}
+    \item \textbf{Objects}: Same as $\mathcal{W}$ - interfaces representing system boundaries.
+    \item \textbf{Hom-objects}: $\mathcal{W}^{\sigma}(X,Y)$ is a temporal probability space rather than a set. Each wiring diagram now carries probabilistic temporal dynamics.
+    \item \textbf{Composition}: Operadic composition $\circ$ combined with stochastic composition in $\mathbf{TempProb}$, yielding the temporal evolution of composite systems.
+\end{itemize}
+
+\subsubsection{Temporal Causality through Ports}
+
+In $\sigma$-operads, each port carries temporal probabilistic information:
+\begin{itemize}
+    \item Each port $p$ is associated with an adapted stochastic process $X_p = \{X_p(t)\}_{t \geq 0}$ representing the temporal evolution of information at that interface.
+    \item Wires connecting ports encode conditional temporal dependence: if port $p$ connects to port $q$, then $X_q(t)$ depends on the history $\{X_p(s)\}_{s \leq t}$.
+    \item The filtration structure ensures causality: information flows from past to future, never backwards in time.
+\end{itemize}
+
+\subsubsection{Composition of Temporal Morphisms}
+
+When composing morphisms in $\mathcal{W}^{\sigma}$, we combine both the topological composition of wiring diagrams and the stochastic composition in $\mathbf{TempProb}$:
 
 \begin{enumerate}
-    \item \textbf{Node Mapping}: There exists a bijection between the set of vertices $V(G)$ and the set of ports in $W$.
-    \item \textbf{Edge Consistency}: If there is a wire in $W$ connecting port $u$ to port $v$, the graph $G$ must allow for a relationship between the corresponding nodes (e.g., a directed edge $u \to v$ if $G$ is directed).
-    \item \textbf{Acyclicity}: Since wiring diagrams represent feed-forward composition, the union of graph structures during composition must not introduce cycles if the underlying system is to remain causal.
+    \item \textbf{Topological Composition}: Standard wiring diagram composition connects outputs to inputs through interface matching.
+    \item \textbf{Temporal Composition}: The stochastic processes at connected ports are composed using the Chapman-Kolmogorov equation, ensuring that temporal dependencies chain correctly through the composite system.
+    \item \textbf{Filtration Compatibility}: The composed system's filtration is the natural extension that preserves the temporal ordering and causal structure.
 \end{enumerate}
 
-\subsubsection{Symmetry}
+This composition naturally models how complex systems evolve: subsystems with their own temporal dynamics are connected through their interfaces, creating a larger system whose temporal evolution respects the causal flow through the network structure.
 
-The symmetry actions in $\mathcal{E}$ extend those in $\mathcal{S}$. A permutation $\sigma \in \Sigma_k$ acting on the input interfaces of a morphism $(W, G)$ induces a relabeling of the corresponding nodes in $G$. The enriched operad must satisfy the condition that the statistical or causal semantics encoded by $G$ remain invariant under such permutations, ensuring that the operadic structure respects the symmetry of input ordering.
+\subsection{Complex Systems as $\sigma$-operad Algebras}
 
-\subsubsection{Algebra over Network-Enriched Operads}
-
-To give concrete meaning to our Statistical Wiring Diagrams, we must define an \textit{algebra} over the $\mathcal{SWD}$ operad. In operad theory, an algebra is a map that assigns semantic objects to the abstract types and concrete operations to the abstract morphisms, preserving the composition structure.
-
-Formally, an algebra $\mathcal{A}$ over the operad $\mathcal{SWD}$ is a strict symmetric monoidal functor from the category underlying $\mathcal{SWD}$ to a target symmetric monoidal category of semantics, typically the category of Markov kernels, denoted $\mathbf{Mark}$.
-
+A complex system is modeled as an algebra over a $\sigma$-operad, assigning concrete temporal probability spaces to abstract interfaces and stochastic processes to abstract morphisms. This algebra interprets:
 \begin{itemize}
-
-    \item \textbf{Objects:} For every type $t$ in our interface set, the algebra assigns a measurable space $\mathcal{A}(t) = (X_t, \Sigma_t)$. A composite interface $I = \{t_1, \dots, t_k\}$ is mapped to the product space $\mathcal{A}(I) = \proW_{i} X_{t_i}$.
-
-    \item \textbf{Morphisms:} For every morphism $F = (W, \mathcal{B})$ in $\mathcal{SWD}(I, O)$, the algebra assigns a Markov kernel:
-
-    \[ \mathcal{A}(F): \mathcal{A}(I) \to \mathcal{A}(O) \]
-
-    This kernel $K(x, dy)$ represents the conditional probability distribution $P(\text{outputs} \mid \text{inputs})$ encoded by the Bayesian network $\mathcal{B}$.
-
+    \item \textbf{Interfaces} as the observational boundaries of system components
+    \item \textbf{Wiring diagrams} as the architectural connectivity between components
+    \item \textbf{Temporal processes} as the dynamical evolution within and between components
+    \item \textbf{Composition} as the emergent dynamics arising from component interactions
 \end{itemize}
 
-
-
-The defining feature of this algebra is the preservation of composition. If $F = G \circ (H_1, \dots, H_k)$ is a composite morphism in $\mathcal{SWD}$, then the corresponding kernel must be the composition of the constituent kernels:
-
-\[ \mathcal{A}(F) = \mathcal{A}(G) \circ (\mathcal{A}(H_1) \otimes \dots \otimes \mathcal{A}(H_k)) \]
-
-In the category $\mathbf{Mark}$, this composition corresponds to the Chapman-Kolmogorov equation (integration over intermediate states). Thus, the abstract "gluing" of Bayesian networks in the operad perfectly mirrors the chaining of conditional probabilities in the semantic domain. This guarantees that our topological construction of complex systems yields valid, computable statistical models.
-
-\subsection{Bayesian Networks as a Candidate Algebra}
-
-Having defined the general structure of $\mathcal{E}$, we now select a specific candidate for the network layer to model statistical mechanics: \textbf{Bayesian Networks}.
-
-We define the \textit{Statistical Wiring Diagram (SWD) Operad} as the specific instance of $\mathcal{E}$ where the enriching graphs are Bayesian Networks equipped with conditional probability distributions.
-
-\subsubsection{Formal Derivation}
-
-A morphism in the SWD operad is a pair $(W, \mathcal{B})$, derived as follows:
-
-\begin{enumerate}
-    \item \textbf{Topological Base}: We start with the wiring diagram $W$.
-    \item \textbf{Probabilistic Enrichment}: The graph $G$ becomes the Directed Acyclic Graph (DAG) of a Bayesian Network $\mathcal{B}$.
-        \begin{itemize}
-            \item \textbf{Nodes}: Each port $p$ in $W$ is associated with a random variable $X_p$.
-            \item \textbf{Edges}: Directed edges in $\mathcal{B}$ represent conditional dependencies.
-            \item \textbf{Parameters}: Each node $X_p$ is equipped with a Conditional Probability Distribution (CPD) $P(X_p | \text{Pa}(X_p))$, where $\text{Pa}(X_p)$ are the parents of $X_p$ in the graph.
-        \end{itemize}
-\end{enumerate}
-
-\subsubsection{Composition of Statistical Morphisms}
-
-The composition of two statistical morphisms $(W_2, \mathcal{B}_2) \circ (W_1, \mathcal{B}_1)$ follows the logic of the enriched operad but adds the probabilistic algebra:
-
-\begin{itemize}
-    \item \textbf{Graph Gluing}: We form the union of the DAGs. If an output port of $W_1$ connects to an input port of $W_2$, the corresponding random variables are identified ($X_{out} \equiv X_{in}$), fusing the networks.
-    \item \textbf{Factorization}: The joint probability distribution of the composed system is the product of the individual factors. This preserves the Markov property: the global system's probability distribution factorizes over the structure of the composed wiring diagram.
-\end{itemize}
-
-This construction proves that SWDs are not an ad-hoc definition but a rigorous algebra over the category of network-enriched wiring diagrams.
-
-\subsubsection{Symmetry and Exchangeability}
-
-A critical feature of operads is their symmetry—the ability to permute the order of inputs without changing the operation's outcome (up to isomorphism). For $\mathcal{SWD}$, this imposes a strict consistency condition on the statistical structure.
-
-Let $\sigma \in \Sigma_k$ be a permutation of the $k$ input interfaces of a morphism $F$. The action of $\sigma$ on the wiring diagram $W_F$ is topological: it physically swaps the input bundles. For the associated Bayesian network $\mathcal{B}_F$, this action corresponds to a relabeling of the random variables associated with the input ports.
-
-The **Symmetry Condition** for SWD operads requires that the probabilistic semantics are invariant under this relabeling. Formally, if $\mathbf{X}_{in} = (X_1, \dots, X_k)$ are the input variable sets, then for any permutation $\sigma$:
-\[ P_F(\text{outputs} \mid X_{\sigma(1)}, \dots, X_{\sigma(k)}) \cong P_F(\text{outputs} \mid X_1, \dots, X_k) \]
-where $\cong$ denotes equality of distributions under the coordinate transformation induced by $\sigma$. This ensures that the statistical mechanics of the system depends only on the causal connectivity (the wiring), not on the arbitrary labeling of the input ports. In statistical terms, this is a form of \textit{exchangeability} conditional on the wiring structure.
+The key insight is that complex system behavior emerges from the operadic composition structure: local temporal dynamics at individual components compose through the wiring architecture to produce global system behavior, while preserving causality through the temporal ordering inherent in the enriching category.
