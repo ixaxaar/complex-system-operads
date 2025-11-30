@@ -48,13 +48,20 @@ A $\sigma$-operad $\mathcal{W}_{\sigma}$ is the $\mathbf{TempProb}$-enrichment o
     \item \textbf{Composition}: Operadic composition $\circ$ combined with stochastic composition in $\mathbf{TempProb}$, yielding the temporal evolution of composite systems.
 \end{itemize}
 
+\begin{figure}[ht]
+\centering
+\input{figures/sigma_operad_diagram}
+\caption{$\sigma$-operads as TempProb-enriched wiring diagrams. The top shows the enrichment process: standard wiring diagrams (left) become enriched with temporal probability structures (right), where each port carries stochastic processes $X(t)$ and hom-objects are temporal probability spaces. The middle illustrates the components: temporal probability spaces with filtrations and stochastic kernels preserving causality. The bottom demonstrates operadic composition, combining topological wiring with stochastic composition via the Chapman-Kolmogorov equation.}
+\label{fig:sigma_operad}
+\end{figure}
+
 \subsubsection{Temporal Causality through Ports}
 
 In $\sigma$-operads, each port carries temporal probabilistic information:
 \begin{itemize}
     \item Each port $p$ is associated with an adapted stochastic process $X_p = \{X_p(t)\}_{t \geq 0}$ representing the temporal evolution of information at that interface.
-    \item Wires connecting ports encode conditional temporal dependence: if port $p$ connects to port $q$, then $X_q(t)$ depends on the history $\{X_p(s)\}_{s \leq t}$.
-    \item The filtration structure ensures causality: information flows from past to future, never backwards in time.
+    \item Wires connecting ports encode conditional temporal dependence: if port $p$ connects to port $q$, then $X_q(t)$ depends on the history $\{X_p(s)\}_{s \leq t}$. For the markovian case, this dependence is only on $X_p(t)$.
+    \item The filtration structure ensures causality: information flows from past to future, never backwards in time, so even though $\Omega$ contains all trajectories, the filteration removes (or assigns zero probability to) any trajectories that violate causal ordering.
 \end{itemize}
 
 \subsubsection{Composition of Temporal Morphisms}
@@ -62,21 +69,9 @@ In $\sigma$-operads, each port carries temporal probabilistic information:
 When composing morphisms in $\mathcal{W}_{\sigma}$, we combine both the topological composition of wiring diagrams and the stochastic composition in $\mathbf{TempProb}$:
 
 \begin{enumerate}
-    \item \textbf{Topological Composition}: Standard wiring diagram composition connects outputs to inputs through interface matching.
+    \item \textbf{Topological Composition}: Standard wiring diagram composition connects outputs to inputs through interface matching. The resulting wiring diagram represents the overall system architecture with overall inputs and outputs.
     \item \textbf{Temporal Composition}: The stochastic processes at connected ports are composed using the Chapman-Kolmogorov equation, ensuring that temporal dependencies chain correctly through the composite system.
-    \item \textbf{Filtration Compatibility}: The composed system's filtration is the natural extension that preserves the temporal ordering and causal structure.
+    \item \textbf{Filtration Compatibility}: The composed system's filtration is the natural extension that preserves the temporal ordering and causal structure. This prevents two operads from "looking into the future" of one another during composition.
 \end{enumerate}
 
 This composition naturally models how complex systems evolve: subsystems with their own temporal dynamics are connected through their interfaces, creating a larger system whose temporal evolution respects the causal flow through the network structure.
-
-\subsection{Complex Systems as $\sigma$-operad Algebras}
-
-A complex system is modeled as an algebra over a $\sigma$-operad, assigning concrete temporal probability spaces to abstract interfaces and stochastic processes to abstract morphisms. This algebra interprets:
-\begin{itemize}
-    \item \textbf{Interfaces} as the observational boundaries of system components
-    \item \textbf{Wiring diagrams} as the architectural connectivity between components
-    \item \textbf{Temporal processes} as the dynamical evolution within and between components
-    \item \textbf{Composition} as the emergent dynamics arising from component interactions
-\end{itemize}
-
-The key insight is that complex system behavior emerges from the operadic composition structure: local temporal dynamics at individual components compose through the wiring architecture to produce global system behavior, while preserving causality through the temporal ordering inherent in the enriching category.
