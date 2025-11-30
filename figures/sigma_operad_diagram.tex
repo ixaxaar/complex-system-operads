@@ -1,10 +1,10 @@
 \begin{tikzpicture}[scale=0.6, every node/.style={scale=0.7}]
 
-% Define colors
-\definecolor{wdcolor}{RGB}{70, 130, 180}    % Steel blue for wiring diagrams
-\definecolor{tempcolor}{RGB}{220, 20, 60}   % Crimson for temporal processes
-\definecolor{enrichcolor}{RGB}{50, 205, 50} % Lime green for enrichment
-\definecolor{compcolor}{RGB}{255, 140, 0}   % Dark orange for composition
+% Define colors - High Contrast Professional Palette
+\definecolor{wdcolor}{RGB}{255, 0, 125}
+\definecolor{tempcolor}{RGB}{25, 55, 172}
+\definecolor{enrichcolor}{RGB}{72, 161, 13}
+\definecolor{compcolor}{RGB}{255, 0, 0}
 
 % Title
 % \node[above] at (0, 8) {\Large\textbf{$\sigma$-operads: TempProb-Enriched Wiring Diagrams}};
@@ -70,21 +70,21 @@
     \node[above, tempcolor, font=\large] at (0, 2) {\textbf{Temporal Probability Space}};
 
     % Sample space
-    \draw[thick, tempcolor] (-1.5, 0) ellipse (1.2 and 0.8);
-    \node[tempcolor] at (0, 0.3) {$\Omega$};
-    \node[tempcolor, font=\tiny] at (0, 0) {(execution paths)};
+    \draw[thick, tempcolor] (0, 0) ellipse (2.5 and 1.4);
+    \node[tempcolor, font=\large] at (0, 0.9) {$\Omega$};
+    \node[tempcolor] at (0, -0.6) {(execution paths)};
 
     % Trajectories
-    \draw[tempcolor, thick] (-1, -0.3) .. controls (-0.5, 0.1) and (0, 0.2) .. (0.5, -0.1);
-    \draw[tempcolor, thick] (-0.8, 0.4) .. controls (-0.3, 0.1) and (0.2, -0.2) .. (0.7, 0.3);
-    \draw[tempcolor, thick] (-1.2, 0) .. controls (-0.6, -0.3) and (0.1, 0.4) .. (0.9, 0.1);
+    \draw[tempcolor, thick] (-1.8, -0.5) .. controls (-0.9, 0.2) and (0.3, 0.4) .. (1.2, -0.2);
+    \draw[tempcolor, thick] (-1.4, 0.6) .. controls (-0.5, 0.1) and (0.4, -0.3) .. (1.5, 0.5);
+    \draw[tempcolor, thick] (-2.0, 0.1) .. controls (-1.0, -0.5) and (0.2, 0.7) .. (1.8, 0.2);
 
     % Filtration
-    \node[below, tempcolor] at (0, -1.2) {$\mathcal{F}_t \subseteq \mathcal{F}_{t'} \text{ for } t \leq t'$};
-    \node[below, tempcolor, font=\tiny] at (0, -1.5) {(information accumulation)};
+    \node[below, tempcolor] at (0, -1.8) {$\mathcal{F}_t \subseteq \mathcal{F}_{t'} \text{ for } t \leq t'$};
+    \node[below, tempcolor] at (0, -2.3) {(information accumulation)};
 
     % Measure
-    \node[below, tempcolor] at (0, -1.8) {$\mathbb{P}: \mathcal{F} \to [0,1]$};
+    \node[below, tempcolor] at (0, -3) {$\mathbb{P}: \mathcal{F} \to [0,1]$};
 \end{scope}
 
 % Part 4: Stochastic Kernel (middle-right)
@@ -192,7 +192,7 @@
 \end{scope}
 
 % Legend
-\begin{scope}[shift={(-10, -10)}]
+\begin{scope}[shift={(-10, -12)}]
     \node[above] at (0, 1) {\textbf{Legend:}};
 
     \draw[thick, wdcolor] (-1, 0) -- (0.5, 0);
