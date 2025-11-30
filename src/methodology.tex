@@ -41,10 +41,10 @@ This category captures the essential features of complex systems: information ac
 
 We now define $\sigma$-operads as WD-operads enriched in $\mathbf{TempProb}$. Let $\mathcal{W}$ be the standard operad of wiring diagrams with interfaces (finite sets of typed ports) as objects and wiring diagrams as morphisms.
 
-A $\sigma$-operad $\mathcal{W}^{\sigma}$ is the $\mathbf{TempProb}$-enrichment of $\mathcal{W}$, where:
+A $\sigma$-operad $\mathcal{W}_{\sigma}$ is the $\mathbf{TempProb}$-enrichment of $\mathcal{W}$, where:
 \begin{itemize}
     \item \textbf{Objects}: Same as $\mathcal{W}$ - interfaces representing system boundaries.
-    \item \textbf{Hom-objects}: $\mathcal{W}^{\sigma}(X,Y)$ is a temporal probability space rather than a set. Each wiring diagram now carries probabilistic temporal dynamics.
+    \item \textbf{Hom-objects}: $\mathcal{W}_{\sigma}(X,Y)$ is a temporal probability space rather than a set. Each wiring diagram now carries probabilistic temporal dynamics.
     \item \textbf{Composition}: Operadic composition $\circ$ combined with stochastic composition in $\mathbf{TempProb}$, yielding the temporal evolution of composite systems.
 \end{itemize}
 
@@ -59,7 +59,7 @@ In $\sigma$-operads, each port carries temporal probabilistic information:
 
 \subsubsection{Composition of Temporal Morphisms}
 
-When composing morphisms in $\mathcal{W}^{\sigma}$, we combine both the topological composition of wiring diagrams and the stochastic composition in $\mathbf{TempProb}$:
+When composing morphisms in $\mathcal{W}_{\sigma}$, we combine both the topological composition of wiring diagrams and the stochastic composition in $\mathbf{TempProb}$:
 
 \begin{enumerate}
     \item \textbf{Topological Composition}: Standard wiring diagram composition connects outputs to inputs through interface matching.
