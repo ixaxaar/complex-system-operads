@@ -91,22 +91,10 @@ Now, we show how temporal probability spaces compose. For simplicity, let's deco
     \item $\mathbb{P}^2$ assigns probabilities to events in $\mathcal{F}_1^2$
 \end{itemize}
 
-\textbf{Monoidal combination:} The combined system uses the product structure:
-\[(\Omega^1, \mathcal{F}^1, \{\mathcal{F}_t^1\}, \mathbb{P}^1) \otimes (\Omega^2, \mathcal{F}^2, \{\mathcal{F}_t^2\}, \mathbb{P}^2)\]
-giving us:
-\begin{itemize}
-    \item Sample space: $\Omega^1 \times \Omega^2$ (pairs of trajectories)
-    \item Sigma-algebra: $\mathcal{F}^1 \otimes \mathcal{F}^2$ (product events)
-    \item Filtration: $\mathcal{F}_t^1 \otimes \mathcal{F}_t^2$ (combined information at each time)
-    \item Measure: $\mathbb{P}^1 \times \mathbb{P}^2$ (independent evolution)
-\end{itemize}
-
-\textbf{Morphism composition:} To connect these subsystems, we use stochastic kernels $K_1: \Omega^1 \to \Omega^2$ that map neuron$_1$ states to probability distributions over neuron$_2$ states. The composition follows Chapman-Kolmogorov:
+\textbf{TempProb composition:} To connect these systems, we compose them via morphisms. A stochastic kernel $K: \Omega^1 \to \Omega^2$ maps outputs of the first system to inputs of the second. The composition follows the Chapman-Kolmogorov equation:
 \[
-\mathbb{P}(\text{full path}) = \int_{\text{neuron}_1 \text{ states}} \mathbb{P}^1(\text{input} \to \text{neuron}_1 \text{ state}) \cdot K_1(\text{neuron}_1 \text{ state} \to \text{neuron}_2 \text{ fires})
+\mathbb{P}(\text{combined}) = \int_{\text{system}_1 \text{ outputs}} \mathbb{P}^1(\text{system}_1 \text{ path}) \cdot K(\text{system}_1 \text{ output} \to \text{system}_2 \text{ path})
 \]
-
-This preserves adaptedness: information flows causally from input through neuron$_1$ to neuron$_2$, with no backwards dependencies.
 
 \subsection{$\sigma$-operads: TempProb-Enriched WD-Operads}
 
