@@ -26,7 +26,8 @@ Formally, the category $\mathbf{TempProb}$ is defined as follows:
 
     \item \textbf{Composition}: For morphisms $K: \Omega_1 \to \Omega_2$ and $L: \Omega_2 \to \Omega_3$, their composition $L \circ K: \Omega_1 \to \Omega_3$ follows the Chapman-Kolmogorov equation, representing the transitive flow of probabilistic influence through chains of system components.
 
-    \item \textbf{Monoidal Structure}: The independent product $(\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}, \mathbb{P}_1) \otimes (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\}, \mathbb{P}_2)$ is defined as:
+    \item \textbf{Monoidal Structure}: The independent product of two temporal probability spaces is defined as:
+    \[(\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}, \mathbb{P}_1) \otimes (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\}, \mathbb{P}_2)\]
     \begin{itemize}
         \item Sample space: $\Omega_1 \times \Omega_2$ (pairs of independent trajectories)
         \item Sigma-algebra: $\mathcal{F}_1 \otimes \mathcal{F}_2$ (product sigma-algebra)
@@ -36,6 +37,69 @@ Formally, the category $\mathbf{TempProb}$ is defined as follows:
 \end{itemize}
 
 This category captures the essential features of complex systems: information accumulates through time (filtration), future states depend probabilistically on past states (stochastic kernels), temporal ordering enforces causality (adaptedness), and independent subsystems can evolve in parallel (monoidal structure).
+
+\subsubsection{Example: Neural Spike Chains}
+
+As a concrete example of $\mathbf{TempProb}$, consider a simple system with two neurons arranged in sequence:
+
+\[(input) \xrightarrow{} [neuron_1] \xrightarrow{} [neuron_2] \xrightarrow{} (output)\]
+
+Each neuron fires with a stochastic spike when its input exceeds a certain threshold, with some probability. For an input voltage of $x$ volts, the sample space $\Omega$ contains all conceivable sequences, including acausal ones like backwards information flow. However, we focus on the $\sigma$-algebra $\mathcal{F}$ which contains only measurable events - causally valid sequences that respect temporal ordering.
+
+Examples of events in $\mathcal{F}$ include:
+\begin{itemize}
+    \item $\omega_0$: $(input = x)$ only (initial state)
+    \item $\omega_1$: $(input = x) \to [neuron_1 \text{ fires at } t_1]$
+    \item $\omega_2$: $(input = x) \to [neuron_1 \text{ does not fire}]$
+    \item $\omega_3$: $(input = x) \leftarrow [neuron_1 \text{ fires at } t_1]$ (absurd)
+    \item $\omega_4$: $(input = x) \to [neuron_1 \text{ fires at } t_1] \to [neuron_2 \text{ does not fire}]$
+    \item $\omega_5$: $(input = x) \to [neuron_1 \text{ fires at } t_2] \leftarrow [neuron_2 \text{ fires at } t_1]$ (absurd)
+    \item $\omega_6$: $(input = x) \leftarrow [neuron_1 \text{ fires at } t_2] \to [neuron_2 \text{ fires at } t_1]$ (absurd)
+    \item $\omega_7$: $(input = x) \to [neuron_1 \text{ fires at } t_1] \to [neuron_2 \text{ fires at } t_2] \to (output)$
+    \item etc.
+\end{itemize}
+
+Note that the internal dynamics of each neuron are abstracted away; we focus on observable spike events and their temporal ordering. The $\sigma$-algebra $\mathcal{F}$ excludes acausal sequences like $(input) \leftarrow [neuron_1] \leftarrow [neuron_2]$ - while these might exist in $\Omega$, they are not measurable events in $\mathcal{F}$.
+
+The filtration $\{\mathcal{F}_t\}_{t \geq 0}$ captures information accumulation:
+\begin{itemize}
+    \item $\mathcal{F}_0$: Events knowable at $t=0$ (input state only)
+    \item $\mathcal{F}_{t_1}$: Events knowable up to $t_1$ (input + neuron1 state)
+    \item $\mathcal{F}_{t_2}$: Events knowable up to $t_2$ (full system state, including output)
+\end{itemize}
+
+Each event has an associated probability:
+\begin{align}
+\mathbb{P}(\omega_1) &= P(\text{neuron}_1 \text{ fires} \mid \text{input} = x) \\
+\mathbb{P}(\omega_7) &= P(\text{neuron}_1 \text{ fires} \mid x) \cdot P(\text{neuron}_2 \text{ fires} \mid \text{neuron}_1 \text{ fired})
+\end{align}
+
+\subsubsection{Example: Composition of two spaces}
+
+Now consider two temporal probability spaces $\Omega_1$ and $\Omega_2$ representing two components in sequence, with a morphism $K: \Omega_1 \to \Omega_2$ representing how the first component influences the second over time. For simplicity we decompose the above example into two stochastic kernels: $K_1$ mapping input states to $neuron_1$ firing states, and $K_2$ mapping $neuron_1$ states to $neuron_2$ firing states.
+
+The composition $K_2 \circ K_1$ follows the Chapman-Kolmogorov equation:
+\[
+(K_2 \circ K_1)(t, \omega_{input}, A) = \int_{\Omega_{neuron1}} K_1(t, \omega_{input}, d\omega') K_2(t, \omega', A)
+\]
+
+where $A$ is a measurable set of final output states, and the integral is over all possible intermediate states of $neuron_1$.
+
+For the concrete path where input triggers both neurons in sequence:
+\begin{align}
+&\mathbb{P}(\text{input} \to neuron_1 \text{ fires} \to neuron_2 \text{ fires}) \\
+&= \int K_1(\text{input}, \text{neuron}_1 \text{ fires at } t_1) \\
+&\quad \times K_2(\text{neuron}_1 \text{ fired at } t_1, \text{neuron}_2 \text{ fires at } t_2) \, dt_1
+\end{align}
+
+This sums over all possible firing times $t_1$ for $neuron_1$, weighted by their probabilities.
+
+More explicitly:
+\[
+= \mathbb{P}(\text{neuron}_1 \text{ fires} \mid \text{input}) \times \mathbb{P}(\text{neuron}_2 \text{ fires} \mid \text{neuron}_1 \text{ fired})
+\]
+
+The key property is that composition preserves adaptedness: the composite morphism $K_2 \circ K_1$ remains $\mathcal{F}_t$-measurable, ensuring causality is maintained. Information can only flow forward in time through the composition.
 
 \subsection{$\sigma$-operads: TempProb-Enriched WD-Operads}
 
