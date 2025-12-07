@@ -96,6 +96,8 @@ Now, we show how temporal probability spaces compose. For simplicity, let's deco
 \mathbb{P}(\text{combined}) = \int_{\text{system}_1 \text{ outputs}} \mathbb{P}^1(\text{system}_1 \text{ path}) \cdot K(\text{system}_1 \text{ output} \to \text{system}_2 \text{ path})
 \]
 
+A thing to note here is that the above composition is for dependent systems. If the two systems were independent, we would simply take the product of their temporal probability spaces and take advantage of the monoidal structure of $\mathbf{TempProb}$.
+
 \subsubsection{Example: Temporal Integration with Delays}
 
 Consider a more complex scenario where $neuron_2$ receives two inputs: one from neuron$_1$ and a delayed external input $input_2$ which arrives at time $t_1 + \delta$. Suppose $neuron_2$ has a memory window and can integrate signals arriving at different times. Lets model the second component from above again:
