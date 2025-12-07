@@ -7,9 +7,9 @@ We develop a novel mathematical framework, based on WD-operads, to model complex
 
 Let us first define the notion of temporal probability spaces, which will serve as an enriching category for our operads. We denote the category of temporal probability spaces as $\mathbf{TempProb}$.
 
-Each object of $\mathbf{TempProb}$ is a temporal probability space, $\Omega_{\mathcal{W}}$, where each object of the space represents a state of the system at a given time. Hence for each box of the WD-operad $\mathcal{W}$, the space $\Omega_{\mathcal{W}}$ contains the set of all possible execution paths or histories of the system component represented by that box. Additionally, to enable us to assign probabilities to subsets of these execution paths, we equip each temporal probability space with a sigma-algebra $\mathcal{F}$ of measurable events and a probability measure $\mathbb{P}$ that assigns probabilities to these events.
+Each object of $\mathbf{TempProb}$ is a temporal probability space, $\Omega_{\mathcal{W}}$, shortened as $\Omega$, where each object of the space represents a state of the system at a given time. Hence for each box of the WD-operad $\mathcal{W}$, the space $\Omega_{\mathcal{W}}$ contains the set of all possible execution paths or histories of the system component represented by that box. Additionally, to enable us to assign probabilities to subsets of these execution paths, we equip each temporal probability space with a sigma-algebra $\mathcal{F}$ of measurable events and a probability measure $\mathbb{P}$ that assigns probabilities to these events.
 
-Morphisms in $\mathbf{TempProb}$ are adapted stochastic processes that preserve the temporal structure of the spaces, ensuring that information flows consistently through time. A morphism between two temporal probability spaces represents how the probabilistic evolution of one system component conditions or influences the probability distribution over possible evolutions of another component over time. For example, a morphism $K: \Omega_{\mathcal{W}_1} \to \Omega_{\mathcal{W}_2}$ between two temporal probability spaces can be viewed as a stochastic kernel that maps each execution path in $\Omega_{\mathcal{W}_1}$ to a probability distribution over execution paths in $\Omega_{\mathcal{W}_2}$, while respecting the temporal ordering of events. At time $t$, given history up to time $t$ in $\Omega_{\mathcal{W}_1}$, the morphism $K$ tells us the conditional probability distribution over possible states at time $t$ in $\Omega_{\mathcal{W}_2}$.
+Morphisms in $\mathbf{TempProb}$ are stochastic kernels that preserve the temporal structure of the spaces, ensuring that information flows consistently through time. A morphism between two temporal probability spaces represents how the probabilistic evolution of one system component conditions or influences the probability distribution over possible evolutions of another component over time. For example, a morphism $K: \Omega_{\mathcal{W}_1} \to \Omega_{\mathcal{W}_2}$ between two temporal probability spaces can be viewed as a stochastic kernel that maps each execution path in $\Omega_{\mathcal{W}_1}$ to a probability distribution over execution paths in $\Omega_{\mathcal{W}_2}$, while respecting the temporal ordering of events. At time $t$, given history up to time $t$ in $\Omega_{\mathcal{W}_1}$, the morphism $K$ tells us the conditional probability distribution over possible states at time $t$ in $\Omega_{\mathcal{W}_2}$.
 
 Formally, the category $\mathbf{TempProb}$ is defined as follows:
 
@@ -24,18 +24,13 @@ Formally, the category $\mathbf{TempProb}$ is defined as follows:
 
     \item \textbf{Morphisms}: Stochastic kernels $K: (\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}) \to (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\})$ that are adapted to the filtrations. These represent how one system component probabilistically influences another while respecting causality: at each time $t$, $K$ maps histories in $\Omega_1$ (measurable with respect to $\mathcal{F}_t^1$) to probability distributions over histories in $\Omega_2$. Formally, $K_t$ is $\mathcal{F}_t^1$-measurable for all $t$, ensuring the influence cannot depend on future information.
 
-    \item \textbf{Composition}: For morphisms $K: \Omega_1 \to \Omega_2$ and $L: \Omega_2 \to \Omega_3$, their composition $L \circ K: \Omega_1 \to \Omega_3$ follows the Chapman-Kolmogorov equation:
-    \[(L \circ K)(\omega_1, A) = \int_{\Omega_2} K(\omega_1, d\omega_2) L(\omega_2, A)\]
-    representing the transitive flow of probabilistic influence through chains of system components.
+    \item \textbf{Composition}: Temporal probability spaces compose via a 2-step process:
 
-    \item \textbf{Monoidal Structure}: The independent product of two temporal probability spaces is defined as:
-    \[(\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}, \mathbb{P}_1) \otimes (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\}, \mathbb{P}_2)\]
-    \begin{itemize}
-        \item Sample space: $\Omega_1 \times \Omega_2$ (pairs of independent trajectories)
-        \item Sigma-algebra: $\mathcal{F}_1 \otimes \mathcal{F}_2$ (product sigma-algebra)
-        \item Filtration: $\mathcal{F}_t^1 \otimes \mathcal{F}_t^2$ at each time $t$
-        \item Measure: $\mathbb{P}_1 \times \mathbb{P}_2$ (product measure)
-    \end{itemize}
+    \textbf{Step 1 - Monoidal product}: For any two spaces, we first form the product:
+    \[(\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}, \mathbb{P}_1) \otimes (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\}, \mathbb{P}_2) = (\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2, \mathcal{F}_t^1 \otimes \mathcal{F}_t^2, \mathbb{P}_1 \times \mathbb{P}_2)\]
+
+    \textbf{Step 2 - Dependency modification}: For dependent systems, stochastic kernels $K: \Omega_1 \to \Omega_2$ modify the joint probability measure on the product space to create causal dependencies. Multiple dependencies compose via the Chapman-Kolmogorov equation:
+    \[(L \circ K)(\omega_1, A) = \int_{\Omega_2} K(\omega_1, d\omega_2) L(\omega_2, A)\]
 \end{itemize}
 
 This category captures the essential features of complex systems: information accumulates through time (filtration), future states depend probabilistically on past states (stochastic kernels), temporal ordering enforces causality (adaptedness), and independent subsystems can evolve in parallel (monoidal structure).
