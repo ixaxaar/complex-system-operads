@@ -131,7 +131,7 @@ A $\sigma$-operad $\mathcal{W}_{\sigma}$ is the $\mathbf{TempProb}$-enrichment o
 \begin{itemize}
     \item \textbf{Objects}: Same as $\mathcal{W}$ - interfaces representing system boundaries.
     \item \textbf{Hom-objects}: $\mathcal{W}_{\sigma}(X,Y)$ is a temporal probability space rather than a set. Each wiring diagram now carries probabilistic temporal dynamics.
-    \item \textbf{Composition}: Operadic composition $\circ$ combined with stochastic composition in $\mathbf{TempProb}$, yielding the temporal evolution of composite systems.
+    \item \textbf{Composition}: Follows the 2-step TempProb composition: first monoidal product (for independent systems), then dependency modification via stochastic kernels (for connected ports).
 \end{itemize}
 
 \begin{figure}[ht]
@@ -152,12 +152,12 @@ In $\sigma$-operads, each port carries temporal probabilistic information:
 
 \subsubsection{Composition of Temporal Morphisms}
 
-When composing morphisms in $\mathcal{W}_{\sigma}$, we combine both the topological composition of wiring diagrams and the stochastic composition in $\mathbf{TempProb}$:
+When composing morphisms in $\mathcal{W}_{\sigma}$, we combine topological composition of wiring diagrams with the 2-step TempProb composition:
 
 \begin{enumerate}
-    \item \textbf{Topological Composition}: Standard wiring diagram composition connects outputs to inputs through interface matching. The resulting wiring diagram represents the overall system architecture with overall inputs and outputs.
-    \item \textbf{Temporal Composition}: The stochastic processes at connected ports are composed using the Chapman-Kolmogorov equation, ensuring that temporal dependencies chain correctly through the composite system.
-    \item \textbf{Filtration Compatibility}: The composed system's filtration is the natural extension that preserves the temporal ordering and causal structure. This prevents two operads from "looking into the future" of one another during composition.
+    \item \textbf{Topological Composition}: Standard wiring diagram composition connects outputs to inputs through interface matching, creating the overall system architecture.
+    \item \textbf{Step 1 - Monoidal Product}: Form the independent product of temporal probability spaces corresponding to all component systems: $(\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}, \mathbb{P}_1) \otimes (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\}, \mathbb{P}_2)$.
+    \item \textbf{Step 2 - Dependency via Wiring}: For each wire connecting output port $p$ to input port $q$, apply the appropriate stochastic kernel $K_{p \to q}$ to model the temporal dependency. These kernels satisfy the Chapman-Kolmogorov equation and preserve causality through adapted filtrations.
 \end{enumerate}
 
 This composition naturally models how complex systems evolve: subsystems with their own temporal dynamics are connected through their interfaces, creating a larger system whose temporal evolution respects the causal flow through the network structure.
