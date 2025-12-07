@@ -24,7 +24,9 @@ Formally, the category $\mathbf{TempProb}$ is defined as follows:
 
     \item \textbf{Morphisms}: Stochastic kernels $K: (\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}) \to (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\})$ that are adapted to the filtrations. These represent how one system component probabilistically influences another while respecting causality: at each time $t$, $K$ maps histories in $\Omega_1$ (measurable with respect to $\mathcal{F}_t^1$) to probability distributions over histories in $\Omega_2$. Formally, $K_t$ is $\mathcal{F}_t^1$-measurable for all $t$, ensuring the influence cannot depend on future information.
 
-    \item \textbf{Composition}: For morphisms $K: \Omega_1 \to Omega_2$ and $L: \Omega_2 \to \Omega_3$, their composition $L \circ K: \Omega_1 \to \Omega_3$ follows the Chapman-Kolmogorov equation, representing the transitive flow of probabilistic influence through chains of system components.
+    \item \textbf{Composition}: For morphisms $K: \Omega_1 \to \Omega_2$ and $L: \Omega_2 \to \Omega_3$, their composition $L \circ K: \Omega_1 \to \Omega_3$ follows the Chapman-Kolmogorov equation:
+    \[(L \circ K)(\omega_1, A) = \int_{\Omega_2} K(\omega_1, d\omega_2) L(\omega_2, A)\]
+    representing the transitive flow of probabilistic influence through chains of system components.
 
     \item \textbf{Monoidal Structure}: The independent product of two temporal probability spaces is defined as:
     \[(\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}, \mathbb{P}_1) \otimes (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\}, \mathbb{P}_2)\]
@@ -91,16 +93,20 @@ Now, we show how temporal probability spaces compose. For simplicity, let's deco
     \item $\mathbb{P}^2$ assigns probabilities to events in $\mathcal{F}_1^2$
 \end{itemize}
 
-\textbf{TempProb composition:} To connect these systems, we compose them via morphisms. A stochastic kernel $K: \Omega^1 \to \Omega^2$ maps outputs of the first system to inputs of the second. The composition follows the Chapman-Kolmogorov equation:
-\[
-\mathbb{P}(\text{combined}) = \int_{\text{system}_1 \text{ outputs}} \mathbb{P}^1(\text{system}_1 \text{ path}) \cdot K(\text{system}_1 \text{ output} \to \text{system}_2 \text{ path})
-\]
+We compose temporal probability spaces in two steps:
 
-A thing to note here is that the above composition is for dependent systems. If the two systems were independent, we would simply take the product of their temporal probability spaces and take advantage of the monoidal structure of $\mathbf{TempProb}$.
+\textbf{Step 1 - Monoidal product:} We first combine the systems using the monoidal structure:
+\[(\Omega^1, \mathcal{F}^1, \{\mathcal{F}_t^1\}, \mathbb{P}^1) \otimes (\Omega^2, \mathcal{F}^2, \{\mathcal{F}_t^2\}, \mathbb{P}^2) = (\Omega^1 \times \Omega^2, \mathcal{F}^1 \otimes \mathcal{F}^2, \mathcal{F}_t^1 \otimes \mathcal{F}_t^2, \mathbb{P}^1 \times \mathbb{P}^2)\]
+
+\textbf{Step 2 - Add dependencies (if needed):} For independent systems, we stop at Step 1. For dependent systems, we apply stochastic kernels to modify the probability measure on the product space. A kernel $K: \Omega^1 \to \Omega^2$ creates dependencies by changing the joint distribution:
+\[
+\mathbb{P}(\text{dependent})(\omega_1, \omega_2) = \mathbb{P}^1(\omega_1) \cdot K(\omega_1, \omega_2)
+\]
+where the Chapman-Kolmogorov equation ensures consistent composition of multiple dependencies.
 
 \subsubsection{Example: Temporal Integration with Delays}
 
-Consider a more complex scenario where $neuron_2$ receives two inputs: one from neuron$_1$ and a delayed external input $input_2$ which arrives at time $t_1 + \delta$. Suppose $neuron_2$ has a memory window and can integrate signals arriving at different times. Lets model the second component from above again:
+Consider a more complex scenario where $neuron_2$ receives two inputs: one from neuron$_1$ and a delayed external input $input_2$. Suppose $neuron_2$ has a memory window and can integrate signals arriving at different times. Lets model the second component from above again:
 
 The temporal probability space $(\Omega^2, \mathcal{F}^2, \{\mathcal{F}_t^2\}, \mathbb{P}^2)$ for this system contains paths like:
 \begin{itemize}
@@ -111,8 +117,8 @@ The temporal probability space $(\Omega^2, \mathcal{F}^2, \{\mathcal{F}_t^2\}, \
 The filtration captures the accumulation of temporal information:
 \begin{itemize}
     \item $\mathcal{F}_{t_1}^2$: Information about $\text{neuron}_2$ firing after $input_1$ has arrived
-    \item $\mathcal{F}_{t_1+\delta}^2$: Information about $\text{neuron}_2$ firing after $input_2$ has arrived
-    \item The probability depends on delay: $\mathbb{P}(\text{neuron}_2 \text{ fires} \mid \text{both inputs, delay } \delta)$
+    \item $\mathcal{F}_{t_2}^2$: Information about $\text{neuron}_2$ firing after $input_2$ has arrived
+    \item The probability depends on delay: $\mathbb{P}(\text{neuron}_2 \text{ fires} \mid \text{both inputs, delay } \delta)$ where $\delta = |t_2 - t_1|$
 \end{itemize}
 
 The insight here is that the temporal probability structure is fundamentally event-based rather than clock-time-based:
