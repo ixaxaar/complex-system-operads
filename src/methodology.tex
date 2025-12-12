@@ -168,8 +168,32 @@ Disease transmission shows complex multi-scale dynamics across three levels: ind
 
 \textbf{Scale 1 - Individual immune system}: Each person has immune state evolving via stochastic processes capturing T-cell responses, antibody production, etc. This forms the base temporal probability space modeling how individual susceptibility changes over time. At the scale of an individual, this can be modeled as a morphism taking $\{pathogen\_exposure\}$ to $\{immune\_response\}$ with temporal probability space \[(\Omega^{ind}, \mathcal{F}^{ind}, \{\mathcal{F}_t^{ind}\}, \mathbb{P}^{ind})\] capturing stochastic immune events (e.g. infection, recovery) over time.
 
+Composition at this scale of the system is equivalent to composing immune subsystems and the pathogen's interactions - e.g. T-cell response $f_T$ and antibody production $f_A$.
+
+Step 1 - Monoidal product: Form independent product $(\Omega_T \times \Omega_A, \mathcal{F}_T \otimes \mathcal{F}_A, \mathcal{F}_t^T \otimes \mathcal{F}_t^A, \mathbb{P}_T \times \mathbb{P}_A)$. Here $\Omega_T$ contains all possible T-cell activation trajectories and $\Omega_A$ contains all antibody production trajectories.
+
+Step 2 - Apply dependency kernel: T-cell activation affects antibody production via kernel $K_{T \to A}$:
+\[K_{T \to A}(\omega_T, d\omega_A) = \exp\left(-\int_0^t \lambda(\text{T-cell state}(\omega_T, s)) ds\right) \mathbb{P}_A(d\omega_A) + \text{(activated antibody measure)}\]
+where $\lambda$ is the T-cell activation rate affecting antibody production.
+
 \textbf{Scale 2 - Individuals within a community}: People move through shared spaces creating contact events. When persons $i$ and $j$ come within distance $d < \epsilon$, transmission probability can be modeled as say $p_{ij} = \phi_i(t) \cdot \phi_j(t) \cdot f(d)$ where $\phi_i(t)$ is infectiousness of person $i$ at time $t$, $f(d)$ is a distance-dependent decay function  which captures how transmission probability decreases with physical separation. The temporal probability space models individual movement patterns, meeting events, and resulting infection cascades within the community. This scale abstracts away individual immune details into a single susceptibility state $\phi_i(t)$ derived from Scale 1. Each individual $i$ becomes a morphism taking $\{location\_trace^i\}$ to $\{infection\_state^i\}$ with temporal probability space \[(\Omega^i, \mathcal{F}^i, \{\mathcal{F}_t^i\}, \mathbb{P}^i)\] capturing stochastic contact and transmission events.
+
+At this scale composition of movement patterns of persons $i$ and $j$ can proceed as follows:
+
+Step 1 - Monoidal product: Form \[(\Omega_i \times \Omega_j, \mathcal{F}_i \otimes \mathcal{F}_j, \mathcal{F}_t^i \otimes \mathcal{F}_t^j, \mathbb{P}_i \times \mathbb{P}_j)\] where $\Omega_i$ contains all possible location trajectories for person $i$.
+
+Step 2 - Apply contact kernel: When persons come within distance $\epsilon$, transmission kernel $K_{i \to j}$ acts:
+\[K_{i \to j}(\omega_i, d\omega_j) = \mathbb{P}_j(d\omega_j) \cdot \mathbb{I}[\text{dist}(\omega_i, \omega_j) > \epsilon] + \mathbb{P}_j^{\text{exposed}}(d\omega_j) \cdot \mathbb{I}[\text{dist}(\omega_i, \omega_j) \leq \epsilon]\]
+where $\mathbb{P}_j^{\text{exposed}}$ has higher infection probability when persons are in contact.
 
 \textbf{Scale 3 - Community level}: We further abstract contact networks into aggregate community infection states. Community A becomes a morphism taking $\{travelers\_in^A\}$ to $\{travelers\_out^A$, $infection\_state^A\}$. The temporal probability space \[(\Omega^A, \mathcal{F}^A, \{\mathcal{F}_t^A\}, \mathbb{P}^A)\] models community-wide infection events without specifying internal contact mechanisms - it captures the emergent dynamics from Scale 2 while abstracting away individual movements and contact patterns. The individual scale can be abstracted away into community-level infection rates, which along with travel patterns determine inter-community spread.
 
-Composition works differently at each scale, using the same mathematical and structural blueprint - the two step process of monoidal product followed by dependency modification via stochastic kernels.
+Composition at a community level can be thought of as inter-community travel and seeding of infections:
+
+Step 1 - Monoidal product: Form \[(\Omega_A \times \Omega_B, \mathcal{F}_A \otimes \mathcal{F}_B, \mathcal{F}_t^A \otimes \mathcal{F}_t^B, \mathbb{P}_A \times \mathbb{P}_B)\] representing independent community evolution.
+
+Step 2 - Apply travel kernel: Inter-community movement creates dependency via $K_{A \to B}$:
+\[K_{A \to B}(\omega_A, d\omega_B) = \int p(\text{travel rate}|\text{infection state}_A(\omega_A, t)) \cdot p(\text{seeding}|\text{travelers}) \, \mu(d\text{travelers}) \, \mathbb{P}_B^{\text{seeded}}(d\omega_B)\]
+where the kernel integrates over all possible traveler states and their infection seeding effects.
+
+Each of these scale abstracts away lower-level details into higher-level stochastic processes, while preserving temporal causality and dependencies through the $\sigma$-operad structure. However, a higher scale can also be explicitly created out of a lower one without abstraction, by composing the temporal probability spaces directly.
