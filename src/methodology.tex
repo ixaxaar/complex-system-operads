@@ -29,7 +29,7 @@ Formally, the category $\mathbf{TempProb}$ is defined as follows:
     \textbf{Step 1 - Monoidal product}: For any two spaces, we first form the product:
     \[(\Omega_1, \mathcal{F}_1, \{\mathcal{F}_t^1\}, \mathbb{P}_1) \otimes (\Omega_2, \mathcal{F}_2, \{\mathcal{F}_t^2\}, \mathbb{P}_2) = (\Omega_1 \times \Omega_2, \mathcal{F}_1 \otimes \mathcal{F}_2, \mathcal{F}_t^1 \otimes \mathcal{F}_t^2, \mathbb{P}_1 \times \mathbb{P}_2)\]
 
-    \textbf{Step 2 - Dependency modification}: For dependent systems, stochastic kernels $K: \Omega_1 \to \Omega_2$ modify the joint probability measure on the product space to create causal dependencies. Multiple dependencies compose via the Chapman-Kolmogorov equation:
+    \textbf{Step 2 - Dependency modification}: For dependent systems, stochastic kernels $K: \Omega_1 \to \Omega_2$ modify the joint probability measure on the product space to create causal dependencies. Multiple dependencies compose via the Chapman-Kolmogorov equation \citep{kadanoff2000statistical}:
     \[(L \circ K)(\omega_1, A) = \int_{\Omega_2} K(\omega_1, d\omega_2) L(\omega_2, A)\]
 \end{itemize}
 
