@@ -193,7 +193,11 @@ Composition at a community level can be thought of as inter-community travel and
 Step 1 - Monoidal product: Form \[(\Omega_A \times \Omega_B, \mathcal{F}_A \otimes \mathcal{F}_B, \mathcal{F}_t^A \otimes \mathcal{F}_t^B, \mathbb{P}_A \times \mathbb{P}_B)\] representing independent community evolution.
 
 Step 2 - Apply travel kernel: Inter-community movement creates dependency via $K_{A \to B}$:
-\[K_{A \to B}(\omega_A, d\omega_B) = \int p(\text{travel rate}|\text{infection state}_A(\omega_A, t)) \cdot p(\text{seeding}|\text{travelers}) \, \mu(d\text{travelers}) \, \mathbb{P}_B^{\text{seeded}}(d\omega_B)\]
+\[K_{A \to B}(\omega_A, d\omega_B) = \]
+\[
+\int p(\text{travel rate}|\text{infection state}_A(\omega_A, t)) \nonumber \\
+\cdot p(\text{seeding}|\text{travelers}) \, \mu(d\text{travelers}) \, \mathbb{P}_B^{\text{seeded}}(d\omega_B)
+\]
 where the kernel integrates over all possible traveler states and their infection seeding effects.
 
 \textbf{Composing without abstraction}
