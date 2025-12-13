@@ -196,4 +196,32 @@ Step 2 - Apply travel kernel: Inter-community movement creates dependency via $K
 \[K_{A \to B}(\omega_A, d\omega_B) = \int p(\text{travel rate}|\text{infection state}_A(\omega_A, t)) \cdot p(\text{seeding}|\text{travelers}) \, \mu(d\text{travelers}) \, \mathbb{P}_B^{\text{seeded}}(d\omega_B)\]
 where the kernel integrates over all possible traveler states and their infection seeding effects.
 
-Each of these scale abstracts away lower-level details into higher-level stochastic processes, while preserving temporal causality and dependencies through the $\sigma$-operad structure. However, a higher scale can also be explicitly created out of a lower one without abstraction, by composing the temporal probability spaces directly.
+\textbf{Composing without abstraction}
+
+Each of these scales abstracts away lower-level details into higher-level stochastic processes, however, a higher scale can also be explicitly created out of a lower one without abstraction, by composing the temporal probability spaces directly.
+
+For example, to create a community-level model (Scale 3) directly from individual contact networks (Scale 2) without abstraction, we can compose the temporal probability spaces of all individuals in the community:
+
+\[ (\Omega_{community}, \mathcal{F}_{community}, \{\mathcal{F}_t^{community}\}, \mathbb{P}_{community}) = \bigotimes_{i=1}^N (\Omega^i, \mathcal{F}^i, \{\mathcal{F}_t^i\}, \mathbb{P}^i) \]
+
+where each $(\Omega^i, \mathcal{F}^i, \{\mathcal{F}_t^i\}, \mathbb{P}^i)$ represents individual $i$'s movement and contact patterns from Scale 2.
+
+The evolution of this detailed system requires composing all pairwise contact kernels $K_{i \to j}$ for every $(i,j)$ pair according to the spatial contact network topology. For $N$ individuals, this creates $O(N^2)$ contact kernels acting on the full product space.
+
+To see how this works concretely, consider $N = 3$ individuals. The sample space becomes:
+\[ \Omega_{community} = \Omega^1 \times \Omega^2 \times \Omega^3 \]
+
+% TBD: do we need to consider reflexivity of contacts?
+Each community trajectory $(\omega^1, \omega^2, \omega^3) \in \Omega_{community}$ contains the full location traces and infection histories of all three people. The system evolves through sequential contact kernel application:
+\begin{align}
+\mathbb{P}_{final}(\omega^1, \omega^2, \omega^3) &= \mathbb{P}^1(\omega^1) \times \mathbb{P}^2(\omega^2) \times \mathbb{P}^3(\omega^3) \\
+&\quad \times k_{1 \to 2}(\omega^1, \omega^2) \times k_{1 \to 3}(\omega^1, \omega^3) \\
+&\quad \times k_{2 \to 1}(\omega^2, \omega^1) \times k_{2 \to 3}(\omega^2, \omega^3) \\
+&\quad \times k_{3 \to 1}(\omega^3, \omega^1) \times k_{3 \to 2}(\omega^3, \omega^2)
+\end{align}
+
+Each contact kernel $k_{i \to j}(\omega^i, \omega^j)$ models how person $i$'s location trajectory and infection state affects person $j$'s infection probability when they come within transmission distance $\epsilon$.
+
+Now, suppose we want to extract community-level information from this detailed model. We define aggregate observables like total infection count $I(t) = \phi_1(t) + \phi_2(t) + \phi_3(t)$ or infection rate $R(t) = \frac{1}{3}(I(t))$. The question becomes: can we derive a simpler kernel $K_{community}$ that operates directly on these aggregates without tracking individual trajectories?
+
+For small systems like $N = 3$, individual variations matter significantly. However, as $N$ increases, interesting patterns emerge. With large $N$, individual variations start averaging out, and the aggregate infection rate $R(t) = \frac{1}{N} \sum_{i=1}^N \phi_i(t)$ becomes more predictable. The detailed kernel composition $\bigcirc_{i,j} K_{i \to j}$ acting on $\Omega_1 \times \ldots \times \Omega_{100}$ might be approximated by a simpler kernel acting on the aggregate space.
