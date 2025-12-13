@@ -1,42 +1,18 @@
 
-\subsection{Modeling Near-decomposability}
+The $\sigma$-operad framework naturally captures fundamental complex systems properties through its mathematical structure. We demonstrate how key features identified in complex systems literature emerge directly from operadic composition.
 
-Modeling near-decomposability requires us to model:
+\subsection{Built-in support for structural properties}
 
-\begin{itemize}
-    \item \textbf{Subsystems}: The system can be decomposed into subsystems that interact with each other, and such interactions are specific to the subsystems.
-    \item \textbf{Interactions}: The interactions within subsystems are stronger than those between subsystems.
-    \item \textbf{Time-scale separation}: Different levels of the hierarchical structure operate at different time scales.
-\end{itemize}
+The operadic structure provides native support for fundamental characteristics of complex systems.
 
-\subsubsection{Modeling Subsystems}
+\subsubsection{Structural: hierarchy, modularity and near-decomposability}
 
-A subsystem is a part of a system that can be studied independently, but also interacts with other subsystems. For example:
+The $\sigma$-operad framework inherently captures the fundamental structural properties that define complex systems. \textbf{Near-decomposability} --- systems with stronger internal than external interactions --- emerges naturally from the operadic structure where each operation (box) defines a clear subsystem with well-defined input/output interfaces that enforce boundary conditions through composition rules. Strong internal interactions are captured by the temporal probability space within each operation, while weak external interactions are modeled by stochastic kernels between operations, creating the characteristic \textbf{interaction strength separation}. The framework supports \textbf{hierarchical organization} through nested composition where smaller operations combine into larger ones, with each level of composition corresponding to a distinct hierarchical level where higher-level operations operate on outputs of lower-level ones. Different hierarchical levels operate at different temporal scales through the filtration structure $\{\mathcal{F}_t\}$, allowing higher-level operations to have coarser temporal discretization than lower-level ones, naturally capturing \textbf{multi-scale dynamics}. This \textbf{time-scale separation} is enforced by the 2-step composition process that first forms independent products then applies dependencies, ensuring that subsystem dynamics remain distinguishable across scales.
 
-\begin{itemize}
-    \item In a biological system, a cell can be considered a subsystem that interacts with other cells to form tissues.
-    \item In a social system, an individual can be considered a subsystem that interacts with other individuals to form groups or communities.
-\end{itemize}
+\subsubsection{Modularity and compositionality}
 
-Each individual or cell has its own internal dynamics, but also interacts with other individuals or cells in a way that is specific to the subsystem. This means that the interactions within a subsystem are stronger than those between subsystems. For example:
+Complex systems exhibit \textbf{modular organization} where components can be recombined in different configurations, a property that emerges directly from operadic composition principles. Each operation functions as a module with standardized interfaces (ports) that enable systematic construction of larger systems from smaller components through \textbf{operadic substitution}. The composition rules ensure that modules can only be connected when their interfaces match, preventing incompatible combinations while enabling flexible recombination of components. This \textbf{interface compatibility} creates a \textbf{compositional semantics} where the meaning (temporal dynamics) of a composite system is determined by the meanings of its components and their interaction patterns, following strict compositional principles that guarantee predictable system behavior from modular assembly.
 
-\begin{itemize}
-    \item In a social system, an individual may have strong ties to their family or close friends, but weaker ties to acquaintances or strangers.
-    \item In a biological system, a cell may have strong interactions with other cells in its tissue, but weaker interactions with cells in other tissues.
-\end{itemize}
+\subsubsection{Scale-invariance and fractal structure}
 
-The members of a subsystem are often more similar to each other than to members of other subsystems, which can lead to the emergence of new properties at different levels of the hierarchy. For example:
-
-\begin{itemize}
-    \item In a social system, members of a community may share similar beliefs or behaviors that differ from those of other communities.
-    \item In a biological system, cells in a tissue may have similar functions and properties that differ from those of cells in other tissues.
-\end{itemize}
-
-If we were to distill the features of a subsystem into features of a $\sigma$-operad, we would have the following mapping:
-
-\begin{itemize}
-    \item \textbf{Operations as Subsystems:} Each subsystem corresponds to an operation (a box) in the wiring diagram. Its input and output ports define its interaction interface.
-    \item \textbf{Morphisms as Interactions:} The interactions between components within or between subsystems are represented by the morphisms (wires and internal operations) of the $\sigma$-operad.
-    \item \textbf{Composition as Hierarchy and Modularity:} The operadic composition (substitution of operations) naturally models hierarchical organization and modularity, allowing smaller $\sigma$-operads to combine into larger ones.
-    \item \textbf{Internal Dynamics as Statistical State:} The specific internal dynamics of a subsystem are captured by the stochastic state space attached to its operation, enabling the modeling of probabilistic behaviors and fluctuations.
-\end{itemize}
+\textbf{Scale-invariance} and \textbf{self-similar patterns} across scales emerge naturally from operadic self-composition, enabling the framework to capture the fractal-like organization characteristic of many complex systems. Operations can compose with themselves at different scales through \textbf{recursive application} $f \circ f \circ f \cdots$, creating hierarchical structures where the same interaction pattern repeats at multiple organizational levels. This self-similar composition generates the \textbf{recursive structures} observed in biological branching patterns, social network hierarchies, and economic market dynamics. The temporal probability spaces can exhibit \textbf{scale-free behavior} when stochastic kernels preserve \textbf{power-law distributions} during composition—if the initial distribution follows $\mathbb{P}(X) \sim X^{-\alpha}$, appropriately chosen kernels maintain this scaling relationship through successive compositions. This mathematical property enables the framework to model systems that lack \textbf{characteristic scales}, such as neural networks with scale-free connectivity or ecosystems with power-law species distributions. The operadic structure naturally supports \textbf{recursive definitions} where complex systems are defined in terms of smaller versions of themselves, generating the self-similar hierarchies that exhibit \textbf{statistical invariance} across observation scales.
