@@ -1,7 +1,7 @@
 % Background section
 \subsection{Properties of Complex Systems}
 
-\subsubsection{Structural Features: Near-decomposability and Scale-invariance}
+\subsubsection{Structural features: Near-decomposability and Scale-invariance}
 
 Complex systems exhibit two foundational structural properties that enable their characteristic behaviors and provide the basis for our operadic approach.
 
@@ -25,7 +25,7 @@ Examples include cellular structures (organelles within cells, cells within tiss
 
 This property manifests in branching patterns in biological systems, power-law distributions in scale-free networks etc. \citep{west2017scale, stanley1999scaling}. Scale-invariance emerges naturally in systems that grow through preferential attachment processes or self-organize into critical states.
 
-\subsubsection{Dynamical Features: Phase Transitions and Emergence}
+\subsubsection{Dynamical features: Phase transitions and Emergence}
 
 Phase transitions and emergence represent related dynamical phenomena that arise from the hierarchical and scale-invariant structures of complex systems.
 
@@ -46,9 +46,9 @@ At critical points, fluctuations occur across all scales of the system as local 
 
 Our operadic framework models these phenomena by tracking compositional relationships between components across scales. This approach complements traditional statistical methods \citep{stanley1999scaling, goldenfeld1992lectures} by focusing explicitly on how compositional structures reorganize during transitions, providing insights into the mechanisms driving phase transitions and emergent behaviors.
 
-\subsection{Modeling Phase Transitions and Emergence}
+\subsection{Modeling phase transitions and emergence}
 
-\subsubsection{Physical Models}
+\subsubsection{Physical models}
 
 In physics, phase transitions are often modeled using statistical mechanics, where the system's behavior is described in terms of energy, entropy, and temperature \citep{stanley1971phase, kadanoff2000statistical}. The most iconic example is the Ising model, originally designed for ferromagnetism but now widely applied to social dynamics and neural networks. The system is described by a Hamiltonian $H$, which sums the interactions between adjacent spins $\sigma_i, \sigma_j$:
 
@@ -60,7 +60,7 @@ where $J$ represents the interaction strength (coupling) and $h$ is an external 
 
 These models capture the fundamental mechanism of phase transitions: how local interactions (the $J$ term) compete with thermal fluctuations (entropy) to produce collective order (magnetization) at critical points \citep{binney1992theory}. While powerful, they typically assume a fixed, often regular lattice structure, limiting their direct applicability to the complex, adaptive topologies found in biological and social systems \citep{newman2011structure}.
 
-\subsubsection{Network Models}
+\subsubsection{Network models}
 
 Networks have been used since the early 20th century to model complex systems, representing entities as nodes and interactions as edges \citep{watts1998collective, barabasi1999emergence}. Formally, a network is represented as a graph $G = (V, E)$ where $V$ is a set of vertices (nodes) and $E \subseteq V \times V$ is a set of edges (links). For directed networks, edges are ordered pairs $(u, v) \in E$ indicating a directed relationship from node $u$ to node $v$. For undirected networks, edges are unordered pairs $\{u, v\} \in E$.
 
@@ -149,7 +149,7 @@ Simplicial complexes generalize networks by incorporating higher-order interacti
 
 Formally, a simplicial complex $K$ on a vertex set $V$ is a collection of subsets of $V$ (called simplices) such that:
 \begin{itemize}
-    \item For every vertex $v \in V$, $\{v\} \in K$ (0-simplex)
+    \item For every vertex $v \in V$, {v} $\in K$ (0-simplex)
     \item If $\sigma \in K$ and $\tau \subset \sigma$, then $\tau \in K$ (closure property)
 \end{itemize}
 
@@ -177,3 +177,8 @@ While simplicial complexes offer significant advantages over traditional network
     \item They are undirected, with no natural way to represent asymmetric interactions
     \item Temporal dynamics are challenging to model in simplicial complexes
 \end{itemize}
+
+\subsubsection{Categorical probability and stochastic mechanics}
+Our framework draws upon two distinct mathematical traditions. First, categorical probability theory provides the rigorous foundations for stochastic mappings. The category $\mathbf{Stoch}$, consisting of measurable spaces and Markov kernels, was formalized by \citet{giry1982categorical} and further developed by \citet{fritz2020synthetic} through Markov categories. These frameworks treat probability abstractly but focus on static mappings rather than the causal, temporal dynamics inherent to complex systems.
+
+Second, the rigorous study of phase transitions in statistical mechanics provides the tools for quantifying emergence. Central to this is Dobrushin's uniqueness condition \citep{dobrushin1968description}, which established criteria for the decay of correlations in lattice systems. When correlations decay sufficiently fast, the system exhibits a unique Gibbs measure and no phase transition occurs. Conversely, the violation of this condition allows for long-range order and the emergence of distinct macroscopic phases. Our work adapts these concepts: coupling strength, correlation decay, and uniqueness into the operadic setting.
