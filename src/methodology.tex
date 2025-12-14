@@ -5,7 +5,7 @@ We develop a novel mathematical framework, based on WD-operads, to model complex
 
 \subsection{Temporal Probability Spaces}
 
-Let us first define the notion of temporal probability spaces, which will serve as an enriching category for our operads. We denote the category of temporal probability spaces as $\mathbf{TempProb}$.
+Let us first define the notion of temporal probability spaces, which will serve as an enriching category for our operads. We denote the category of temporal probability spaces as $\mathbf{TempProb}$, a subcategory of $\mathbf{Stoch}$ (or $\mathbf{Meas}$) specifically designed to enforce temporal causality through filtrations.
 
 Each object of $\mathbf{TempProb}$ is a temporal probability space, $\Omega_{\mathcal{W}}$, shortened as $\Omega$, where each object of the space represents a state of the system at a given time. Hence for each box of the WD-operad $\mathcal{W}$, the space $\Omega_{\mathcal{W}}$ contains the set of all possible execution paths or histories of the system component represented by that box. Additionally, to enable us to assign probabilities to subsets of these execution paths, we equip each temporal probability space with a sigma-algebra $\mathcal{F}$ of measurable events and a probability measure $\mathbb{P}$ that assigns probabilities to these events.
 
@@ -123,7 +123,7 @@ The insight here is that the temporal probability structure is fundamentally eve
     \item \textbf{Conditional dependencies}: What matters is whether neuron$_1$ fired (and when relative to other events), not the absolute timestamp. The filtration $\mathcal{F}_t$ captures what events have occurred rather than what time is it.
 \end{itemize}
 
-\subsection{$\sigma$-operads: TempProb-Enriched WD-Operads}
+\subsection{$\mathcal{S}$-operads: TempProb-Enriched WD-Operads}
 
 We now define $\sigma$-operads as WD-operads enriched in $\mathbf{TempProb}$. Let $\mathcal{W}$ be the standard operad of wiring diagrams with interfaces (finite sets of typed ports) as objects and wiring diagrams as morphisms.
 
@@ -143,7 +143,7 @@ A $\sigma$-operad $\mathcal{W}_{\sigma}$ is the $\mathbf{TempProb}$-enrichment o
 
 \subsubsection{Temporal Causality through Ports}
 
-In $\sigma$-operads, each port carries temporal probabilistic information:
+In $\mathcal{S}$-operads, each port carries temporal probabilistic information:
 \begin{itemize}
     \item Each port $p$ is associated with an adapted stochastic process $X_p = \{X_p(t)\}_{t \geq 0}$ representing the temporal evolution of information at that interface.
     \item Wires connecting ports encode conditional temporal dependence: if port $p$ connects to port $q$, then $X_q(t)$ depends on the history $\{X_p(s)\}_{s \leq t}$. For the markovian case, this dependence is only on $X_p(t)$.
@@ -152,7 +152,7 @@ In $\sigma$-operads, each port carries temporal probabilistic information:
 
 \subsubsection{Composition of Temporal Morphisms}
 
-When composing morphisms in $\mathcal{W}_{\sigma}$, we combine topological composition of wiring diagrams with the 2-step TempProb composition:
+When composing morphisms in $\mathcal{W}_{\mathcal{S}}$, we combine topological composition of wiring diagrams with the 2-step TempProb composition:
 
 \begin{enumerate}
     \item \textbf{Topological Composition}: Standard wiring diagram composition connects outputs to inputs through interface matching, creating the overall system architecture.
@@ -164,7 +164,7 @@ This composition naturally models how complex systems evolve: subsystems with th
 
 \subsubsection{Example: Multi-Scale Epidemic Spread}
 
-Disease transmission shows complex multi-scale dynamics across three levels: individual immune responses → interpersonal contact networks → inter-community spread. $\sigma$-operads can model this at each scale.
+Disease transmission shows complex multi-scale dynamics across three levels: individual immune responses → interpersonal contact networks → inter-community spread. $\mathcal{S}$-operads can model this at each scale.
 
 \textbf{Scale 1 - Individual immune system}: Each person has immune state evolving via stochastic processes capturing T-cell responses, antibody production, etc. This forms the base temporal probability space modeling how individual susceptibility changes over time. At the scale of an individual, this can be modeled as a morphism taking $\{pathogen\_exposure\}$ to $\{immune\_response\}$ with temporal probability space \[(\Omega^{ind}, \mathcal{F}^{ind}, \{\mathcal{F}_t^{ind}\}, \mathbb{P}^{ind})\] capturing stochastic immune events (e.g. infection, recovery) over time.
 
