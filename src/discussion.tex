@@ -1,18 +1,18 @@
-We have introduced $\sigma$-operads as a mathematical framework that enriches wiring diagrams with temporal probability structures to model complex systems. Our results demonstrate both the framework's natural ability to capture fundamental complex systems properties and its potential to provide novel theoretical insights.
+We have introduced $\mathcal{S}$-operads as a mathematical framework that enriches wiring diagrams with temporal probability structures to model complex systems. Our results demonstrate both the framework's natural ability to capture fundamental complex systems properties and its potential to provide novel theoretical insights.
 
 \subsection{Theoretical Contributions}
 
-Our primary theoretical contribution is the emergence transition criterion, which provides a novel rigorous mathematical definition of when emergence occurs in complex systems. The criterion $\left\| K_{macro} - \text{Proj} \left( \bigcirc_{i,j} K_{i \to j} \right) \right\| < \epsilon$ identifies the precise point where aggregate approximations become valid and irreducible macro-properties appear.
+Our primary theoretical contribution is the synthesis of structural operadic composition with the rigorous machinery of filtered probability spaces. By defining the category $\mathbf{TempProb}$, we enable a precise formalization of how microscopic stochastic interactions compose to produce macroscopic behavior.
 
-This criterion resolves long-standing debates about emergence by connecting it to fundamental probability theory through correlation decay rates. When correlations decay as $N^{-\alpha}$ with $\alpha > 1/2$, systems exhibit super-CLT concentration that enables predictable aggregate behavior even when individual trajectories remain computationally irreducible. Unlike existing approaches that either focus purely on structure (networks, simplicial complexes) or dynamics (statistical mechanics models), $\sigma$-operads naturally integrate both through the enrichment of compositional structure with temporal probability. This provides a unified foundation for modeling hierarchy, modularity, scale-invariance, and emergence within a single mathematical framework.
+The emergence transition criterion $\left\| K_{macro} - \text{Proj} \left( \bigcirc_{i,j} K_{i \to j} \right) \right\| < \epsilon$ identifies the precise point where aggregate approximations become valid. This connects operadic structure to fundamental statistical mechanics, specifically **Dobrushin's uniqueness condition**. We showed that emergence is essentially a phenomenon of correlation decay: when pairwise correlations decay sufficiently fast ($\alpha > 1/2$), the system enters a regime of measure concentration where macroscopic laws decouple from microscopic fluctuations.
 
 \subsection{Comparison with Existing Frameworks}
 
-\textbf{Network models}: While networks excel at capturing pairwise interactions and topological properties, they struggle with temporal dynamics and multi-scale composition. $\sigma$-operads extend networks by adding temporal probability structure and natural composition operations that enable hierarchical modeling.
+\textbf{Operadic Design}: \citet{foley2021operads} demonstrated the power of operads for system architecture but focused on design specification. Our work extends this by adding the stochastic layer necessary for modeling dynamics and emergence.
 
-\textbf{Statistical mechanics}: Physical models like the Ising model provide precise mathematical treatment of phase transitions but assume fixed interaction topologies. $\sigma$-operads support adaptive, compositional architectures while maintaining rigorous probabilistic foundations.
+\textbf{Categorical Probability}: While \citet{fritz2020synthetic} provides the categorical axioms for probability, our work specifically enriches the \emph{hierarchical} structure of wiring diagrams with these probabilistic objects, bridging the gap between abstract probability and systems engineering.
 
-\textbf{Category theory approaches}: Previous category-theoretic models of complex systems (like Baez-Fong's network theory) focus on structural composition but lack temporal dynamics. Our temporal probability enrichment adds the missing dynamical component while preserving compositional structure.
+\textbf{Statistical Mechanics}: Physical models like the Ising model provide specific instances of phase transitions. $\mathcal{S}$-operads provide a generalized, compositional language for describing these transitions across different domains (biology, sociology) without being tied to specific lattice geometries.
 
 \subsection{Limitations and Open Questions}
 

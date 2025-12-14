@@ -1,5 +1,5 @@
 
-The $\sigma$-operad framework naturally captures fundamental complex systems properties through its mathematical structure. We demonstrate how key features identified in complex systems literature emerge directly from operadic composition.
+The $\mathcal{S}$-operad framework naturally captures fundamental complex systems properties through its mathematical structure. We demonstrate how key features identified in complex systems literature emerge directly from operadic composition.
 
 \subsection{Built-in support for structural properties}
 
@@ -7,7 +7,7 @@ The operadic structure provides native support for fundamental characteristics o
 
 \subsubsection{Structural: hierarchy, modularity and near-decomposability}
 
-The $\sigma$-operad framework inherently captures the fundamental structural properties that define complex systems. \textbf{Near-decomposability} --- systems with stronger internal than external interactions --- emerges naturally from the operadic structure where each operation (box) defines a clear subsystem with well-defined input/output interfaces that enforce boundary conditions through composition rules. Strong internal interactions are captured by the temporal probability space within each operation, while weak external interactions are modeled by stochastic kernels between operations, creating the characteristic \textbf{interaction strength separation}. The framework supports \textbf{hierarchical organization} through nested composition where smaller operations combine into larger ones, with each level of composition corresponding to a distinct hierarchical level where higher-level operations operate on outputs of lower-level ones. Different hierarchical levels operate at different temporal scales through the filtration structure $\{\mathcal{F}_t\}$, allowing higher-level operations to have coarser temporal discretization than lower-level ones, naturally capturing \textbf{multi-scale dynamics}. This \textbf{time-scale separation} is enforced by the 2-step composition process that first forms independent products then applies dependencies, ensuring that subsystem dynamics remain distinguishable across scales.
+The $\mathcal{S}$-operad framework inherently captures the fundamental structural properties that define complex systems. \textbf{Near-decomposability} --- systems with stronger internal than external interactions --- emerges naturally from the operadic structure where each operation (box) defines a clear subsystem with well-defined input/output interfaces that enforce boundary conditions through composition rules. Strong internal interactions are captured by the temporal probability space within each operation, while weak external interactions are modeled by stochastic kernels between operations, creating the characteristic \textbf{interaction strength separation}. The framework supports \textbf{hierarchical organization} through nested composition where smaller operations combine into larger ones, with each level of composition corresponding to a distinct hierarchical level where higher-level operations operate on outputs of lower-level ones. Different hierarchical levels operate at different temporal scales through the filtration structure $\{\mathcal{F}_t\}$, allowing higher-level operations to have coarser temporal discretization than lower-level ones, naturally capturing \textbf{multi-scale dynamics}. This \textbf{time-scale separation} is enforced by the 2-step composition process that first forms independent products then applies dependencies, ensuring that subsystem dynamics remain distinguishable across scales.
 
 \subsubsection{Modularity and compositionality}
 
@@ -19,7 +19,7 @@ Complex systems exhibit \textbf{modular organization} where components can be re
 
 \subsection{Emergence}
 
-Unlike the structural properties examined above, emergence represents a fundamentally different challenge: identifying when and how higher-level properties arise that cannot be reduced to or predicted from individual component behaviors. The $\sigma$-operad framework provides a novel mathematical criterion for emergence based on the transition between explicit individual modeling and aggregate approximations.
+Unlike the structural properties examined above, emergence represents a fundamentally different challenge: identifying when and how higher-level properties arise that cannot be reduced to or predicted from individual component behaviors. The $\mathcal{S}$-operad framework provides a novel mathematical criterion for emergence based on the transition between explicit individual modeling and aggregate approximations.
 
 \subsubsection{The emergence transition criterion}
 
@@ -31,9 +31,39 @@ where $K_{macro}$ operates on aggregate observables (like total infection rate $
 
 Below the emergence threshold (small N) individual variations dominate and the approximation fails. The system behavior depends critically on specific individual properties, for example, a single super-spreader can dramatically alter global dynamics. No meaningful aggregate description exists. Above the emergence threshold (large N), individual variations become statistically insignificant compared to collective behavior. The aggregate observables follow predictable dynamics that are irreducible to individual properties where knowing everything about individuals still requires the aggregate calculation to predict system behavior.
 
-\subsubsection{Correlation decay and measure concentration}
+\subsubsection{Dobrushin conditions and propagation of chaos}
 
-The transition criterion connects to fundamental results in probability theory \citep{binney1992theory}, but extends beyond standard applications through the network structure of interacting stochastic kernels. The key insight here is that emergence depends on how \textbf{correlations between individuals decay with system size}. The Central Limit Theorem tells us that for independent variables, sample averages converge with variance decreasing as $1/N$ (so standard deviation decreases as $1/\sqrt{N}$). However, in complex systems with correlated components, if pairwise correlations decay as $\text{Corr}(\phi_i, \phi_j) \sim N^{-\alpha}$ with $\alpha > 1/2$, then aggregate observables concentrate around their means faster than the standard CLT rate, and the macro-approximation becomes valid. However, if $\alpha \leq 1/2$, correlations persist at all scales and emergence fails—individual fluctuations continue to affect global behavior. The network topology of stochastic kernels determines the correlation decay rate. Dense interaction networks (where each individual influences many others) tend to have slower correlation decay, requiring larger N for emergence. Sparse networks with local interactions facilitate emergence at smaller scales.
+Our emergence criterion connects directly to established results in statistical mechanics and probability theory. The transition from individual to aggregate dynamics mirrors the conditions for \textbf{Dobrushin uniqueness} \citep{dobrushin1968description}, which characterizes when correlations decay exponentially in lattice systems.
+
+For a system with interdependence matrix $C$ where $C_{ij}$ measures how strongly the distribution at site $i$ depends on the configuration at site $j$, the \textbf{Dobrushin condition} states that emergence occurs when:
+
+\begin{equation}
+\|C\|_\infty = \max_i \sum_j C_{ij} < 1
+\end{equation}
+
+Under this condition, correlations decay exponentially with correlation length $\xi \sim 1/|\ln\|C\|_\infty|$. In our $\mathcal{S}$-operad framework, the kernels $K_{i \to j}$ naturally define such interdependence: $C_{ij}$ measures how strongly kernel $K_{i \to j}$ couples the stochastic processes at ports $i$ and $j$.
+
+This connects to the \textbf{propagation of chaos} literature \citep{sznitman1991topics}, which provides quantitative bounds on when $N$-particle systems converge to mean-field limits. For systems with Lipschitz interaction kernels satisfying a confinement condition (interaction strength $\eta$ smaller than drift rate $c$), the Wasserstein distance between the $N$-particle empirical measure and the mean-field limit satisfies:
+
+\begin{equation}
+\mathbb{W}_1(\mu_t^N, \mu_t^{MF}) \leq C \cdot e^{-2(c-\eta)t} \cdot \mathbb{W}_1(\nu, \mu_0) + C \cdot \frac{\eta}{c-\eta} \cdot N^{-1/2}
+\end{equation}
+
+The fundamental $\mathcal{O}(N^{-1/2})$ convergence rate represents the \textbf{emergence threshold}: for large $N$, individual fluctuations become negligible compared to collective behavior. Modern results \citep{jabin2018quantitative} extend this to singular kernels, showing that emergence can occur even with strong local interactions if the system maintains sufficient global regularity.
+
+In our operadic setting, this translates to the condition that pairwise correlations between components decay as $\text{Corr}(\phi_i, \phi_j) \sim N^{-\alpha}$ with $\alpha > 1/2$. When this holds, aggregate observables concentrate around their means faster than the standard CLT rate, making the macro-approximation $K_{macro}$ valid. Conversely, if $\alpha \leq 1/2$, correlations persist at all scales and emergence fails and the composed kernel $\bigcirc_{i,j} K_{i \to j}$ cannot be simplified.
+
+\subsubsection{Network topology effects}
+
+The emergence criterion depends critically on the topology of interactions between components. In our $\mathcal{S}$-operad framework, the network of stochastic kernels $K_{i \to j}$ determines how correlations decay:
+
+\begin{itemize}
+    \item \textbf{Sparse networks} with bounded degree facilitate emergence at moderate system sizes, as correlations decay quickly across limited connections
+    \item \textbf{Dense networks} where each component influences many others require larger $N$ for emergence, as correlations persist through multiple pathways
+    \item \textbf{Hierarchical networks} with community structure enable emergence at multiple scales, within communities first, then between communities
+\end{itemize}
+
+For our epidemic example, this explains why contact networks with community structure (strong local clustering, sparse inter-community connections) facilitate emergence at community scale, while well-mixed populations require larger sizes for meaningful aggregate descriptions.
 
 This mathematical criterion reveals why certain macro descriptions work so well despite computational irreducibility claims \citep{bar2013computability}. While individual trajectories may be computationally irreducible and requiring full simulation, aggregate statistics become predictable above the emergence threshold. The macro-kernel $K_{macro}$ provides algorithmic shortcuts for predicting collective behavior even when individual behavior remains unpredictable. The resolution lies in \textbf{measure concentration} \citep{stanley1999scaling}. Above the emergence threshold, the vast majority of individual configurations yield similar aggregate behavior. The typical behavior becomes predictable through $K_{macro}$ even though specific individual trajectories remain computationally complex. Emergence occurs precisely when the information needed to predict aggregate dynamics becomes dramatically smaller than the information in individual states. The projection $\text{Proj}$ represents massive information compression that preserves predictive power for macro-observables while discarding individual details.
 
